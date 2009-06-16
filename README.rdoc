@@ -1,0 +1,75 @@
+
+= Nice-FFI
+
+Version::    0.0 (unreleased alpha)
+Date::       2009-06-15
+
+Homepage::   http://github.com/jacius/nice-ffi/
+Author::     John Croisant <jacius@gmail.com>
+Copyright::  2009  John Croisant
+
+
+== Description
+
+Nice-FFI is a layer on top of Ruby-FFI [1] (and compatible FFI
+systems) to augment it with features to aide development of 
+FFI-based libraries.
+
+Nice-FFI currently features:
+
+* NiceStruct: a stand-in for FFI::Struct that provides automatic
+  accessors for struct members, more instance initialization options,
+  pretty to_s and inspect methods, and other niceties.
+
+* NiceLibrary: a stand-in for FFI::Library that provides heuristics
+  for easily finding and loading libraries on any platform, plus
+  automatic wrapping of functions that return struct pointers.
+
+Nice-FFI was originally developed as part of Ruby-SDL-FFI [2].
+
+1. Ruby-FFI: http://kenai.com/projects/ruby-ffi/
+2. Ruby-SDL-FFI: http://github.com/jacius/ruby-sdl-ffi/
+
+
+== Caveats
+
+Nice-FFI is still in EARLY DEVELOPMENT STAGES. That means:
+
+* It may not work correctly (or at all).
+* It may not be complete.
+* It may change drastically with no advanced notice.
+
+As such, this library is currently FOR THE ADVENTUROUS ONLY.
+If you are not willing to continuously update your code to
+match the new API, then you should wait until version 1.0.
+
+
+== Requirements
+
+* Ruby-FFI  >= 0.3.0 (or compatible)
+
+
+== License
+
+Nice-FFI is licensed under the following terms (the "MIT License"):
+
+Copyright (c) 2009 John Croisant
+
+Permission is hereby granted, free of charge, to any person obtaining
+a copy of this software and associated documentation files (the
+"Software"), to deal in the Software without restriction, including
+without limitation the rights to use, copy, modify, merge, publish,
+distribute, sublicense, and/or sell copies of the Software, and to
+permit persons to whom the Software is furnished to do so, subject to
+the following conditions:
+
+The above copyright notice and this permission notice shall be
+included in all copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
+EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.
+IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY
+CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT,
+TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
+SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
