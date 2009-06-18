@@ -32,6 +32,8 @@ require 'need'
 
 %w{
 
+  platforms
+
 }.each do |f|
 
   need { File.join( 'nice-ffi', f ) }
