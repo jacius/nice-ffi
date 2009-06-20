@@ -102,6 +102,34 @@ class NiceStruct < FFI::Struct
       @hidden_members.include?( member )
     end
 
+
+    # Mark the given members as read-only, so the won't have write
+    # accessors.
+    # 
+    # Note: This will remove the writer method (if it exists) for
+    # the members! So if you're defining your own custom writer, do
+    # that *after* you have called this method.
+    # 
+    def read_only( *members )
+      if defined?(@readonly_members)
+        @readonly_members += members
+      else
+        @readonly_members = members 
+      end
+
+      members.each do |member|
+        # Remove the write accessor if it exists.
+        remove_method( "#{member}=".to_sym )
+      end
+    end
+
+    # True if the member is read-only, false otherwise.
+    def read_only?( member )
+      return false unless defined?(@readonly_members)
+      @readonly_members.include?( member )
+    end
+
+
     private
 
 
@@ -125,7 +153,9 @@ class NiceStruct < FFI::Struct
 
       unless hidden?( member )
         _make_reader( member, type )
-        _make_writer( member, type )
+        unless read_only?( member )
+          _make_writer( member, type )
+        end
       end
     end
 
