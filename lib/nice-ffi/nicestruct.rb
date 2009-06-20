@@ -181,7 +181,7 @@ class NiceStruct < FFI::Struct
 
 
   def to_s
-    mems = members.collect{ |m| "@#{m}=#{self[m]}" }.join(", ")
+    mems = members.collect{ |m| "@#{m}=#{self.send(m)}" }.join(", ")
     return "#<%s:%#.x %s>"%[self.class.name, self.object_id, mems]
   end
   alias :inspect :to_s
