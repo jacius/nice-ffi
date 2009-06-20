@@ -64,13 +64,43 @@ class NiceStruct < FFI::Struct
     def layout( *spec )
       # Wrap the members.
       0.step(spec.size - 1, 2) { |index|
-        wrap_member( spec[index], spec[index+1])
+        member, type = spec[index, 2]
+        wrap_member( member, type)
       }
 
       # Normal FFI::Struct behavior
       super
     end
 
+
+    # Mark the given members as hidden, i.e. do not create accessors
+    # for them in #layout, and do not print them out in #to_s, etc.
+    # 
+    # Note: This will remove the accessor methods (if they exist) for
+    # the members! So if you're defining your own custom accessors, do
+    # that *after* you have called this method.
+    # 
+    def hidden( *members )
+      if defined?(@hidden_members)
+        @hidden_members += members
+      else
+        @hidden_members = members 
+      end
+
+      members.each do |member|
+        # Remove the accessors if they exist.
+        [member, "#{member}=".to_sym].each { |m|
+          remove_method( m )
+        }
+      end
+    end
+
+
+    # True if the member is hidden, false otherwise.
+    def hidden?( member )
+      return false unless defined?(@hidden_members)
+      @hidden_members.include?( member )
+    end
 
     private
 
@@ -91,16 +121,33 @@ class NiceStruct < FFI::Struct
     # accessor.
     # 
     def wrap_member( member, type )
+      @hidden_members = [] unless defined?(@hidden_members)
+
+      unless hidden?( member )
+        _make_reader( member, type )
+        _make_writer( member, type )
+      end
+    end
+
+
+    def _make_reader( member, type ) # :nodoc:
       self.class_eval do
         define_method( member ) do
           self[member]
         end
+      end
+    end
 
+
+    def _make_writer( member, type ) # :nodoc:
+      self.class_eval do
         define_method( "#{member}=".to_sym ) do |val|
           self[member] = val
         end
       end
     end
+
+
   end
 
 
@@ -181,7 +228,12 @@ class NiceStruct < FFI::Struct
 
 
   def to_s
-    mems = members.collect{ |m| "@#{m}=#{self.send(m)}" }.join(", ")
+    mems = members.collect{ |m|
+      unless self.class.hidden?( m )
+        "@#{m}=#{self.send(m)}"
+      end
+    }.compact.join(", ")
+
     return "#<%s:%#.x %s>"%[self.class.name, self.object_id, mems]
   end
   alias :inspect :to_s
