@@ -30,6 +30,8 @@
 
 require 'ffi'
 
+need{ 'typedpointer' }
+
 
 # A class to be used as a baseclass where you would use FFI::Struct.
 # It acts mostly like FFI::Struct, but with nice extra features:
@@ -62,14 +64,25 @@ class NiceStruct < FFI::Struct
     #             :h, :uint16 )
     # 
     def layout( *spec )
+      @nice_spec = spec
+
       # Wrap the members.
       0.step(spec.size - 1, 2) { |index|
         member, type = spec[index, 2]
         wrap_member( member, type)
       }
 
+      simple_spec = spec.collect { |a|
+        case a
+        when TypedPointer
+          :pointer
+        else
+          a
+        end
+      }
+
       # Normal FFI::Struct behavior
-      super
+      super( *simple_spec )
     end
 
 
@@ -144,10 +157,6 @@ class NiceStruct < FFI::Struct
     # Normally you don't need to call this method, because #layout
     # does this automatically.
     # 
-    # Currently this method doesn't do anything with the type parameter,
-    # but in the future it might perform some type checks in the write
-    # accessor.
-    # 
     def wrap_member( member, type )
       @hidden_members = [] unless defined?(@hidden_members)
 
@@ -161,18 +170,53 @@ class NiceStruct < FFI::Struct
 
 
     def _make_reader( member, type ) # :nodoc:
-      self.class_eval do
-        define_method( member ) do
-          self[member]
+      # POINTERS
+      if( type.is_a? TypedPointer )
+        self.class_eval do
+
+          define_method( member ) do
+            @member_cache[member] or
+              (@member_cache[member] = type.wrap(self[member]))
+          end
+
+        end
+
+      # OTHER TYPES
+      else
+        self.class_eval do
+          define_method( member ) do
+            self[member]
+          end
         end
       end
     end
 
 
     def _make_writer( member, type ) # :nodoc:
-      self.class_eval do
-        define_method( "#{member}=".to_sym ) do |val|
-          self[member] = val
+
+      # POINTERS
+      if( type.is_a? TypedPointer )
+        self.class_eval do
+
+          define_method( "#{member}=".to_sym ) do |val|
+            unless val.is_a?( type.type )
+              raise TypeError, "got #{val.class}, expected #{type.type}"
+            end
+
+            self[member] = type.unwrap(val)
+            @member_cache.delete(member)
+          end
+
+        end
+
+      # OTHER TYPES
+      else
+        self.class_eval do
+
+          define_method( "#{member}=".to_sym ) do |val|
+            self[member] = val
+          end
+
         end
       end
     end
@@ -186,6 +230,10 @@ class NiceStruct < FFI::Struct
   # or wrapping (not copying!) a FFI::MemoryPointer.
   # 
   def initialize( val )
+    # Stores the objects referred to by TypePointer-typed members,
+    # so that a object isn't created every time the member is read.
+    @member_cache = {}
+
     case val
 
     when Hash
@@ -260,7 +308,16 @@ class NiceStruct < FFI::Struct
   def to_s
     mems = members.collect{ |m|
       unless self.class.hidden?( m )
-        "@#{m}=#{self.send(m)}"
+        val = self.send(m)
+
+        # Cleanup/simplify for display
+        if val.is_a? FFI::NullPointer
+          val = "NULL" 
+        elsif val.kind_of? FFI::Struct
+          val = "#<#{val.class}:%#.x>"%val.object_id
+        end
+        
+        "@#{m}=#{val}"
       end
     }.compact.join(", ")
 
@@ -269,4 +326,3 @@ class NiceStruct < FFI::Struct
   alias :inspect :to_s
 
 end
-
