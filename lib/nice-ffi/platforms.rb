@@ -52,6 +52,7 @@ module SDL
 
     /darwin/     => [ "/usr/local/lib/lib[LIB].dylib",
                       "/sw/lib/lib[LIB].dylib",
+                      "/opt/local/lib/lib[LIB].dylib",
                       "~/Library/Frameworks/[LIB].framework/[LIB]",
                       "/Library/Frameworks/[LIB].framework/[LIB]",
                       "[LIB]" ],
