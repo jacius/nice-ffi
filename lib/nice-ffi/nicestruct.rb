@@ -187,6 +187,17 @@ class NiceStruct < FFI::Struct
 
         end
 
+      # STRUCTS
+      elsif( type.is_a? Class and type.ancestors.include? FFI::Struct )
+        self.class_eval do
+
+          define_method( member ) do
+            @member_cache[member] or
+              (@member_cache[member] = self[member])
+          end
+
+        end
+
       # OTHER TYPES
       else
         self.class_eval do
