@@ -103,7 +103,10 @@ class NiceStruct < FFI::Struct
       members.each do |member|
         # Remove the accessors if they exist.
         [member, "#{member}=".to_sym].each { |m|
-          remove_method( m )
+          begin
+            remove_method( m )
+          rescue NameError
+          end
         }
       end
     end
@@ -132,7 +135,10 @@ class NiceStruct < FFI::Struct
 
       members.each do |member|
         # Remove the write accessor if it exists.
-        remove_method( "#{member}=".to_sym )
+        begin
+          remove_method( "#{member}=".to_sym )
+        rescue NameError
+        end
       end
     end
 
