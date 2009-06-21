@@ -202,7 +202,11 @@ class NiceStruct < FFI::Struct
       else
         self.class_eval do
           define_method( member ) do
-            self[member]
+            begin
+              self[member]
+            rescue FFI::NullPointerError
+              nil
+            end
           end
         end
       end
@@ -328,7 +332,7 @@ class NiceStruct < FFI::Struct
         val = self.send(m)
 
         # Cleanup/simplify for display
-        if val.is_a? FFI::NullPointer
+        if val.is_a? FFI::NullPointer or val.nil?
           val = "NULL" 
         elsif val.kind_of? FFI::Struct
           val = "#<#{val.class}:%#.x>"%val.object_id
