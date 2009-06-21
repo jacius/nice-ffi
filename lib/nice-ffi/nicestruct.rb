@@ -34,16 +34,23 @@ need{ 'typedpointer' }
 
 
 # A class to be used as a baseclass where you would use FFI::Struct.
-# It acts mostly like FFI::Struct, but with nice extra features:
+# It acts mostly like FFI::Struct, but with nice extra features and
+# conveniences to make life easier:
 # 
 # * Automatically defines read and write accessor methods (e.g. #x,
-#   #x=) for all struct members when you call #layout.
+#   #x=) for struct members when you call #layout. (You can use
+#   #hidden and #read_only before or after calling #layout to affect
+#   which members have accessors.)
 # 
+# * Implements "smart" accessors for TypedPointer types, seamlessly
+#   wrapping those members so you don't even have to think about the
+#   fact they are pointers!
+#
 # * Implements a nicer #new method which allows you to create a new
 #   struct and set its data in one shot by passing an Array, Hash, or
 #   another instance of the class (to copy data). You can also use it
-#   to wrap a FFI::MemoryPointer just like you can with FFI::Struct.
-#
+#   to wrap a FFI::Pointer or FFI::MemoryPointer like FFI::Struct can.
+# 
 # * Implements #to_ary and #to_hash to dump the struct data.
 # 
 # * Implements #to_s and #inspect for nice debugging output.
@@ -62,6 +69,7 @@ class NiceStruct < FFI::Struct
     #             :y, :int16,
     #             :w, :uint16,
     #             :h, :uint16 )
+    #   end
     # 
     def layout( *spec )
       @nice_spec = spec
@@ -88,10 +96,33 @@ class NiceStruct < FFI::Struct
 
     # Mark the given members as hidden, i.e. do not create accessors
     # for them in #layout, and do not print them out in #to_s, etc.
+    # You can call this before or after calling #layout, and can call
+    # it more than once if you like.
+    # 
+    # Note: They can still be read and written via #[] and #[]=,
+    # but will not have convenience accessors.
     # 
     # Note: This will remove the accessor methods (if they exist) for
     # the members! So if you're defining your own custom accessors, do
     # that *after* you have called this method.
+    # 
+    # Example:
+    # 
+    #   class SecretStruct < NiceStruct
+    #   
+    #     # You can use it before the layout...
+    #     hidden( :hidden1 )
+    #     
+    #     layout( :visible1, :uint16,
+    #             :visible2, :int,
+    #             :hidden1,  :uint,
+    #             :hidden2,  :pointer )
+    #     
+    #     # ... and/or after it.
+    #     hidden( :hidden2 )
+    #     
+    #     # :hidden1 and :hidden2 are now both hidden.
+    #   end
     # 
     def hidden( *members )
       if defined?(@hidden_members)
@@ -112,19 +143,40 @@ class NiceStruct < FFI::Struct
     end
 
 
-    # True if the member is hidden, false otherwise.
+    # True if the member has been marked #hidden, false otherwise.
     def hidden?( member )
       return false unless defined?(@hidden_members)
       @hidden_members.include?( member )
     end
 
 
-    # Mark the given members as read-only, so the won't have write
+    # Mark the given members as read-only, so they won't have write
     # accessors.
+    # 
+    # Note: They can still be written via #[]=,
+    # but will not have convenience accessors.
     # 
     # Note: This will remove the writer method (if it exists) for
     # the members! So if you're defining your own custom writer, do
     # that *after* you have called this method.
+    # 
+    # Example:
+    # 
+    #   class SecretStruct < NiceStruct
+    #   
+    #     # You can use it before the layout...
+    #     read_only( :readonly1 )
+    #     
+    #     layout( :visible1,  :uint16,
+    #             :visible2,  :int,
+    #             :readonly1, :uint,
+    #             :readonly2, :pointer )
+    #     
+    #     # ... and/or after it.
+    #     read_only( :readonly2 )
+    #     
+    #     # :readonly1 and :readonly2 are now both read-only.
+    #   end
     # 
     def read_only( *members )
       if defined?(@readonly_members)
@@ -142,7 +194,7 @@ class NiceStruct < FFI::Struct
       end
     end
 
-    # True if the member is read-only, false otherwise.
+    # True if the member has been marked #read_only, false otherwise.
     def read_only?( member )
       return false unless defined?(@readonly_members)
       @readonly_members.include?( member )
@@ -230,6 +282,13 @@ class NiceStruct < FFI::Struct
 
         end
 
+
+      # TODO: Make a writer for nested structs (not struct pointers).
+      # They can't actually be overwritten, but we could overwrite
+      # the values, perhaps. May need to be recursive, since the
+      # nested struct might also contain a nested struct.
+
+
       # OTHER TYPES
       else
         self.class_eval do
@@ -248,11 +307,11 @@ class NiceStruct < FFI::Struct
 
   # Create a new instance of the class, reading data from a Hash or
   # Array of attributes, copying from another instance of the class,
-  # or wrapping (not copying!) a FFI::MemoryPointer.
+  # or wrapping (not copying!) a FFI::Pointer or FFI::MemoryPointer.
   # 
   def initialize( val )
-    # Stores the objects referred to by TypePointer-typed members,
-    # so that a object isn't created every time the member is read.
+    # Stores certain kinds of member values so that we don't need
+    # to create a new object every time they are read.
     @member_cache = {}
 
     case val
