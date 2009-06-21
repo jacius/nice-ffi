@@ -56,6 +56,10 @@ module SDL
                       "/Library/Frameworks/[LIB].framework/[LIB]",
                       "[LIB]" ],
 
+    /win32/      => [ "C:\\windows\\system32\\[LIB].dll",
+                      "C:\\windows\\system\\[LIB].dll",
+                      "[LIB]" ]
+
   }
 
 
