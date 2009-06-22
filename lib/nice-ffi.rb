@@ -33,6 +33,7 @@ require 'need'
 %w{
 
   platforms
+  nicelibrary
   nicestruct
 
 }.each do |f|
