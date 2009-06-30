@@ -401,8 +401,13 @@ class NiceStruct < FFI::Struct
       end
     }.compact.join(", ")
 
-    return "#<%s:%#.x %s>"%[self.class.name, self.object_id, mems]
+    if( mems == "" )
+      return "#<%s:%#.x>"%[self.class.name, self.object_id]
+    else
+      return "#<%s:%#.x %s>"%[self.class.name, self.object_id, mems]
+    end
   end
+
   alias :inspect :to_s
 
 end
