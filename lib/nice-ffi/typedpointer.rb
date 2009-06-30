@@ -43,9 +43,9 @@ class TypedPointer
   # FFI::Struct (or is FFI::Struct itself).
   # 
   def initialize( type )
-    unless type.is_a? Class and type.ancestors.include? FFI::Struct
-      raise TypeError, "#{self.class} only wraps FFI::Struct and subclasses."
-    end
+    # unless type.is_a? Class and type.ancestors.include? FFI::Struct
+    #   raise TypeError, "#{self.class} only wraps FFI::Struct and subclasses."
+    # end
     @type = type
   end
 
