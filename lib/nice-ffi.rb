@@ -32,7 +32,6 @@ require 'need'
 
 %w{
 
-  platforms
   nicelibrary
   nicestruct
 
