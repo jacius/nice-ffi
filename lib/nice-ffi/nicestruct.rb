@@ -381,6 +381,7 @@ class NiceStruct < FFI::Struct
   #   # => {:h=>4, :w=>3, :x=>1, :y=>2}
   # 
   def to_hash
+    return {} if members.empty?
     Hash[ *(members.collect{ |m| [m, self[m]] }.flatten!) ]
   end
 
