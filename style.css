@@ -1,0 +1,151 @@
+/*
+ * Stylesheet for jacius.github.com/ruby-sdl-ffi/
+ */
+
+body
+{
+  font-family: Sans-serif;
+  margin-top: 1.0em;
+}
+
+
+#container
+{
+  margin: 0 auto;
+  width: 700px;
+}
+
+
+.top-header
+{
+  margin-bottom: 35px;
+}
+
+
+.top-header h1
+{
+  display: inline;
+  position: relative;
+  left: 15px;
+  top: 12px;
+}
+
+
+.download
+{
+  float: right;
+}
+
+.download .icon
+{
+  width: 72px;
+  border: 0px;
+}
+
+h1
+{
+  color: #111;
+  font-size: 2.5em;
+  margin-bottom: 30px;
+}
+
+
+h1 .small
+{
+  font-size: 0.5em;
+  vertical-align: middle;
+}
+
+
+h1 a
+{
+  text-decoration: none
+}
+
+
+h2
+{
+  color: #111;
+  font-size: 1.5em;
+  margin: 5px;
+}
+
+
+h3
+{
+  color: #111;
+  text-align: center;
+}
+
+
+.section
+{
+  margin: 18px 0px;
+  padding: 5px 25px;
+  background: #f8f4f6;
+  border: 1px solid #ccc;
+  -moz-border-radius: 8px;
+  -webkit-border-radius: 8px;
+  border-radius: 8px;
+}
+
+
+.section h2
+{
+  margin-left: -10px;
+}
+
+
+.section p
+{
+  margin-top: 8px;
+  margin-bottom: 8px;
+}
+
+
+.description
+{
+  font-size: 1.2em;
+  font-style: italic;
+  margin-bottom: 30px;
+  margin-top: 30px;
+}
+
+
+pre
+{
+  background: #000;
+  color: #fff;
+  padding: 15px;
+}
+
+
+.license
+{
+  background: #fff;
+  border: 1px solid #ccc;
+  -moz-border-radius: 8px;
+  -webkit-border-radius: 8px;
+  border-radius: 8px;
+  color: #333;
+  max-width: 550px;
+  margin-left: auto;
+  margin-right: auto;
+  padding: 5px 15px;
+}
+
+
+hr
+{
+  border: 0;
+  border-bottom: 1px solid #aaa
+  width: 80%;
+}
+
+
+.footer
+{
+  font-style: italic;
+  padding-top:30px;
+  text-align:center;
+}

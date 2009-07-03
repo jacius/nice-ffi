@@ -1,0 +1,159 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+
+<head>
+  <title>jacius/nice-ffi @ GitHub</title>
+  <link href="style.css" rel="stylesheet" type="text/css" />
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+</head>
+
+<body>
+  <a href="http://github.com/jacius/nice-ffi"><img style="position: absolute; top: 0; right: 0; border: 0;" src="http://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png" alt="Fork me on GitHub" /></a>
+  
+  <div id="container">
+
+    <div class="top-header">
+      <div class="download">
+        <a href="http://github.com/jacius/nice-ffi/zipball/master">
+          <img class="icon"
+               src="http://github.com/images/modules/download/zip.png" />
+        </a>
+        <a href="http://github.com/jacius/nice-ffi/tarball/master">
+          <img class="icon"
+               src="http://github.com/images/modules/download/tar.png" />
+        </a>
+      </div>
+      <h1>
+        <a href="http://github.com/jacius/nice-ffi">Nice-FFI</a> 
+        <span class="small">
+          by <a href="http://github.com/jacius">jacius</a>
+        </span>
+      </h1>
+    </div>
+
+    <div class="section">
+      <h2>About</h2>
+      <p>
+        Nice-FFI is a layer on top of 
+        <a href="http://kenai.com/projects/ruby-ffi/">Ruby-FFI</a>
+        (and compatible FFI systems) to augment it with features to
+        aide development of FFI-based libraries.
+      </p>
+
+      <p>Nice-FFI currently features:</p>
+
+      <ul>
+        <li>
+          <code>NiceFFI::Struct</code>, a stand-in for
+          <code>FFI::Struct</code> that provides automatic accessors
+          for struct members, more instance initialization options,
+          pretty to_s and inspect methods, and other niceties.
+        </li>
+        <li>
+          <code>NiceFFI::Library</code>, a stand-in for
+          <code>FFI::Library</code> that provides heuristics for
+          easily finding and loading libraries on any platform, plus
+          automatic wrapping of functions that return struct pointers.
+        </li>
+      </ul>
+
+      <p>
+        Nice-FFI was originally developed as part of 
+        <a href="http://github.com/jacius/ruby-sdl-ffi/">Ruby-SDL-FFI</a>.
+      </p>
+    </div>
+
+    <div class="section">
+      <h2>Caveats</h2>
+      <p>
+        Nice-FFI is still in
+        <strong>early development stages</strong>. That means:
+      </p>
+
+      <ul>
+        <li>It may not work correctly (or at all).</li>
+        <li>It may not be complete.</li>
+        <li>It may change drastically with no advanced notice.</li>
+      </ul>
+
+      <p>
+        As such, this library is currently
+        <strong>for the adventurous only</strong>.
+        If you are not willing to continuously update your code to
+        match the new API, then you should wait until version 1.0.
+      </p>
+    </div>
+
+    <div class="section">
+      <h2>Dependencies</h2>
+      <ul>
+        <li><a href="http://kenai.com/projects/ruby-ffi/">Ruby-FFI</a>
+          &gt;= 0.3.0 (or compatible)</li>
+        <li><a href="http://need.rubyforge.org/">need</a>
+          &gt;= 1.1.0</li>
+      </ul>
+    </div>
+
+    <div class="section">
+      <h2>License</h2>
+      <p>
+        Nice-FFI is licensed under the following terms (the "MIT License"):
+      </p>
+
+      <blockquote class="license">
+        <p>
+          Copyright &copy; 2009 John Croisant
+        </p>
+
+        <p>
+          Permission is hereby granted, free of charge, to any person obtaining
+          a copy of this software and associated documentation files (the
+          "Software"), to deal in the Software without restriction, including
+          without limitation the rights to use, copy, modify, merge, publish,
+          distribute, sublicense, and/or sell copies of the Software, and to
+          permit persons to whom the Software is furnished to do so, subject to
+          the following conditions:
+        </p>
+
+        <p>
+          The above copyright notice and this permission notice shall be
+          included in all copies or substantial portions of the Software.
+        </p>
+
+        <p>
+          THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
+          EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+          MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.
+          IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY
+          CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT,
+          TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
+          SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+        </p>
+      </blockquote>
+    </div>
+
+    <div class="section">
+      <h2>Download</h2>
+      <p>
+        You can download this project in either
+        <a href="http://github.com/jacius/nice-ffi/zipball/master">zip</a> or
+        <a href="http://github.com/jacius/nice-ffi/tarball/master">tar</a> formats.
+      </p>
+      <p>
+        You can also clone the project with
+        <a href="http://git-scm.com">Git</a> by running:
+        <pre>$ git clone git://github.com/jacius/nice-ffi</pre>
+      </p>
+    </div>
+    
+    <div class="footer">
+      get the source code on GitHub:
+      <a href="http://github.com/jacius/nice-ffi">jacius/nice-ffi</a>
+    </div>
+    
+  </div>
+
+  
+</body>
+</html>
