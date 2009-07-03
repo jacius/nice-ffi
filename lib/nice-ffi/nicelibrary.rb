@@ -88,9 +88,11 @@ module NiceFFI::Library
   # 
   # Raises LoadError if it could not find or load the library.
   # 
-  def load_library( lib_name )
+  def load_library( lib_name, *search_paths )
 
-    paths = find_library( lib_name, LIBRARY_PATHS )
+    search_paths = [LIBRARY_PATHS] if( search_paths.empty? )
+
+    paths = find_library( lib_name, *search_paths )
 
     # Oops, couldn't find it anywhere.
     if paths.empty?
@@ -120,31 +122,47 @@ module NiceFFI::Library
   end
 
 
-  def find_library( lib_name, paths )
+  def find_library( lib_name, *search_paths )
     os = FFI::Platform::OS
 
-    # Find the regex that matches our OS.
-    os_match = paths.keys.find{ |regex|  regex =~ os }
+    # Remember the paths that we found.
+    found = []
 
-    # Oops, none of the regexs matched our OS.
-    if os_match.nil?
+    # Remember whether any of the search paths included our OS.
+    os_supported = false
+
+    search_paths.each { |sp|
+
+      # Find the regex that matches our OS.
+      os_match = sp.keys.find{ |regex|  regex =~ os }
+
+      unless os_match.nil?
+        # If our OS matched, then it's supported.
+        os_supported = true 
+
+        # Fetch the paths for the matching OS.
+        paths = sp[os_match]
+
+        # Fill in for [LIB] and expand the paths.
+        paths = paths.collect { |path|
+          File.expand_path( path.gsub("[LIB]", lib_name) )
+        }
+
+        # Delete all the paths that don't exist.
+        paths.delete_if { |path| not File.exist?(path) }
+
+        # Add what's left.
+        found += paths
+      end
+    }
+
+    # Drat, not found, maybe because they are using an unsupported OS.
+    if found.empty? and not os_supported
       raise( LoadError, "Your OS (#{os}) is not supported yet.\n" +
              "Please report this and help us support more platforms." )
     end
 
-    # Fetch the paths for the matching OS.
-    paths = LIBRARY_PATHS[os_match]
-
-    # Fill in for [LIB] and expand the paths.
-    paths = paths.collect { |path|
-      File.expand_path( path.gsub("[LIB]", lib_name) )
-    }
-
-    # Delete all the paths that don't exist.
-    paths.delete_if { |path| not File.exist?(path) }
-
-    # Return what's left.
-    return paths
+    return found
   end
 
 
