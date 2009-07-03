@@ -90,24 +90,12 @@ module NiceFFI::Library
   # 
   def load_library( lib_name, wrapper_module )
 
-    os = FFI::Platform::OS
+    paths = find_library( lib_name, LIBRARY_PATHS )
 
-    # Find the regex that matches our OS.
-    os_match = LIBRARY_PATHS.keys.find{ |regex|  regex =~ os }
-
-    # Oops, none of the regexs matched our OS.
-    if os_match.nil?
-      raise( LoadError, "Your OS (#{os}) is not supported yet.\n" +
-             "Please report this and help us support more platforms." )
+    # Oops, couldn't find it anywhere.
+    if paths.empty?
+      raise LoadError, "Could not find library #{lib_name}. Is it installed?"
     end
-
-    # Fetch the paths for the matching OS.
-    paths = LIBRARY_PATHS[os_match]
-
-    # Fill in for [LIB] and expand the paths.
-    paths = paths.collect { |path|
-      File.expand_path( path.gsub("[LIB]", lib_name) )
-    }
 
     # Try loading each path until one works.
     loaded = paths.find { |path| 
@@ -129,6 +117,34 @@ module NiceFFI::Library
       # Return the one that did work
       return loaded
     end
+  end
+
+
+  def find_library( lib_name, paths )
+    os = FFI::Platform::OS
+
+    # Find the regex that matches our OS.
+    os_match = paths.keys.find{ |regex|  regex =~ os }
+
+    # Oops, none of the regexs matched our OS.
+    if os_match.nil?
+      raise( LoadError, "Your OS (#{os}) is not supported yet.\n" +
+             "Please report this and help us support more platforms." )
+    end
+
+    # Fetch the paths for the matching OS.
+    paths = LIBRARY_PATHS[os_match]
+
+    # Fill in for [LIB] and expand the paths.
+    paths = paths.collect { |path|
+      File.expand_path( path.gsub("[LIB]", lib_name) )
+    }
+
+    # Delete all the paths that don't exist.
+    paths.delete_if { |path| not File.exist?(path) }
+
+    # Return what's left.
+    return paths
   end
 
 
