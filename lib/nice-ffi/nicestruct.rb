@@ -55,7 +55,7 @@ need{ 'typedpointer' }
 # 
 # * Implements #to_s and #inspect for nice debugging output.
 # 
-class NiceStruct < FFI::Struct
+class NiceFFI::Struct < FFI::Struct
 
   class << self
 
@@ -82,7 +82,7 @@ class NiceStruct < FFI::Struct
 
       simple_spec = spec.collect { |a|
         case a
-        when TypedPointer
+        when NiceFFI::TypedPointer
           :pointer
         else
           a
@@ -229,7 +229,7 @@ class NiceStruct < FFI::Struct
 
     def _make_reader( member, type ) # :nodoc:
       # POINTERS
-      if( type.is_a? TypedPointer )
+      if( type.is_a? NiceFFI::TypedPointer )
         self.class_eval do
 
           define_method( member ) do
@@ -268,7 +268,7 @@ class NiceStruct < FFI::Struct
     def _make_writer( member, type ) # :nodoc:
 
       # POINTERS
-      if( type.is_a? TypedPointer )
+      if( type.is_a? NiceFFI::TypedPointer )
         self.class_eval do
 
           define_method( "#{member}=".to_sym ) do |val|

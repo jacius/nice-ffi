@@ -17,11 +17,11 @@ FFI-based libraries.
 
 Nice-FFI currently features:
 
-* NiceStruct: a stand-in for FFI::Struct that provides automatic
+* NiceFFI::Struct: a stand-in for FFI::Struct that provides automatic
   accessors for struct members, more instance initialization options,
   pretty to_s and inspect methods, and other niceties.
 
-* NiceLibrary: a stand-in for FFI::Library that provides heuristics
+* NiceFFI::Library: a stand-in for FFI::Library that provides heuristics
   for easily finding and loading libraries on any platform, plus
   automatic wrapping of functions that return struct pointers.
 

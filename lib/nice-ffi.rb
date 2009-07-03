@@ -30,6 +30,11 @@
 
 require 'need'
 
+
+module NiceFFI
+end
+
+
 %w{
 
   nicelibrary

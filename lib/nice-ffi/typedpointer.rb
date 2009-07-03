@@ -35,7 +35,7 @@ require 'ffi'
 # struct type. Use `TypedPointer( SomeStructClass )` instead of :pointer
 # when specifying a NiceStruct#layout to create type-smart accessors.
 # 
-class TypedPointer
+class NiceFFI::TypedPointer
 
   # Create a new TypedPointer whose type is the given struct class.
   # 
@@ -79,6 +79,6 @@ end
 
 
 # Equivalent to TypedPointer.new( type )
-def TypedPointer( type )
-  TypedPointer.new( type )
+def NiceFFI::TypedPointer( type )
+  NiceFFI::TypedPointer.new( type )
 end

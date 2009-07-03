@@ -41,7 +41,7 @@ need{ 'typedpointer' }
 #   in which case it wraps the return value of the bound function
 #   in the TypedPointer's type.
 # 
-module NiceLibrary
+module NiceFFI::Library
 
   def self.extend_object( klass )
     klass.extend FFI::Library
@@ -146,7 +146,7 @@ module NiceLibrary
                                     [arg1, arg2, arg3]
                                   end
 
-    unless retrn_type.kind_of? TypedPointer
+    unless retrn_type.kind_of? NiceFFI::TypedPointer
       # Normal FFI::Library.attach_function behavior.
       super
     else
