@@ -31,6 +31,7 @@
 require 'ffi'
 
 need{ 'typedpointer' }
+need{ 'pathset' }
 
 
 # A module to be used in place of FFI::Library. It acts mostly
