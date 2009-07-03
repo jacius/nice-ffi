@@ -88,7 +88,7 @@ module NiceFFI::Library
   # 
   # Raises LoadError if it could not find or load the library.
   # 
-  def load_library( lib_name, wrapper_module )
+  def load_library( lib_name )
 
     paths = find_library( lib_name, LIBRARY_PATHS )
 
@@ -100,7 +100,7 @@ module NiceFFI::Library
     # Try loading each path until one works.
     loaded = paths.find { |path| 
       begin
-        wrapper_module.module_eval {
+        self.module_eval {
           ffi_lib path
         }
       rescue LoadError
