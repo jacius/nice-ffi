@@ -60,7 +60,7 @@ module NiceFFI::Library
   #   OS. The string [LIB] will be replaced with the library name.
   #   So "/usr/lib/lib[LIB].so" becomes e.g. "/usr/lib/libSDL_ttf.so".
   # 
-  LIBRARY_PATHS = {
+  DEFAULT_PATHS = {
 
     /linux|bsd/  => [ "/usr/local/lib/lib[LIB].so",
                       "/usr/lib/lib[LIB].so",
@@ -82,7 +82,7 @@ module NiceFFI::Library
 
   # Try to find and load a library (e.g. "SDL_ttf") into an FFI
   # wrapper module (e.g. SDL::TTF). This method searches in
-  # different locations depending on your OS. See LIBRARY_PATHS.
+  # different locations depending on your OS. See DEFAULT_PATHS.
   # 
   # Returns the path to the library that was loaded.
   # 
@@ -90,7 +90,7 @@ module NiceFFI::Library
   # 
   def load_library( lib_name, *search_paths )
 
-    search_paths = [LIBRARY_PATHS] if( search_paths.empty? )
+    search_paths = [DEFAULT_PATHS] if( search_paths.empty? )
 
     paths = find_library( lib_name, *search_paths )
 
