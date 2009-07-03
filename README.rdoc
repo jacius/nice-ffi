@@ -47,6 +47,7 @@ match the new API, then you should wait until version 1.0.
 == Requirements
 
 * Ruby-FFI  >= 0.3.0 (or compatible)
+* need      >= 1.1.0
 
 
 == License
