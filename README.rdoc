@@ -21,7 +21,7 @@ Nice-FFI currently features:
   accessors for struct members, more instance initialization options,
   pretty to_s and inspect methods, and other niceties.
 
-* NiceFFI::Library: a stand-in for FFI::Library that provides heuristics
+* NiceFFI::Library: a stand-in for FFI::Library that provides methods
   for easily finding and loading libraries on any platform, plus
   automatic wrapping of functions that return struct pointers.
 
