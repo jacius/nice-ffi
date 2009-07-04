@@ -111,7 +111,7 @@ class NiceFFI::PathSet
 
   # Try to find a file based on the rules in this PathSet.
   # 
-  # name: A string to substitute for [NAME] in the paths.
+  # *names:: Strings to try substituting for [NAME] in the paths.
   # 
   # Returns an Array of the paths of matching files, or [] if
   # there were no matches.
@@ -119,7 +119,16 @@ class NiceFFI::PathSet
   # Raises LoadError if the current operating system did not match
   # any of the regular expressions in the PathSet.
   # 
-  def find( name )
+  # Examples:
+  # 
+  #   ps = PathSet.new( /linux/ => ["/usr/lib/lib[NAME].so"],
+  #                     /win32/ => ["C:\\windows\\system32\\[NAME].dll"] )
+  #   
+  #   ps.find( "SDL" )
+  #   ps.find( "foo", "foo_alt_name" )
+  # 
+  def find( *names )
+
     os = FFI::Platform::OS
 
     # Remember the paths that we found.
@@ -142,9 +151,11 @@ class NiceFFI::PathSet
       paths = @rules[os_match]
 
       # Fill in for [NAME] and expand the paths.
-      paths = paths.collect { |path|
-        File.expand_path( path.gsub("[NAME]", name) )
-      }
+      paths = names.collect { |name|
+        paths.collect { |path|
+          File.expand_path( path.gsub("[NAME]", name) )
+        }
+      }.flatten!
 
       # Delete all the paths that don't exist.
       paths.delete_if { |path| not File.exist?(path) }

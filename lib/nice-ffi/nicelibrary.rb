@@ -89,13 +89,21 @@ module NiceFFI::Library
   # 
   # Raises LoadError if it could not find or load the library.
   # 
-  def load_library( lib_name, search_paths=DEFAULT_PATHS )
+  def load_library( names, search_paths=NiceFFI::Library::DEFAULT_PATHS )
 
-    paths = search_paths.find( lib_name )
+    names = [names] unless names.kind_of? Array
+
+    paths = search_paths.find( *names )
+
+    pretty_names = if names.size == 1
+                    names[0]
+                  else
+                    names[0..-2].join(", ") + ", or " + names[-1]
+                  end
 
     # Oops, couldn't find it anywhere.
     if paths.empty?
-      raise LoadError, "Could not find library #{lib_name}. Is it installed?"
+      raise LoadError, "Could not find #{pretty_names}. Is it installed?"
     end
 
     # Try loading each path until one works.
@@ -113,7 +121,7 @@ module NiceFFI::Library
 
     # Oops, none of them worked.
     if loaded.nil?
-      raise( LoadError, "Could not load library #{lib_name}." )
+      raise( LoadError, "Could not load #{pretty_names}." )
     else
       # Return the one that did work
       return loaded
