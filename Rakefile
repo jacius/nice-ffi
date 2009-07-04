@@ -44,6 +44,9 @@ Rake::GemPackageTask.new( $gemspec ) do |pkg|
   pkg.need_tar_bz2 = true
 end
 
+task :gem => [:changelog]
+task :package => [:changelog]
+
 
 #############
 ##  CLEAN  ##
