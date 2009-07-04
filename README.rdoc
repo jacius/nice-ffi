@@ -1,8 +1,8 @@
 
 = Nice-FFI
 
-Version::    0.0 (unreleased alpha)
-Date::       2009-06-15
+Version::    0.1
+Date::       2009-07-04
 
 Homepage::   http://github.com/jacius/nice-ffi/
 Author::     John Croisant <jacius@gmail.com>
@@ -12,7 +12,7 @@ Copyright::  2009  John Croisant
 == Description
 
 Nice-FFI is a layer on top of Ruby-FFI [1] (and compatible FFI
-systems) to augment it with features to aide development of 
+systems) to augment it with features to aid development of
 FFI-based libraries.
 
 Nice-FFI currently features:
