@@ -45,6 +45,15 @@ Rake::GemPackageTask.new( $gemspec ) do |pkg|
 end
 
 
+#############
+##  CLEAN  ##
+#############
+
+require 'rake/clean'
+
+CLEAN.include("ChangeLog.txt")
+
+
 ############
 ##  DOCS  ##
 ############
