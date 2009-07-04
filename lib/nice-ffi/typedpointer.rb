@@ -32,8 +32,12 @@ require 'ffi'
 
 
 # TypedPointer represents a :pointer (FFI type) that is a specific
-# struct type. Use `TypedPointer( SomeStructClass )` instead of :pointer
-# when specifying a NiceStruct#layout to create type-smart accessors.
+# struct type. You can use TypedPointer( SomeStructClass ) instead
+# of :pointer in these situations:
+# 
+# * As the type for NiceFFI::Struct#layout to create type-smart accessors.
+# * As the return type for NiceFFI::Library#attach_function to
+#   wrap the returned pointer.
 # 
 class NiceFFI::TypedPointer
 
