@@ -116,3 +116,12 @@ rescue LoadError
   end
 
 end
+
+
+###############
+##  VERSION  ##
+###############
+
+task :version do
+  puts "%s-%s"%[$gemspec.name, $gemspec.version]
+end
