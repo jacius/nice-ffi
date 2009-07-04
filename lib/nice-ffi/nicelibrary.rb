@@ -58,8 +58,8 @@ module NiceFFI::Library
   # 
   # * path_templates is be an Array of one or more strings
   #   describing a template for where a library might be found on this
-  #   OS. The string [LIB] will be replaced with the library name.
-  #   So "/usr/lib/lib[LIB].so" becomes e.g. "/usr/lib/libSDL_ttf.so".
+  #   OS. The string [NAME] will be replaced with the library name.
+  #   So "/usr/lib/lib[NAME].so" becomes e.g. "/usr/lib/libSDL_ttf.so".
   # 
   DEFAULT_PATHS = NiceFFI::PathSet.new(
 
