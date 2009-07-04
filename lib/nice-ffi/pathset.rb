@@ -109,6 +109,53 @@ class NiceFFI::PathSet
   end
 
 
+  # Try to find a file based on the rules in this PathSet.
+  # 
+  # name: A string to substitute for [NAME] in the paths.
+  # 
+  # Returns an Array of the paths of matching files, or [] if
+  # there were no matches.
+  # 
+  # Raises LoadError if the current operating system did not match
+  # any of the regular expressions in the PathSet.
+  # 
+  def find( name )
+    os = FFI::Platform::OS
+
+    # Remember the paths that we found.
+    found = []
+
+    # Remember whether any of the search paths included our OS.
+    os_supported = false
+
+    # Find the regexs that matches our OS.
+    os_matches = @rules.keys.find_all{ |regex|  regex =~ os }
+
+    # Drat, they are using an unsupported OS.
+    if os_matches.empty?
+      raise( LoadError, "Your OS (#{os}) is not supported yet.\n" +
+             "Please report this and help us support more platforms." )
+    end
+
+    os_matches.each do |os_match|
+      # Fetch the paths for the matching OS.
+      paths = @rules[os_match]
+
+      # Fill in for [LIB] and expand the paths.
+      paths = paths.collect { |path|
+        File.expand_path( path.gsub("[LIB]", name) )
+      }
+
+      # Delete all the paths that don't exist.
+      paths.delete_if { |path| not File.exist?(path) }
+
+      # Add what's left.
+      found += paths
+    end
+
+    return found
+  end
+
 
   private
 
