@@ -50,16 +50,8 @@ module NiceFFI::Library
   end
 
 
-  # A Hash of { os_regex => path_templates } pairs describing
-  # where to look for libraries on each operating system.
-  # 
-  # * os_regex is a regular expression that matches FFI::Platform::OS
-  #   for the operating system(s) that the path templates are for.
-  # 
-  # * path_templates is be an Array of one or more strings
-  #   describing a template for where a library might be found on this
-  #   OS. The string [NAME] will be replaced with the library name.
-  #   So "/usr/lib/lib[NAME].so" becomes e.g. "/usr/lib/libSDL_ttf.so".
+  # The default paths to look for libraries. See PathSet 
+  # and #load_library.
   # 
   DEFAULT_PATHS = NiceFFI::PathSet.new(
 
@@ -83,7 +75,7 @@ module NiceFFI::Library
 
   # Try to find and load a library (e.g. "SDL_ttf") into an FFI
   # wrapper module (e.g. SDL::TTF). This method searches in
-  # different locations depending on your OS. See DEFAULT_PATHS.
+  # different locations depending on your OS. See PathSet.
   # 
   # Returns the path to the library that was loaded.
   # 

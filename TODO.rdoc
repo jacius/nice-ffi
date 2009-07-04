@@ -10,7 +10,6 @@
 * Better documentation
   * Library#attach_function
   * Library#load_library
-  * PathSet
 
 * Examples
 
