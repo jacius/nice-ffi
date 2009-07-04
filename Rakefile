@@ -125,3 +125,14 @@ end
 task :version do
   puts "nice-ffi-" + `ruby scripts/getversion.rb`
 end
+
+
+
+#################
+##  CHANGELOG  ##
+#################
+
+
+task :changelog do |t|
+  `ruby scripts/mkchangelog.rb ChangeLog.txt`
+end
