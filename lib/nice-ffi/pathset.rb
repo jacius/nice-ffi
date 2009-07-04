@@ -102,13 +102,13 @@ class NiceFFI::PathSet
 
 
 
-  def clear!( *regexs )
+  def delete!( *regexs )
     @rules.delete_if { |regex, paths|  regexs.include? regex }
     self
   end
 
-  def clear( *regexs )
-    self.dup.clear!( *regexs )
+  def delete( *regexs )
+    self.dup.delete!( *regexs )
   end
 
 

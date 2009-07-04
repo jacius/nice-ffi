@@ -28,22 +28,10 @@
 #++
 
 
-require "enumerator"
-Enumtr = Enumerable::Enumerator
-
-def get_version( file )
-  regex = /version[^0-9]+([0-9](\.[0-9])*).+/i
-  matches = File.open(file){ |f|
-    Enumtr.new(f, :each_line).grep(regex)[0] =~ regex
-  }
-  return ($1 or "0")
-end
-
-
 $gemspec = Gem::Specification.new do |s|
 
   s.name     = "nice-ffi"
-  s.version  = get_version("README.rdoc")
+  s.version  = `ruby scripts/getversion.rb`
   s.authors  = ["John Croisant"]
   s.email    = "jacius@gmail.com"
   s.homepage = "http://github.com/jacius/nice-ffi/"

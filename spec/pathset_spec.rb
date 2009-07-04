@@ -165,19 +165,19 @@ describe NiceFFI::PathSet do
     end # removing
 
 
-    #########
-    # CLEAR #
-    #########
+    ##########
+    # DELETE #
+    ##########
 
-    describe "clearing" do
+    describe "deleting" do
 
       describe "in place" do
         it "should return self" do
-          @pathset.clear!( /a/, /b/ ).should equal(@pathset)
+          @pathset.delete!( /a/, /b/ ).should equal(@pathset)
         end
 
         it "should have no effect" do
-          @pathset.clear!( /a/, /b/ )
+          @pathset.delete!( /a/, /b/ )
           @pathset.rules.should == {}
         end
       end
@@ -185,7 +185,7 @@ describe NiceFFI::PathSet do
 
       describe "in a dup" do
         before :each do
-          @ps = @pathset.clear( /a/, /c/ )
+          @ps = @pathset.delete( /a/, /c/ )
         end
 
         it "should return a dup" do
@@ -197,7 +197,7 @@ describe NiceFFI::PathSet do
         end
       end
 
-    end # clearing
+    end # deleting
 
   end # by default
 
@@ -392,11 +392,11 @@ describe NiceFFI::PathSet do
 
 
 
-    #########
-    # CLEAR #
-    #########
+    ##########
+    # DELETE #
+    ##########
 
-    describe "clearing rules" do
+    describe "deleting rules" do
 
       before :each do
         @pathset = NiceFFI::PathSet.new( /a/ => ["b"],
@@ -406,11 +406,11 @@ describe NiceFFI::PathSet do
 
       describe "in place" do
         it "should return self" do
-          @pathset.clear!( /a/, /c/ ).should equal(@pathset)
+          @pathset.delete!( /a/, /c/ ).should equal(@pathset)
         end
 
         it "should remove the keys" do
-          @pathset.clear!( /a/, /c/ )
+          @pathset.delete!( /a/, /c/ )
           @pathset.rules.should == { /e/ => ["f"] }
         end
       end
@@ -418,7 +418,7 @@ describe NiceFFI::PathSet do
 
       describe "in a dup" do
         before :each do
-          @ps = @pathset.clear( /a/, /c/ )
+          @ps = @pathset.delete( /a/, /c/ )
         end
 
         it "should return a dup" do
@@ -430,7 +430,7 @@ describe NiceFFI::PathSet do
         end
       end
 
-    end # clearing
+    end # deleting
 
 
   end # with rules
