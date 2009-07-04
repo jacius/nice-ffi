@@ -141,9 +141,9 @@ class NiceFFI::PathSet
       # Fetch the paths for the matching OS.
       paths = @rules[os_match]
 
-      # Fill in for [LIB] and expand the paths.
+      # Fill in for [NAME] and expand the paths.
       paths = paths.collect { |path|
-        File.expand_path( path.gsub("[LIB]", name) )
+        File.expand_path( path.gsub("[NAME]", name) )
       }
 
       # Delete all the paths that don't exist.

@@ -63,20 +63,20 @@ module NiceFFI::Library
   # 
   DEFAULT_PATHS = NiceFFI::PathSet.new(
 
-    /linux|bsd/  => [ "/usr/local/lib/lib[LIB].so",
-                      "/usr/lib/lib[LIB].so",
-                      "[LIB]" ],
+    /linux|bsd/  => [ "/usr/local/lib/lib[NAME].so",
+                      "/usr/lib/lib[NAME].so",
+                      "[NAME]" ],
 
-    /darwin/     => [ "/usr/local/lib/lib[LIB].dylib",
-                      "/sw/lib/lib[LIB].dylib",
-                      "/opt/local/lib/lib[LIB].dylib",
-                      "~/Library/Frameworks/[LIB].framework/[LIB]",
-                      "/Library/Frameworks/[LIB].framework/[LIB]",
-                      "[LIB]" ],
+    /darwin/     => [ "/usr/local/lib/lib[NAME].dylib",
+                      "/sw/lib/lib[NAME].dylib",
+                      "/opt/local/lib/lib[NAME].dylib",
+                      "~/Library/Frameworks/[NAME].framework/[NAME]",
+                      "/Library/Frameworks/[NAME].framework/[NAME]",
+                      "[NAME]" ],
 
-    /win32/      => [ "C:\\windows\\system32\\[LIB].dll",
-                      "C:\\windows\\system\\[LIB].dll",
-                      "[LIB]" ]
+    /win32/      => [ "C:\\windows\\system32\\[NAME].dll",
+                      "C:\\windows\\system\\[NAME].dll",
+                      "[NAME]" ]
 
   )
 
