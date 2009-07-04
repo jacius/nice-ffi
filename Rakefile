@@ -44,6 +44,24 @@ Rake::GemPackageTask.new( $gemspec ) do |pkg|
   pkg.need_tar_bz2 = true
 end
 
+
+###############
+##  VERSION  ##
+###############
+
+task :version do
+  puts "nice-ffi-" + `ruby scripts/getversion.rb`
+end
+
+
+#################
+##  CHANGELOG  ##
+#################
+
+task :changelog do |t|
+  `ruby scripts/mkchangelog.rb ChangeLog.txt`
+end
+
 task :gem => [:changelog]
 task :package => [:changelog]
 
@@ -127,24 +145,4 @@ rescue LoadError
     puts error
   end
 
-end
-
-
-###############
-##  VERSION  ##
-###############
-
-task :version do
-  puts "nice-ffi-" + `ruby scripts/getversion.rb`
-end
-
-
-
-#################
-##  CHANGELOG  ##
-#################
-
-
-task :changelog do |t|
-  `ruby scripts/mkchangelog.rb ChangeLog.txt`
 end
