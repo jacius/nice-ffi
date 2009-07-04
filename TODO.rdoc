@@ -1,0 +1,17 @@
+
+= TODO
+
+* Specs
+  * Library     (use a mock for ffi_lib.)
+  * PathSet#find    (use a mock for File.exist?.)
+  * Struct
+  * TypedPointer
+
+* Better documentation
+  * Library#attach_function
+  * Library#load_library
+  * PathSet
+
+* Examples
+
+* RDoc Rake task
