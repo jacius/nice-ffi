@@ -123,5 +123,5 @@ end
 ###############
 
 task :version do
-  puts "%s-%s"%[$gemspec.name, $gemspec.version]
+  puts "nice-ffi-" + `ruby scripts/getversion.rb`
 end
