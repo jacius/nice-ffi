@@ -54,7 +54,8 @@ class NiceFFI::PathSet
     self.dup.append!( *ruleses )
   end
 
-  alias :+ :append
+  alias :+  :append
+  alias :<< :append
 
 
 
@@ -68,6 +69,8 @@ class NiceFFI::PathSet
   def prepend( *ruleses )
     self.dup.prepend!( *ruleses )
   end
+
+  alias :>> :prepend
 
 
 
