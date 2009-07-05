@@ -53,6 +53,27 @@ task :version do
   puts "nice-ffi-" + `ruby scripts/getversion.rb`
 end
 
+rule( /bump:[0-9.]+/ ) do |t|
+  ver = t.name.gsub("bump:","")
+  today = Date.today.to_s
+
+  puts "Updating version to #{ver} and date to #{today}..."
+
+  print "  README.rdoc... "
+  `ruby -pi -e '
+     $_.gsub!(/\([Vv]ersion:: +\)[0-9.]+/,   "\\\\1#{ver}")
+     $_.gsub!(/\([Dd]ate:: +\)[0-9-]+/,      "\\\\1#{today}")
+   ' README.rdoc`
+  puts "done"
+
+  print "  nice-ffi.gemspec... "
+  `ruby -pi -e '
+     $_.gsub!(/\(s.version *= *\)"[0-9.]+"/, "\\\\1\\"#{ver}\\"")
+   ' nice-ffi.gemspec`
+  puts "done"
+
+end
+
 
 #################
 ##  CHANGELOG  ##
