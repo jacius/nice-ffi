@@ -106,7 +106,7 @@ require 'rake/rdoctask'
 Rake::RDocTask.new do |rd|
   rd.title = "Nice-FFI #{$gemspec.version} Docs"
   rd.main = "README.rdoc"
-  rd.rdoc_files.include( "lib/**/*.rb", "*.rdoc" )
+  rd.rdoc_files.include( "lib/**/*.rb", "**/*.rdoc" )
 end
 
 

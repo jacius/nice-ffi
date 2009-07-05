@@ -51,7 +51,7 @@ EOF
 
   s.has_rdoc = false
 
-  s.files = Dir["README.rdoc", "lib/**/*.rb"] + ["ChangeLog.txt"]
+  s.files = Dir["**/*.rdoc", "lib/**/*.rb"] + ["ChangeLog.txt"]
   s.require_paths = ["lib"]
 
   s.required_ruby_version = ">= 1.8"
