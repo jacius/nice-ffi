@@ -1,0 +1,254 @@
+= Using Nice-FFI
+
+This is a guide on how to use Nice-FFI's features. It assumes that you
+are already somewhat familiar with Ruby-FFI.
+
+
+== NiceFFI::Library
+
+NiceFFI::Library is a drop-in replacement for FFI::Library. It provides
+improved library finding abilities and support for TypedPointer return
+types for attached functions.
+
+
+In fact, NiceFFI::Library *is* FFI::Library, but with a few extras.
+That means that you can do all the regular FFI::Library stuff as well
+as the stuff described here.
+
+
+=== load_library
+
+NiceFFI::Library.load_library is a more convenient replacement for
+FFI::Library.ffi_lib. It uses NiceFFI::PathSet to search for the
+library in the most likely places, depending on the user's operating
+system. For example, on Linux it would look for "lib[NAME].so" in
+"/usr/lib/" (among others), while on Windows it would look for
+"[NAME].dll" in "C:\windows\system32\".
+
+Using load_library is easy. Just use "extend NiceFFI::Library" instead
+of "extend FFI::Library", and use "load_library" instead of "ffi_lib":
+
+  
+  require 'nice-ffi'
+
+  module MyLibraryModule
+    extend NiceFFI::Library
+
+    load_library("SDL")  # look for libSDL.so, SDL.dll, etc.
+
+    # structs, functions, etc. as usual.
+
+  end
+  
+
+==== Advanced load_library
+
+As mentioned, load_library uses NiceFFI::PathSet to search for the
+library in likely directories. Specifically, it looks for:
+
+  
+  NiceFFI::Library::DEFAULT_PATHS = NiceFFI::PathSet.new(
+
+    /linux|bsd/  => [ "/usr/local/lib/lib[NAME].so",
+                      "/usr/lib/lib[NAME].so",
+                      "[NAME]" ],
+
+    /darwin/     => [ "/usr/local/lib/lib[NAME].dylib",
+                      "/sw/lib/lib[NAME].dylib",
+                      "/opt/local/lib/lib[NAME].dylib",
+                      "~/Library/Frameworks/[NAME].framework/[NAME]",
+                      "/Library/Frameworks/[NAME].framework/[NAME]",
+                      "[NAME]" ],
+
+    /win32/      => [ "C:\\windows\\system32\\[NAME].dll",
+                      "C:\\windows\\system\\[NAME].dll",
+                      "[NAME]" ]
+  )
+  
+
+The string "[NAME]" is replaced with whatever string you pass to
+load_library.
+
+So, if the user is running Linux and you try to load "SDL", it will
+first look for "/usr/local/lib/libSDL.so". If it couldn't find the
+first one, it will then look for "/usr/lib/libSDL.so", and finally it
+will just try loading "SDL" using ffi_lib (which does some
+platform-appropriate guesses too). It would also use those same
+paths for FreeBSD, because that OS matches /linux|bsd/, too.
+/darwin/ matches on MacOS X, and /win32/ matches on Windows.
+
+If you want to load from a different path, you can make a custom
+PathSet and pass it to load_library:
+
+  
+  this_dir = File.dirname(__FILE__)
+  
+  my_pathset = NiceFFI::Library::DEFAULT_PATHS.prepend(
+    /linux|bsd/  => [ "#{this_dir}/libs/lib[NAME].so" ],
+    /darwin/     => [ "#{this_dir}/libs/lib[NAME].dylib" ],
+    /win32/      => [ "#{this_dir}/libs/[NAME].dll" ]
+  )
+  
+  load_library( "SDL", my_pathset )
+  
+
+The above example prepends (adds in front) the new paths so
+that load_library will look for the library in in "./libs/" first.
+See PathSet for other useful methods for modifying PathSets.
+
+
+Another advanced usage tip: If a library has several alternative
+names, you can provide an Array of names:
+
+  
+  # It might be called "foo", "foo2", or "Foo".
+  
+  load_library( ["foo", "foo2", "Foo"] )
+  
+
+=== attach_function
+
+NiceFFI::Library#attach_function behaves similarly to
+FFI::Library#attach_function, except it supports TypedPointer return
+values. For example, suppose you have a C function:
+
+  
+  MyStruct *make_my_struct( int x, int y );
+  
+
+This returns a pointer to an instance of MyStruct. With FFI, you'd
+write this to attach it:
+
+  
+  attach_function :make_my_struct, [:int, :int], :pointer
+  
+
+And when you called it, it would return an FFI::Pointer, which you
+would then have to manually wrap every time you called the method:
+
+  
+  ptr = make_my_struct( 1, 2 )
+  mystruct = MyStruct.new( ptr )
+  
+
+With TypedPointer, the wrapping happens automatically. Just attach
+the function with a TypedPointer instead of :pointer:
+
+  
+  attach_function :get_my_struct, [:int], NiceFFI::TypedPointer( MyStruct )
+  
+
+Then you automatically get a MyStruct instance when you call the function:
+
+  
+  mystruct = make_my_struct( 1, 2 )
+  mystruct.instance_of?( MyStruct )   # =>  Heck yeah it sure is!
+  
+
+Voila!
+
+
+
+== NiceFFI::Struct
+
+NiceFFI::Struct is a replacement for FFI::Struct. It provides several
+features in addition to the normal FFI::Struct behavior:
+
+* Ability to construct new instances from Array, Hash, another instance,
+  or a pointer as usual.
+* Automatic read and write accessors for struct members.
+* Accessors for struct pointer members with TypedPointer.
+* Ability to dump an instance as an Array (#to_ary) or Hash (#to_hash).
+* Pretty and useful #to_s and #inspect for debugging.
+
+
+=== Constructors
+
+NiceFFI::Struct allows you to construct a new struct instance from
+a Hash, Array, or another existing instance of the same struct type.
+It can also accept a pointer, just as with FFI::Struct.
+
+  
+  class MyStruct < NiceFFI::Struct
+    layout :x, :int,
+           :y, :int
+  end
+
+  mystruct  = MyStruct.new( {:x => 1, :y => 2} )  # from Hash
+  mystruct2 = MyStruct.new( [1,2] )               # from Array
+  mystruct3 = MyStruct.new( mystruct )            # from another instance
+  mystruct4 = MyStruct.new( ptr )                 # from Pointer
+  
+
+=== Struct Member Accessors
+
+Struct members are defined automatically when you use
+NiceFFI::Struct.layout:
+
+  
+  class MyStruct < NiceFFI::Struct
+    layout :x, :int,
+           :y, :int
+  end
+
+  mystruct = MyStruct.new({:x => 1, :y => 2})
+
+  mystruct.x  # => 1
+  mystruct.y  # => 2
+
+  mystruct.x =  3
+  mystruct.y = -4
+  
+
+Sometimes a struct will have members that should be read-only,
+or completely hidden. In those cases, you can use 
+NiceFFI::Struct.read_only and NiceFFI::Struct.hidden.
+
+  
+  class MySneakyStruct < NiceFFI::Struct
+    layout :readme,  :int,
+           :readme2, :int,
+           :hideme,  :pointer,
+           :hideme2, :pointer,
+           :normal,  :uint32
+  
+    read_only :readme, :readme2
+    hidden    :hideme, :hideme2
+  end
+  
+  sneaky = MySneakyStruct.new( ... )
+  
+
+read_only prevents a write accessor from being created (or removes
+it if there is already one). hidden does the same, but for both
+read and write accessors. hidden also prevents the member from
+being shown in #to_s and #inspect.
+
+read_only and hidden can go before or after layout (or both),
+and you can safely call them multiple times if you need to.
+
+
+=== TypedPointer Struct Member Accessors
+
+Some struct members are :pointers that point to other structs.
+With FFI::Struct, you'd have to manually wrap and unwrap the
+struct pointer, but if you specify a TypedPointer instead of
+:pointer, NiceFFI::Struct will wrap and unwrap it automatically:
+
+  
+  class StructWithPtr < NiceFFI::Struct
+    layout :x,  :int,
+           :y,  :int,
+           :my, NiceFFI::TypedPointer( MyStruct )
+  end
+  
+  struct = StructWithPtr.new( :x  => -1,
+                              :y  => -2,
+                              :my => MyStruct.new([1,2]) )
+  
+  # Seamlessly wraps the pointer in a struct
+  struct.my.kind_of? MyStruct           # true
+  
+  # Seamlessly unwraps the struct and stores the pointer  
+  struct.my = MyStruct.new([-4,-3])
+  
