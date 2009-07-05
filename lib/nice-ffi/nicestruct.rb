@@ -377,7 +377,7 @@ class NiceFFI::Struct < FFI::Struct
   # 
   # Example:
   # 
-  #   Rect.new( :x=>1, :y=>2, :w=>3, :h=>4 ).to_ary
+  #   Rect.new( :x=>1, :y=>2, :w=>3, :h=>4 ).to_hash
   #   # => {:h=>4, :w=>3, :x=>1, :y=>2}
   # 
   def to_hash
