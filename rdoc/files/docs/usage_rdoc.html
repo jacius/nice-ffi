@@ -1,0 +1,373 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  <title>File: usage.rdoc</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+  <meta http-equiv="Content-Script-Type" content="text/javascript" />
+  <link rel="stylesheet" href="../.././rdoc-style.css" type="text/css" media="screen" />
+  <script type="text/javascript">
+  // <![CDATA[
+
+  function popupCode( url ) {
+    window.open(url, "Code", "resizable=yes,scrollbars=yes,toolbar=no,status=no,height=150,width=400")
+  }
+
+  function toggleCode( id ) {
+    if ( document.getElementById )
+      elem = document.getElementById( id );
+    else if ( document.all )
+      elem = eval( "document.all." + id );
+    else
+      return false;
+
+    elemStyle = elem.style;
+    
+    if ( elemStyle.display != "block" ) {
+      elemStyle.display = "block"
+    } else {
+      elemStyle.display = "none"
+    }
+
+    return true;
+  }
+  
+  // Make codeblocks hidden by default
+  document.writeln( "<style type=\"text/css\">div.method-source-code { display: none }</style>" )
+  
+  // ]]>
+  </script>
+
+</head>
+<body>
+
+
+
+  <div id="fileHeader">
+    <h1>usage.rdoc</h1>
+    <table class="header-table">
+    <tr class="top-aligned-row">
+      <td><strong>Path:</strong></td>
+      <td>docs/usage.rdoc
+      </td>
+    </tr>
+    <tr class="top-aligned-row">
+      <td><strong>Last Update:</strong></td>
+      <td>Sun Jul 05 00:51:12 -0500 2009</td>
+    </tr>
+    </table>
+  </div>
+  <!-- banner header -->
+
+  <div id="bodyContent">
+
+
+
+  <div id="contextContent">
+
+    <div id="description">
+      <h1>Using Nice-FFI</h1>
+<p>
+This is a guide on how to use Nice-FFI&#8216;s features. It assumes that
+you are already somewhat familiar with Ruby-FFI.
+</p>
+<h2><a href="../../classes/NiceFFI/Library.html">NiceFFI::Library</a></h2>
+<p>
+<a href="../../classes/NiceFFI/Library.html">NiceFFI::Library</a> is a
+drop-in replacement for FFI::Library. It provides improved library finding
+abilities and support for TypedPointer return types for attached functions.
+</p>
+<p>
+In fact, <a href="../../classes/NiceFFI/Library.html">NiceFFI::Library</a>
+<b>is</b> FFI::Library, but with a few extras. That means that you can do
+all the regular FFI::Library stuff as well as the stuff described here.
+</p>
+<h3>load_library</h3>
+<p>
+NiceFFI::Library.load_library is a more convenient replacement for
+FFI::Library.ffi_lib. It uses <a
+href="../../classes/NiceFFI/PathSet.html">NiceFFI::PathSet</a> to search
+for the library in the most likely places, depending on the user&#8216;s
+operating system. For example, on Linux it would look for
+&quot;lib[NAME].so&quot; in &quot;/usr/lib/&quot; (among others), while on
+Windows it would look for &quot;[NAME].dll&quot; in
+&quot;C:\windows\system32\&quot;.
+</p>
+<p>
+Using load_library is easy. Just use &quot;extend <a
+href="../../classes/NiceFFI/Library.html">NiceFFI::Library</a>&quot;
+instead of &quot;extend FFI::Library&quot;, and use
+&quot;load_library&quot; instead of &quot;ffi_lib&quot;:
+</p>
+<pre>
+  require 'nice-ffi'
+
+  module MyLibraryModule
+    extend NiceFFI::Library
+
+    load_library(&quot;SDL&quot;)  # look for libSDL.so, SDL.dll, etc.
+
+    # structs, functions, etc. as usual.
+
+  end
+</pre>
+<h4>Advanced load_library</h4>
+<p>
+As mentioned, load_library uses <a
+href="../../classes/NiceFFI/PathSet.html">NiceFFI::PathSet</a> to search
+for the library in likely directories. Specifically, it looks for:
+</p>
+<pre>
+  NiceFFI::Library::DEFAULT_PATHS = NiceFFI::PathSet.new(
+
+    /linux|bsd/  =&gt; [ &quot;/usr/local/lib/lib[NAME].so&quot;,
+                      &quot;/usr/lib/lib[NAME].so&quot;,
+                      &quot;[NAME]&quot; ],
+
+    /darwin/     =&gt; [ &quot;/usr/local/lib/lib[NAME].dylib&quot;,
+                      &quot;/sw/lib/lib[NAME].dylib&quot;,
+                      &quot;/opt/local/lib/lib[NAME].dylib&quot;,
+                      &quot;~/Library/Frameworks/[NAME].framework/[NAME]&quot;,
+                      &quot;/Library/Frameworks/[NAME].framework/[NAME]&quot;,
+                      &quot;[NAME]&quot; ],
+
+    /win32/      =&gt; [ &quot;C:\\windows\\system32\\[NAME].dll&quot;,
+                      &quot;C:\\windows\\system\\[NAME].dll&quot;,
+                      &quot;[NAME]&quot; ]
+  )
+</pre>
+<p>
+The string &quot;[NAME]&quot; is replaced with whatever string you pass to
+load_library.
+</p>
+<p>
+So, if the user is running Linux and you try to load &quot;SDL&quot;, it
+will first look for &quot;/usr/local/lib/libSDL.so&quot;. If it
+couldn&#8216;t find the first one, it will then look for
+&quot;/usr/lib/libSDL.so&quot;, and finally it will just try loading
+&quot;SDL&quot; using ffi_lib (which does some platform-appropriate guesses
+too). It would also use those same paths for FreeBSD, because that OS
+matches /linux|bsd/, too. /darwin/ matches on MacOS X, and /win32/ matches
+on Windows.
+</p>
+<p>
+If you want to load from a different path, you can make a custom PathSet
+and pass it to load_library:
+</p>
+<pre>
+  this_dir = File.dirname(__FILE__)
+
+  my_pathset = NiceFFI::Library::DEFAULT_PATHS.prepend(
+    /linux|bsd/  =&gt; [ &quot;#{this_dir}/libs/lib[NAME].so&quot; ],
+    /darwin/     =&gt; [ &quot;#{this_dir}/libs/lib[NAME].dylib&quot; ],
+    /win32/      =&gt; [ &quot;#{this_dir}/libs/[NAME].dll&quot; ]
+  )
+
+  load_library( &quot;SDL&quot;, my_pathset )
+</pre>
+<p>
+The above example prepends (adds in front) the new paths so that
+load_library will look for the library in in &quot;./libs/&quot; first. See
+PathSet for other useful methods for modifying PathSets.
+</p>
+<p>
+Another advanced usage tip: If a library has several alternative names, you
+can provide an Array of names:
+</p>
+<pre>
+  # It might be called &quot;foo&quot;, &quot;foo2&quot;, or &quot;Foo&quot;.
+
+  load_library( [&quot;foo&quot;, &quot;foo2&quot;, &quot;Foo&quot;] )
+</pre>
+<h3>attach_function</h3>
+<p>
+NiceFFI::Library#attach_function behaves similarly to
+FFI::Library#attach_function, except it supports TypedPointer return
+values. For example, suppose you have a C function:
+</p>
+<pre>
+  MyStruct *make_my_struct( int x, int y );
+</pre>
+<p>
+This returns a pointer to an instance of MyStruct. With FFI, you&#8216;d
+write this to attach it:
+</p>
+<pre>
+  attach_function :make_my_struct, [:int, :int], :pointer
+</pre>
+<p>
+And when you called it, it would return an FFI::Pointer, which you would
+then have to manually wrap every time you called the method:
+</p>
+<pre>
+  ptr = make_my_struct( 1, 2 )
+  mystruct = MyStruct.new( ptr )
+</pre>
+<p>
+With TypedPointer, the wrapping happens automatically. Just attach the
+function with a TypedPointer instead of :pointer:
+</p>
+<pre>
+  attach_function :get_my_struct, [:int], NiceFFI::TypedPointer( MyStruct )
+</pre>
+<p>
+Then you automatically get a MyStruct instance when you call the function:
+</p>
+<pre>
+  mystruct = make_my_struct( 1, 2 )
+  mystruct.instance_of?( MyStruct )   # =&gt;  Heck yeah it sure is!
+</pre>
+<p>
+Voila!
+</p>
+<h2><a href="../../classes/NiceFFI/Struct.html">NiceFFI::Struct</a></h2>
+<p>
+<a href="../../classes/NiceFFI/Struct.html">NiceFFI::Struct</a> is a
+replacement for FFI::Struct. It provides several features in addition to
+the normal FFI::Struct behavior:
+</p>
+<ul>
+<li>Ability to construct new instances from Array, Hash, another instance, or a
+pointer as usual.
+
+</li>
+<li>Automatic read and write accessors for struct members.
+
+</li>
+<li>Accessors for struct pointer members with TypedPointer.
+
+</li>
+<li>Ability to dump an instance as an Array (to_ary) or Hash (to_hash).
+
+</li>
+<li>Pretty and useful to_s and inspect for debugging.
+
+</li>
+</ul>
+<h3>Constructors</h3>
+<p>
+<a href="../../classes/NiceFFI/Struct.html">NiceFFI::Struct</a> allows you
+to construct a new struct instance from a Hash, Array, or another existing
+instance of the same struct type. It can also accept a pointer, just as
+with FFI::Struct.
+</p>
+<pre>
+  class MyStruct &lt; NiceFFI::Struct
+    layout :x, :int,
+           :y, :int
+  end
+
+  mystruct  = MyStruct.new( {:x =&gt; 1, :y =&gt; 2} )  # from Hash
+  mystruct2 = MyStruct.new( [1,2] )               # from Array
+  mystruct3 = MyStruct.new( mystruct )            # from another instance
+  mystruct4 = MyStruct.new( ptr )                 # from Pointer
+</pre>
+<h3>Struct Member Accessors</h3>
+<p>
+Struct members are defined automatically when you use
+NiceFFI::Struct.layout:
+</p>
+<pre>
+  class MyStruct &lt; NiceFFI::Struct
+    layout :x, :int,
+           :y, :int
+  end
+
+  mystruct = MyStruct.new({:x =&gt; 1, :y =&gt; 2})
+
+  mystruct.x  # =&gt; 1
+  mystruct.y  # =&gt; 2
+
+  mystruct.x =  3
+  mystruct.y = -4
+</pre>
+<p>
+Sometimes a struct will have members that should be read-only, or
+completely hidden. In those cases, you can use NiceFFI::Struct.read_only
+and NiceFFI::Struct.hidden.
+</p>
+<pre>
+  class MySneakyStruct &lt; NiceFFI::Struct
+    layout :readme,  :int,
+           :readme2, :int,
+           :hideme,  :pointer,
+           :hideme2, :pointer,
+           :normal,  :uint32
+
+    read_only :readme, :readme2
+    hidden    :hideme, :hideme2
+  end
+
+  sneaky = MySneakyStruct.new( ... )
+</pre>
+<p>
+read_only prevents a write accessor from being created (or removes it if
+there is already one). hidden does the same, but for both read and write
+accessors. hidden also prevents the member from being shown in to_s and
+inspect.
+</p>
+<p>
+read_only and hidden can go before or after layout (or both), and you can
+safely call them multiple times if you need to.
+</p>
+<h3>TypedPointer Struct Member Accessors</h3>
+<p>
+Some struct members are :pointers that point to other structs. With
+FFI::Struct, you&#8216;d have to manually wrap and unwrap the struct
+pointer, but if you specify a TypedPointer instead of :pointer, <a
+href="../../classes/NiceFFI/Struct.html">NiceFFI::Struct</a> will wrap and
+unwrap it automatically:
+</p>
+<pre>
+  class StructWithPtr &lt; NiceFFI::Struct
+    layout :x,  :int,
+           :y,  :int,
+           :my, NiceFFI::TypedPointer( MyStruct )
+  end
+
+  struct = StructWithPtr.new( :x  =&gt; -1,
+                              :y  =&gt; -2,
+                              :my =&gt; MyStruct.new([1,2]) )
+
+  # Seamlessly wraps the pointer in a struct
+  struct.my.kind_of? MyStruct           # true
+
+  # Seamlessly unwraps the struct and stores the pointer
+  struct.my = MyStruct.new([-4,-3])
+</pre>
+
+    </div>
+
+
+   </div>
+
+
+  </div>
+
+
+    <!-- if includes -->
+
+    <div id="section">
+
+
+
+
+
+      
+
+
+    <!-- if method_list -->
+
+
+  </div>
+
+
+<div id="validator-badges">
+  <p><small><a href="http://validator.w3.org/check/referer">[Validate]</a></small></p>
+</div>
+
+</body>
+</html>
