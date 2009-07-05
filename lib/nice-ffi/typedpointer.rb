@@ -56,9 +56,9 @@ class NiceFFI::TypedPointer
   attr_reader :type
 
 
-  # Wrap a FFI::Pointer or FFI::MemoryPointer in a new struct of this type.
+  # Wrap a FFI::Pointer in a new struct of this type.
   def wrap( pointer )
-    unless pointer.is_a? FFI::Pointer or pointer.is_a? FFI::MemoryPointer
+    unless pointer.is_a? FFI::Pointer
       raise TypeError, "#{self.class}[ #{@type} ] cannot wrap #{pointer.type}"
     end
     @type.new( pointer )

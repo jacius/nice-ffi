@@ -49,7 +49,7 @@ need{ 'typedpointer' }
 # * Implements a nicer #new method which allows you to create a new
 #   struct and set its data in one shot by passing an Array, Hash, or
 #   another instance of the class (to copy data). You can also use it
-#   to wrap a FFI::Pointer or FFI::MemoryPointer like FFI::Struct can.
+#   to wrap a FFI::Pointer like FFI::Struct can.
 # 
 # * Implements #to_ary and #to_hash to dump the struct data.
 # 
@@ -307,7 +307,7 @@ class NiceFFI::Struct < FFI::Struct
 
   # Create a new instance of the class, reading data from a Hash or
   # Array of attributes, copying from another instance of the class,
-  # or wrapping (not copying!) a FFI::Pointer or FFI::MemoryPointer.
+  # or wrapping (not copying!) a FFI::Pointer.
   # 
   def initialize( val )
     # Stores certain kinds of member values so that we don't need
@@ -329,7 +329,7 @@ class NiceFFI::Struct < FFI::Struct
       super()                       # Create empty struct
       init_from_array( val.to_ary ) # Read the values from another instance.
 
-    when FFI::Pointer, FFI::MemoryPointer
+    when FFI::Pointer
       # Normal FFI::Struct behavior to wrap the pointer.
       super( val )
 
