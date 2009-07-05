@@ -1,16 +1,16 @@
 
 = TODO
 
+* Struct
+  * Write accessor for nested structs (not struct pointers).
+    See comment in NiceFFI::Struct._make_writer for details.
+
 * Specs
-  * Library     (use a mock for ffi_lib.)
+  * Library         (use a mock for ffi_lib.)
   * PathSet#find    (use a mock for File.exist?.)
   * Struct
   * TypedPointer
 
-* Better documentation
+* Better documentation comments
   * Library#attach_function
   * Library#load_library
-
-* Examples
-
-* RDoc Rake task
