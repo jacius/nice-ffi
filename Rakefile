@@ -50,7 +50,7 @@ end
 ###############
 
 task :version do
-  puts "nice-ffi-" + `ruby scripts/getversion.rb`
+  puts "%s-%s"%[$gemspec.name, $gemspec.version.to_s]
 end
 
 rule( /bump:[0-9.]+/ ) do |t|
