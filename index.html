@@ -15,21 +15,31 @@
 
     <div class="top-header">
       <div class="download">
-        <a href="http://github.com/jacius/nice-ffi/zipball/master">
+        <a href="http://github.com/jacius/nice-ffi/zipball/v0.1">
           <img class="icon"
                src="http://github.com/images/modules/download/zip.png" />
         </a>
-        <a href="http://github.com/jacius/nice-ffi/tarball/master">
+        <a href="http://github.com/jacius/nice-ffi/tarball/v0.1">
           <img class="icon"
                src="http://github.com/images/modules/download/tar.png" />
         </a>
       </div>
+
+      <div class="latest section">
+        <em>Latest Version</em><br />
+        <a href="http://github.com/jacius/nice-ffi/tree/v0.1">
+          nice-ffi-0.1
+        </a><br />
+        <span class="date">(2009-07-05)</span>
+      </div>
+
       <h1>
         <a href="http://github.com/jacius/nice-ffi">Nice-FFI</a> 
         <span class="small">
           by <a href="http://github.com/jacius">jacius</a>
         </span>
       </h1>
+
     </div>
 
     <div class="section">
@@ -38,7 +48,7 @@
         Nice-FFI is a layer on top of 
         <a href="http://kenai.com/projects/ruby-ffi/">Ruby-FFI</a>
         (and compatible FFI systems) to augment it with features to
-        aide development of FFI-based libraries.
+        aid development of FFI-based libraries.
       </p>
 
       <p>Nice-FFI currently features:</p>
@@ -52,7 +62,7 @@
         </li>
         <li>
           <code>NiceFFI::Library</code>, a stand-in for
-          <code>FFI::Library</code> that provides heuristics for
+          <code>FFI::Library</code> that provides methods for
           easily finding and loading libraries on any platform, plus
           automatic wrapping of functions that return struct pointers.
         </li>

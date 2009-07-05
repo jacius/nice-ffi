@@ -31,6 +31,36 @@ body
 }
 
 
+.top-header .section
+{
+  display: block;
+  float: right;
+  margin-right: 15px;
+  margin-top: 3px;
+}
+
+
+.latest.section
+{
+  text-align: center;
+}
+
+.latest.section .date
+{
+  font-size: 0.7em;
+  opacity: 0.3;
+}
+
+.latest.section em
+{
+  font-size: 0.8em;
+  padding: 0px;
+  margin: 0px;
+  font-style: normal;
+  font-weight: bold;
+}
+
+
 .download
 {
   float: right;
