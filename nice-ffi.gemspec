@@ -28,6 +28,13 @@
 #++
 
 
+# Force create ChangeLog.txt if running from gem (build).
+# This is done in Rakefile when running from rake.
+if /gem/i =~ $0
+  `ruby scripts/mkchangelog.rb ChangeLog.txt`
+end
+
+
 $gemspec = Gem::Specification.new do |s|
 
   s.name     = "nice-ffi"
@@ -43,7 +50,8 @@ development of FFI-based libraries.
 EOF
 
   s.has_rdoc = false
-  s.files = ["README.rdoc"] + Dir["lib/**/*.rb"]
+
+  s.files = Dir["README.rdoc", "lib/**/*.rb"] + ["ChangeLog.txt"]
   s.require_paths = ["lib"]
 
   s.required_ruby_version = ">= 1.8"

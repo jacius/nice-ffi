@@ -58,10 +58,11 @@ end
 ##  CHANGELOG  ##
 #################
 
-task :changelog do |t|
+file "ChangeLog.txt" do
   `ruby scripts/mkchangelog.rb ChangeLog.txt`
 end
 
+task :changelog => ["ChangeLog.txt"]
 task :gem => [:changelog]
 task :package => [:changelog]
 
