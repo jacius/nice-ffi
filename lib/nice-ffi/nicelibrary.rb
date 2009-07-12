@@ -42,11 +42,21 @@ need{ 'pathset' }
 #   in which case it wraps the return value of the bound function
 #   in the TypedPointer's type.
 # 
+# * Shorthand aliases to improve code readability:
+#   * func = attach_function
+#   * var  = attach_variable
+# 
 module NiceFFI::Library
 
   def self.extend_object( klass )
     klass.extend FFI::Library
+
     super
+
+    class << klass
+      alias :func :attach_function
+      alias :var  :attach_variable
+    end
   end
 
 
