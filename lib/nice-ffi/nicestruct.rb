@@ -55,9 +55,19 @@ need{ 'typedpointer' }
 # 
 # * Implements #to_s and #inspect for nice debugging output.
 # 
+# * Adds ::typed_pointer convenience alias to create a TypedPointer
+#   for this klass.
+#
 class NiceFFI::Struct < FFI::Struct
 
   class << self
+
+    # Returns a NiceFFI::TypedPointer instance for this class.
+    def typed_pointer
+      @typed_pointer or
+        (@typed_pointer = NiceFFI::TypedPointer.new(self))
+    end
+
 
     # Same syntax as FFI::Struct#layout, but also defines nice
     # accessors for the attributes.
