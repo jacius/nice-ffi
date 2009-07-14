@@ -316,8 +316,9 @@ class NiceFFI::Struct < FFI::Struct
 
 
   # Create a new instance of the class, reading data from a Hash or
-  # Array of attributes, copying from another instance of the class,
-  # or wrapping (not copying!) a FFI::Pointer.
+  # Array of attributes, a bytestring of raw data, copying from
+  # another instance of the class, or wrapping (not copying!) a
+  # FFI::Pointer.
   # 
   def initialize( val )
     # Stores certain kinds of member values so that we don't need
@@ -335,9 +336,13 @@ class NiceFFI::Struct < FFI::Struct
       super()                       # Create empty struct
       init_from_array( val )        # Read the values from an Array.
 
-    when self.class
+    when String
       super()                       # Create empty struct
-      init_from_array( val.to_ary ) # Read the values from another instance.
+      init_from_bytes( val )        # Read the values from a bytestring.
+
+    when self.class
+      super()                         # Create empty struct
+      init_from_bytes( val.to_bytes ) # Read the values from another instance.
 
     when FFI::Pointer
       # Normal FFI::Struct behavior to wrap the pointer.
@@ -364,6 +369,12 @@ class NiceFFI::Struct < FFI::Struct
     end
   end
   private :init_from_array
+
+
+  def init_from_bytes( val )  # :nodoc:
+    self.pointer.put_bytes(0, val)
+  end
+  private :init_from_bytes
 
 
 
