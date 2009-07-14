@@ -382,6 +382,14 @@ class NiceFFI::Struct < FFI::Struct
     members.collect{ |m| self[m] }
   end
 
+
+  # Dump this instance as a string of raw bytes of its struct data.
+  # 
+  def to_bytes
+    return self.pointer.get_bytes(0, self.size)
+  end
+
+
   # Dump this instance as a Hash containing {member => data} pairs
   # for every member in the struct.
   # 
