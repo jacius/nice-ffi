@@ -28,21 +28,49 @@
 #++
 
 
-require 'need'
+
+# OpaqueStruct represents a Struct with an unknown layout.
+# This is meant to be used when the C library designer has
+# intentionally hidden the layout (e.g. to prevent user access).
+#
+# Because the size of an OpaqueStruct is unknown, you should
+# only use methods provided by the C library to allocate, modify,
+# or free the struct's memory.
+#
+class NiceFFI::OpaqueStruct < NiceFFI::Struct
 
 
-module NiceFFI
-end
+  # Create a new instance of the struct, wrapping an FFI::Pointer.
+  # You can pass another instance of this class to create a new
+  # instance wrapping the same pointer.
+  #
+  def initialize( val )
+    case val
+    when FFI::Pointer
+      send(:pointer=, val)
+    when self.class
+      send(:pointer=, val.pointer)
+    else
+      raise TypeError, "cannot create new #{self.class} from #{val.inspect}"
+    end
+  end
 
 
-%w{
+  # Raises ArgumentError. An OpaqueStruct has no members.
+  def []( key )
+    raise ArgumentError, "No such field '#{key}'"
+  end
 
-  nicelibrary
-  nicestruct
-  opaquestruct
 
-}.each do |f|
+  # Raises ArgumentError. An OpaqueStruct has no members.
+  def []=( key, value )
+    raise ArgumentError, "No such field '#{key}'"
+  end
 
-  need { File.join( 'nice-ffi', f ) }
+
+  # Returns []. An OpaqueStruct has no members.
+  def members
+    []
+  end
 
 end
