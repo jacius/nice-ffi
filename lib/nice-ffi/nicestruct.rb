@@ -58,6 +58,10 @@ need{ 'typedpointer' }
 # * Adds ::typed_pointer convenience alias to create a TypedPointer
 #   for this klass.
 #
+# * Provides automatic memory management for Pointers if you define
+#   MyClass.release( pointer). (This can be disabled per-instance by
+#   providing {:autorelease => false} as an option to #new).
+#
 class NiceFFI::Struct < FFI::Struct
 
   class << self
@@ -211,6 +215,14 @@ class NiceFFI::Struct < FFI::Struct
     end
 
 
+
+    # Calls the class's release method if it exists. Used for autorelease.
+    def _release( pointer )       # :nodoc:
+      if( respond_to?(:release) )
+        release( pointer )
+      end
+    end
+
     private
 
 
@@ -320,10 +332,22 @@ class NiceFFI::Struct < FFI::Struct
   # another instance of the class, or wrapping (not copying!) a
   # FFI::Pointer.
   # 
-  def initialize( val )
+  # If val is an instance of FFI::Pointer and you have defined
+  # MyClass.release, the pointer will be passed to MyClass.release 
+  # when the instance is garbage collected. Use MyClass.release to
+  # free the memory for the struct, as appropriate for your class.
+  # To disable autorelease for this instance, set {:autorelease => false}
+  # in +options+.
+  # 
+  # (Note: FFI::MemoryPointer and FFI::Buffer have built-in memory
+  # management, so MyClass.release is never called for them.)
+  # 
+  def initialize( val, options={} )
     # Stores certain kinds of member values so that we don't need
     # to create a new object every time they are read.
     @member_cache = {}
+
+    options = {:autorelease => true}.merge!( options )
 
     case val
 
@@ -345,6 +369,13 @@ class NiceFFI::Struct < FFI::Struct
       init_from_bytes( val.to_bytes ) # Read the values from another instance.
 
     when FFI::Pointer
+      if( val.instance_of? FFI::Pointer ) # not MemoryPointer or Buffer
+        if( self.class.respond_to?(:release) and options[:autorelease] )
+          # Wrap in an AutoPointer to call self.class._release when it's GC'd.
+          val = FFI::AutoPointer.new( val, self.class.method(:_release) )
+        end
+      end
+
       # Normal FFI::Struct behavior to wrap the pointer.
       super( val )
 
