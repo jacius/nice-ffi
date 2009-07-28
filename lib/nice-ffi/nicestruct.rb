@@ -31,6 +31,7 @@
 require 'ffi'
 
 need{ 'typedpointer' }
+need{ 'autorelease' }
 
 
 # A class to be used as a baseclass where you would use FFI::Struct.
@@ -63,6 +64,7 @@ need{ 'typedpointer' }
 #   providing {:autorelease => false} as an option to #new).
 #
 class NiceFFI::Struct < FFI::Struct
+  include NiceFFI::AutoRelease
 
   class << self
 
@@ -215,14 +217,6 @@ class NiceFFI::Struct < FFI::Struct
     end
 
 
-
-    # Calls the class's release method if it exists. Used for autorelease.
-    def _release( pointer )       # :nodoc:
-      if( respond_to?(:release) )
-        release( pointer )
-      end
-    end
-
     private
 
 
@@ -333,10 +327,10 @@ class NiceFFI::Struct < FFI::Struct
   # FFI::Pointer.
   # 
   # If val is an instance of FFI::Pointer and you have defined
-  # MyClass.release, the pointer will be passed to MyClass.release 
-  # when the instance is garbage collected. Use MyClass.release to
-  # free the memory for the struct, as appropriate for your class.
-  # To disable autorelease for this instance, set {:autorelease => false}
+  # MyClass.release, the pointer will be passed to MyClass.release
+  # when the memory is no longer being used. Use MyClass.release to
+  # free the memory for the struct, as appropriate for your class. To
+  # disable autorelease for this instance, set {:autorelease => false}
   # in +options+.
   # 
   # (Note: FFI::MemoryPointer and FFI::Buffer have built-in memory
@@ -369,12 +363,7 @@ class NiceFFI::Struct < FFI::Struct
       init_from_bytes( val.to_bytes ) # Read the values from another instance.
 
     when FFI::Pointer
-      if( val.instance_of? FFI::Pointer ) # not MemoryPointer or Buffer
-        if( self.class.respond_to?(:release) and options[:autorelease] )
-          # Wrap in an AutoPointer to call self.class._release when it's GC'd.
-          val = FFI::AutoPointer.new( val, self.class.method(:_release) )
-        end
-      end
+      val = _make_autopointer( val, options[:autorelease] )
 
       # Normal FFI::Struct behavior to wrap the pointer.
       super( val )
