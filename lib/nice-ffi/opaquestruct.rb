@@ -29,6 +29,10 @@
 
 
 
+require 'ffi'
+need{ 'autorelease' }
+
+
 # OpaqueStruct represents a Struct with an unknown layout.
 # This is meant to be used when the C library designer has
 # intentionally hidden the layout (e.g. to prevent user access).
@@ -44,23 +48,12 @@
 # {:autorelease => false} as an option to #new
 #
 class NiceFFI::OpaqueStruct
-
-  class << self
-
-    # Returns a NiceFFI::TypedPointer instance for this class.
-    def typed_pointer
-      @typed_pointer or
-        (@typed_pointer = NiceFFI::TypedPointer.new(self))
-    end
+  include NiceFFI::AutoRelease
 
 
-    # Calls the class's release method if it exists. Used for autorelease.
-    def _release( pointer )       # :nodoc:
-      if( respond_to?(:release) )
-        release( pointer )
-      end
-    end
-
+  # Returns a NiceFFI::TypedPointer instance for this class.
+  def self.typed_pointer
+    @typed_pointer or (@typed_pointer = NiceFFI::TypedPointer.new(self))
   end
 
 
@@ -69,10 +62,10 @@ class NiceFFI::OpaqueStruct
   # create a new instance wrapping the same pointer.
   # 
   # If val is an instance of FFI::Pointer and you have defined
-  # MyClass.release, the pointer will be passed to MyClass.release 
-  # when the instance is garbage collected. Use MyClass.release to
-  # free the memory for the struct, as appropriate for your class.
-  # To disable autorelease for this instance, set {:autorelease => false}
+  # MyClass.release, the pointer will be passed to MyClass.release
+  # when the memory is no longer being used. Use MyClass.release to
+  # free the memory for the struct, as appropriate for your class. To
+  # disable autorelease for this instance, set {:autorelease => false}
   # in +options+.
   # 
   # (Note: FFI::MemoryPointer and FFI::Buffer have built-in memory
@@ -94,16 +87,11 @@ class NiceFFI::OpaqueStruct
 
     when FFI::Pointer
       if( val.instance_of? FFI::Pointer ) # not MemoryPointer or Buffer
-        if( self.class.respond_to?(:release) and options[:autorelease] )
-          # Wrap in an AutoPointer to call self.class._release when it's GC'd.
-          @pointer = FFI::AutoPointer.new( val, self.class.method(:_release) )
-        else
-          @pointer = val
-        end
+        @pointer = _make_autopointer( val, options[:autorelease] )
+
       else
         raise TypeError, "unsupported pointer type #{val.class.name}"
       end
-
 
     else
       raise TypeError, "cannot create new #{self.class} from #{val.inspect}"
