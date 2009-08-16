@@ -10,6 +10,13 @@ end
 
 describe NiceFFI::OpaqueStruct do
 
+  it "should include AutoRelease module" do
+    mods = NiceFFI::OpaqueStruct.included_modules
+    mods.should include(NiceFFI::AutoRelease)
+  end
+
+
+
   it "should accept an AutoPointer" do
     ptr = FFI::AutoPointer.new( FFI::Pointer.new(1) )
     lambda{ OpaqueThing.new( ptr ) }.should_not raise_error
