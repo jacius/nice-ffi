@@ -93,7 +93,7 @@ class NiceFFI::PathSet
   end
 
   alias :+  :append
-  alias :<< :append
+  #alias :<< :append
 
 
 
@@ -131,7 +131,7 @@ class NiceFFI::PathSet
     self.dup.prepend!( *ruleses )
   end
 
-  alias :>> :prepend
+  #alias :>> :prepend
 
 
 
