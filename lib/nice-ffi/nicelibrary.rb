@@ -38,6 +38,9 @@ need{ 'pathset' }
 # like FFI::Library, but with some nice extra features and
 # conveniences to make life easier:
 # 
+# * load_library method to help find and load libraries from common
+#   (or custom) places for the current OS. Use it instead of ffi_lib.
+# 
 # * attach_function accepts TypedPointers as return type,
 #   in which case it wraps the return value of the bound function
 #   in the TypedPointer's type.
@@ -98,10 +101,10 @@ module NiceFFI::Library
     paths = search_paths.find( *names )
 
     pretty_names = if names.size == 1
-                    names[0]
-                  else
-                    names[0..-2].join(", ") + ", or " + names[-1]
-                  end
+                     names[0]
+                   else
+                     names[0..-2].join(", ") + ", or " + names[-1]
+                   end
 
     # Oops, couldn't find it anywhere.
     if paths.empty?
@@ -140,10 +143,10 @@ module NiceFFI::Library
     # 2. methname, funcname, args, retrn_type
     # 
     funcname, args, retrn_type = if arg1.kind_of?(Array)
-                                    [methname, arg1, arg2]
-                                  else
-                                    [arg1, arg2, arg3]
-                                  end
+                                   [methname, arg1, arg2]
+                                 else
+                                   [arg1, arg2, arg3]
+                                 end
 
     unless retrn_type.kind_of? NiceFFI::TypedPointer
       # Normal FFI::Library.attach_function behavior.
