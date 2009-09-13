@@ -12,8 +12,8 @@ describe NiceFFI::PathSet do
       @pathset = NiceFFI::PathSet.new()
     end
 
-    it "should have no rules" do
-      @pathset.rules.should == {}
+    it "should have no paths" do
+      @pathset.paths.should == {}
     end
 
 
@@ -21,18 +21,18 @@ describe NiceFFI::PathSet do
     # APPEND #
     ##########
 
-    describe "appending rules" do
+    describe "appending paths" do
       
       describe "in place" do
         it "should return self" do
-          rules = { /a/ => ["b"], /c/ => ["d"] }
-          @pathset.append!( rules ).should equal(@pathset)
+          paths = { /a/ => ["b"], /c/ => ["d"] }
+          @pathset.append!( paths ).should equal(@pathset)
         end
 
         it "should add them" do
-          rules = { /a/ => ["b"], /c/ => ["d"] }
-          @pathset.append!( rules )
-          @pathset.rules.should == { /a/ => ["b"], /c/ => ["d"] }
+          paths = { /a/ => ["b"], /c/ => ["d"] }
+          @pathset.append!( paths )
+          @pathset.paths.should == { /a/ => ["b"], /c/ => ["d"] }
         end
       end
 
@@ -47,7 +47,7 @@ describe NiceFFI::PathSet do
         end
 
         it "should add them" do
-          @ps.rules.should == { /a/ => ["b"], /c/ => ["d"] }
+          @ps.paths.should == { /a/ => ["b"], /c/ => ["d"] }
         end
       end
 
@@ -58,18 +58,18 @@ describe NiceFFI::PathSet do
     # PREPEND #
     ###########
 
-    describe "prepending rules" do
+    describe "prepending paths" do
       
       describe "in place" do
         it "should return self" do
-          rules = { /a/ => ["b"], /c/ => ["d"] }
-          @pathset.prepend!( rules ).should equal(@pathset)
+          paths = { /a/ => ["b"], /c/ => ["d"] }
+          @pathset.prepend!( paths ).should equal(@pathset)
         end
 
         it "should add them" do
-          rules = { /a/ => ["b"], /c/ => ["d"] }
-          @pathset.prepend!( rules )
-          @pathset.rules.should == { /a/ => ["b"], /c/ => ["d"] }
+          paths = { /a/ => ["b"], /c/ => ["d"] }
+          @pathset.prepend!( paths )
+          @pathset.paths.should == { /a/ => ["b"], /c/ => ["d"] }
         end
       end
 
@@ -84,7 +84,7 @@ describe NiceFFI::PathSet do
         end
 
         it "should add them" do
-          @ps.rules.should == { /a/ => ["b"], /c/ => ["d"] }
+          @ps.paths.should == { /a/ => ["b"], /c/ => ["d"] }
         end
       end
 
@@ -95,18 +95,18 @@ describe NiceFFI::PathSet do
     # REPLACE #
     ###########
 
-    describe "replacing rules" do
+    describe "replacing paths" do
 
       describe "in place" do
         it "should return self" do
-          rules = { /a/ => ["e"], /c/ => ["f"] }
-          @pathset.replace!( rules ).should equal(@pathset)
+          paths = { /a/ => ["e"], /c/ => ["f"] }
+          @pathset.replace!( paths ).should equal(@pathset)
         end
 
-        it "should add the new rules" do
-          rules = { /a/ => ["e"], /c/ => ["f"] }
-          @pathset.replace!( rules )
-          @pathset.rules.should == { /a/ => ["e"], /c/ => ["f"] }
+        it "should add the new paths" do
+          paths = { /a/ => ["e"], /c/ => ["f"] }
+          @pathset.replace!( paths )
+          @pathset.paths.should == { /a/ => ["e"], /c/ => ["f"] }
         end
       end
 
@@ -120,8 +120,8 @@ describe NiceFFI::PathSet do
           @ps.should_not equal(@pathset)
         end
 
-        it "should add the new rules" do
-          @ps.rules.should == { /a/ => ["e"], /c/ => ["f"] }
+        it "should add the new paths" do
+          @ps.paths.should == { /a/ => ["e"], /c/ => ["f"] }
         end
       end
 
@@ -132,18 +132,18 @@ describe NiceFFI::PathSet do
     # REMOVE #
     ##########
 
-    describe "removing rules" do
+    describe "removing paths" do
 
       describe "in place" do
         it "should return self" do
-          rules = { /a/ => ["b"], /c/ => ["f"] }
-          @pathset.remove!( rules ).should equal(@pathset)
+          paths = { /a/ => ["b"], /c/ => ["f"] }
+          @pathset.remove!( paths ).should equal(@pathset)
         end
 
         it "should have no effect" do
-          rules = { /a/ => ["b"], /c/ => ["f"] }
-          @pathset.remove!( rules )
-          @pathset.rules.should == {}
+          paths = { /a/ => ["b"], /c/ => ["f"] }
+          @pathset.remove!( paths )
+          @pathset.paths.should == {}
         end
       end
 
@@ -158,7 +158,7 @@ describe NiceFFI::PathSet do
         end
 
         it "should have no effect" do
-          @ps.rules.should == {}
+          @ps.paths.should == {}
         end
       end
 
@@ -178,7 +178,7 @@ describe NiceFFI::PathSet do
 
         it "should have no effect" do
           @pathset.delete!( /a/, /b/ )
-          @pathset.rules.should == {}
+          @pathset.paths.should == {}
         end
       end
 
@@ -193,7 +193,7 @@ describe NiceFFI::PathSet do
         end
 
         it "should have no effect" do
-          @ps.rules.should == {}
+          @ps.paths.should == {}
         end
       end
 
@@ -203,21 +203,21 @@ describe NiceFFI::PathSet do
 
 
 
-  describe "made with rules" do
+  describe "made with paths" do
 
     before :each do
       @pathset = NiceFFI::PathSet.new( /a/ => ["b"], /c/ => ["d"] )
     end
 
-    it "should have those rules" do
-      @pathset.rules.should == { /a/ => ["b"], /c/ => ["d"] }
+    it "should have those paths" do
+      @pathset.paths.should == { /a/ => ["b"], /c/ => ["d"] }
     end
 
   end
 
 
 
-  describe "with rules" do
+  describe "with paths" do
 
     before :each do
       @pathset = NiceFFI::PathSet.new( /a/ => ["b"], /c/ => ["d"] )
@@ -228,18 +228,18 @@ describe NiceFFI::PathSet do
     # APPEND #
     ##########
 
-    describe "appending rules" do
+    describe "appending paths" do
       
       describe "in place" do
         it "should return self" do
-          rules = { /a/ => ["e"], /c/ => ["f"] }
-          @pathset.append!( rules ).should equal(@pathset)
+          paths = { /a/ => ["e"], /c/ => ["f"] }
+          @pathset.append!( paths ).should equal(@pathset)
         end
 
         it "should append-merge them" do
-          rules = { /a/ => ["e"], /c/ => ["f"] }
-          @pathset.append!( rules )
-          @pathset.rules.should == { /a/ => ["b", "e"], /c/ => ["d", "f"] }
+          paths = { /a/ => ["e"], /c/ => ["f"] }
+          @pathset.append!( paths )
+          @pathset.paths.should == { /a/ => ["b", "e"], /c/ => ["d", "f"] }
         end
       end
 
@@ -254,7 +254,7 @@ describe NiceFFI::PathSet do
         end
 
         it "should append-merge them" do
-          @ps.rules.should == { /a/ => ["b", "e"], /c/ => ["d", "f"] }
+          @ps.paths.should == { /a/ => ["b", "e"], /c/ => ["d", "f"] }
         end
       end
 
@@ -265,18 +265,18 @@ describe NiceFFI::PathSet do
     # PREPEND #
     ###########
 
-    describe "prepending rules" do
+    describe "prepending paths" do
       
       describe "in place" do
         it "should return self" do
-          rules = { /a/ => ["e"], /c/ => ["f"] }
-          @pathset.prepend!( rules ).should equal(@pathset)
+          paths = { /a/ => ["e"], /c/ => ["f"] }
+          @pathset.prepend!( paths ).should equal(@pathset)
         end
 
         it "should prepend-merge them" do
-          rules = { /a/ => ["e"], /c/ => ["f"] }
-          @pathset.prepend!( rules )
-          @pathset.rules.should == { /a/ => ["e", "b"], /c/ => ["f", "d"] }
+          paths = { /a/ => ["e"], /c/ => ["f"] }
+          @pathset.prepend!( paths )
+          @pathset.paths.should == { /a/ => ["e", "b"], /c/ => ["f", "d"] }
         end
       end
 
@@ -291,7 +291,7 @@ describe NiceFFI::PathSet do
         end
 
         it "should prepend-merge them" do
-          @ps.rules.should == { /a/ => ["e", "b"], /c/ => ["f", "d"] }
+          @ps.paths.should == { /a/ => ["e", "b"], /c/ => ["f", "d"] }
         end
       end
 
@@ -302,18 +302,18 @@ describe NiceFFI::PathSet do
     # REPLACE #
     ###########
 
-    describe "replacing rules" do
+    describe "replacing paths" do
 
       describe "in place" do
         it "should return self" do
-          rules = { /a/ => ["e"], /c/ => ["f"] }
-          @pathset.replace!( rules ).should equal(@pathset)
+          paths = { /a/ => ["e"], /c/ => ["f"] }
+          @pathset.replace!( paths ).should equal(@pathset)
         end
 
-        it "should replace the old rules" do
-          rules = { /a/ => ["e"], /c/ => ["f"] }
-          @pathset.replace!( rules )
-          @pathset.rules.should == { /a/ => ["e"], /c/ => ["f"] }
+        it "should replace the old paths" do
+          paths = { /a/ => ["e"], /c/ => ["f"] }
+          @pathset.replace!( paths )
+          @pathset.paths.should == { /a/ => ["e"], /c/ => ["f"] }
         end
       end
 
@@ -327,8 +327,8 @@ describe NiceFFI::PathSet do
           @ps.should_not equal(@pathset)
         end
 
-        it "should replace the old rules" do
-          @ps.rules.should == { /a/ => ["e"], /c/ => ["f"] }
+        it "should replace the old paths" do
+          @ps.paths.should == { /a/ => ["e"], /c/ => ["f"] }
         end
       end
 
@@ -339,7 +339,7 @@ describe NiceFFI::PathSet do
     # REMOVE #
     ##########
 
-    describe "removing rules" do
+    describe "removing paths" do
 
       before :each do
         @pathset = NiceFFI::PathSet.new( /a/ => ["b", "e"],
@@ -349,21 +349,21 @@ describe NiceFFI::PathSet do
       describe "in place" do
 
         it "should return self" do
-          rules = { /a/ => ["b"], /c/ => ["f"] }
-          @pathset.remove!( rules ).should equal(@pathset)
+          paths = { /a/ => ["b"], /c/ => ["f"] }
+          @pathset.remove!( paths ).should equal(@pathset)
         end
 
         it "should remove them" do
-          rules = { /a/ => ["b"], /c/ => ["f"] }
-          @pathset.remove!( rules )
-          @pathset.rules.should == { /a/ => ["e"], /c/ => ["d"] }
+          paths = { /a/ => ["b"], /c/ => ["f"] }
+          @pathset.remove!( paths )
+          @pathset.paths.should == { /a/ => ["e"], /c/ => ["d"] }
         end
 
         it "should remove the key if no paths are left" do
           @pathset = NiceFFI::PathSet.new( /a/ => ["b"], /c/ => ["d"] )
-          rules = { /a/ => ["b"] }
-          @pathset.remove!( rules )
-          @pathset.rules.should_not have_key(/a/)
+          paths = { /a/ => ["b"] }
+          @pathset.remove!( paths )
+          @pathset.paths.should_not have_key(/a/)
         end
       end
 
@@ -378,13 +378,13 @@ describe NiceFFI::PathSet do
         end
 
         it "should remove them" do
-          @ps.rules.should == { /a/ => ["b"], /c/ => ["d"] }
+          @ps.paths.should == { /a/ => ["b"], /c/ => ["d"] }
         end
 
         it "should remove the key if no paths are left" do
           @pathset = NiceFFI::PathSet.new( /a/ => ["b"], /c/ => ["d"] )
           @ps = @pathset.remove!( /a/ => ["b"] )
-          @ps.rules.should == { /c/ => ["d"] }
+          @ps.paths.should == { /c/ => ["d"] }
         end
       end
 
@@ -396,7 +396,7 @@ describe NiceFFI::PathSet do
     # DELETE #
     ##########
 
-    describe "deleting rules" do
+    describe "deleting paths" do
 
       before :each do
         @pathset = NiceFFI::PathSet.new( /a/ => ["b"],
@@ -411,7 +411,7 @@ describe NiceFFI::PathSet do
 
         it "should remove the keys" do
           @pathset.delete!( /a/, /c/ )
-          @pathset.rules.should == { /e/ => ["f"] }
+          @pathset.paths.should == { /e/ => ["f"] }
         end
       end
 
@@ -426,13 +426,13 @@ describe NiceFFI::PathSet do
         end
 
         it "should remove the keys" do
-          @ps.rules.should == { /e/ => ["f"] }
+          @ps.paths.should == { /e/ => ["f"] }
         end
       end
 
     end # deleting
 
 
-  end # with rules
+  end # with paths
 
 end # NiceFFI::PathSet

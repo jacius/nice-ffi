@@ -29,7 +29,7 @@
 
 
 # PathSet is essentially a Hash of { os_regex => path_templates } pairs,
-# rules describing where to look for files (libraries) on each
+# paths describing where to look for files (libraries) on each
 # operating system.
 # 
 # * os_regex is a regular expression that matches FFI::Platform::OS
@@ -41,29 +41,29 @@
 #   So "/usr/lib/lib[NAME].so" becomes e.g. "/usr/lib/libSDL_ttf.so".
 # 
 # You can use #append!, #prepend!, #replace!, #remove!, and #clear!
-# to modify the rules, and #find to look for a file with a matching
+# to modify the paths, and #find to look for a file with a matching
 # name.
 # 
 class NiceFFI::PathSet
 
 
-  def initialize( rules={} )
-    @rules = rules
+  def initialize( paths={} )
+    @paths = paths
   end
   
-  attr_reader :rules
+  attr_reader :paths
 
   def dup
-    self.class.new( @rules.dup )
+    self.class.new( @paths.dup )
   end
 
 
-  # Append the new rules to this PathSet. If this PathSet already
-  # has rules for a regex in the new rules, the new rules will be
-  # added after the current rules.
+  # Append the new paths to this PathSet. If this PathSet already
+  # has paths for a regex in the new paths, the new paths will be
+  # added after the current paths.
   # 
-  # The given rules can be Hashes or existing PathSets; or
-  # Arrays to append the given rules to every existing regex.
+  # The given paths can be Hashes or existing PathSets; or
+  # Arrays to append the given paths to every existing regex.
   # 
   # 
   # Example:
@@ -74,22 +74,22 @@ class NiceFFI::PathSet
   #   ps.append!( /a/ => ["newliba"],
   #               /c/ => ["libc"] )
   #   
-  #   ps.rules
+  #   ps.paths
   #   # => { /a/ => ["liba",
   #   #              "newliba"],        # added in back
   #   #      /b/ => ["libb"],           # not affected
   #   #      /c/ => ["libc"] }          # added
   # 
-  def append!( *ruleses )
-    ruleses.each do |rules|
-      _modify( rules ) { |a,b|  a + b }
+  def append!( *pathsets )
+    pathsets.each do |pathset|
+      _modify( pathset ) { |a,b|  a + b }
     end
     self
   end
 
   # Like #append!, but returns a copy instead of modifying the original.
-  def append( *ruleses )
-    self.dup.append!( *ruleses )
+  def append( *pathsets )
+    self.dup.append!( *pathsets )
   end
 
   alias :+  :append
@@ -97,12 +97,12 @@ class NiceFFI::PathSet
 
 
 
-  # Prepend the new rules to this PathSet. If this PathSet already
-  # has rules for a regex in the new rules, the new rules will be
-  # added before the current rules.
+  # Prepend the new paths to this PathSet. If this PathSet already
+  # has paths for a regex in the new paths, the new paths will be
+  # added before the current paths.
   # 
-  # The given rules can be Hashes or existing PathSets; or
-  # Arrays to prepend the given rules to every existing regex.
+  # The given paths can be Hashes or existing PathSets; or
+  # Arrays to prepend the given paths to every existing regex.
   # 
   # 
   # Example:
@@ -113,35 +113,35 @@ class NiceFFI::PathSet
   #   ps.prepend!( /a/ => ["newliba"],
   #                /c/ => ["libc"] )
   #   
-  #   ps.rules
+  #   ps.paths
   #   # => { /a/ => ["newliba",         # added in front
   #   #              "liba"],
   #   #      /b/ => ["libb"],           # not affected                
   #   #      /c/ => ["libc"] }          # added
   # 
-  def prepend!( *ruleses )
-    ruleses.each do |rules|
-      _modify( rules ) { |a,b|  b + a }
+  def prepend!( *pathsets )
+    pathsets.each do |pathset|
+      _modify( pathset ) { |a,b|  b + a }
     end
     self
   end
 
   # Like #prepend!, but returns a copy instead of modifying the original.
-  def prepend( *ruleses )
-    self.dup.prepend!( *ruleses )
+  def prepend( *pathsets )
+    self.dup.prepend!( *pathsets )
   end
 
   #alias :>> :prepend
 
 
 
-  # Override existing rules with the new rules to this PathSet.
-  # If this PathSet already has rules for a regex in the new rules,
-  # the old rules will be discarded and the new rules used instead.
-  # Old rules are kept if their regex doesn't appear in the new rules.
+  # Override existing paths with the new paths to this PathSet.
+  # If this PathSet already has paths for a regex in the new paths,
+  # the old paths will be discarded and the new paths used instead.
+  # Old paths are kept if their regex doesn't appear in the new paths.
   # 
-  # The given rules can be Hashes or existing PathSets; or
-  # Arrays to replace the given rules for every existing regex.
+  # The given paths can be Hashes or existing PathSets; or
+  # Arrays to replace the given paths for every existing regex.
   # 
   # 
   # Example:
@@ -152,33 +152,33 @@ class NiceFFI::PathSet
   #   ps.replace!( /a/ => ["newliba"],
   #                /c/ => ["libc"] )
   #   
-  #   ps.rules
+  #   ps.paths
   #   # => { /a/ => ["newliba"],        # replaced
   #   #      /b/ => ["libb"],           # not affected
   #   #      /c/ => ["libc"] }          # added
   # 
-  def replace!( *ruleses )
-    ruleses.each do |rules|
-      _modify( rules ) { |a,b|  b }
+  def replace!( *pathsets )
+    pathsets.each do |pathset|
+      _modify( pathset ) { |a,b|  b }
     end
     self
   end
 
   # Like #replace!, but returns a copy instead of modifying the original.
-  def replace( *ruleses )
-    self.dup.replace!( *ruleses )
+  def replace( *pathsets )
+    self.dup.replace!( *pathsets )
   end
 
 
 
-  # Remove the given rules from the PathSet, if it has them.
-  # This only removes the rules that are given, other rules
+  # Remove the given paths from the PathSet, if it has them.
+  # This only removes the paths that are given, other paths
   # for the same regex are kept.
   # 
-  # The given rules can be Hashes or existing PathSets; or
-  # Arrays to remove the given rules from every existing regex.
+  # The given paths can be Hashes or existing PathSets; or
+  # Arrays to remove the given paths from every existing regex.
   # 
-  # Regexes with no rules left are pruned.
+  # Regexes with no paths left are pruned.
   # 
   # 
   # Example:
@@ -190,28 +190,28 @@ class NiceFFI::PathSet
   #               /b/ => ["libb"] )
   #               /c/ => ["libc"] )
   #   
-  #   ps.rules
+  #   ps.paths
   #   # => { /a/ => ["liba"] }          # removed only "badliba".
-  #   #    # /b/ rules were all removed.
-  #   #    # /c/ not affected because it had no old rules anyway.
+  #   #    # /b/ paths were all removed.
+  #   #    # /c/ not affected because it had no old paths anyway.
   # 
-  def remove!( *ruleses )
-    ruleses.each do |rules|
-      _modify( rules ) { |a,b|  a - b }
+  def remove!( *pathsets )
+    pathsets.each do |pathset|
+      _modify( pathset ) { |a,b|  a - b }
     end
     self
   end
 
   # Like #remove!, but returns a copy instead of modifying the original.
-  def remove( *ruleses )
-    self.dup.remove!( *ruleses )
+  def remove( *pathsets )
+    self.dup.remove!( *pathsets )
   end
 
   alias :- :remove
 
 
 
-  # Remove all rules for the given regex(es). Has no effect on
+  # Remove all paths for the given regex(es). Has no effect on
   # regexes that are not given.
   # 
   # 
@@ -222,13 +222,13 @@ class NiceFFI::PathSet
   #   
   #   ps.delete!( /b/, /c/ )
   #   
-  #   ps.rules
+  #   ps.paths
   #   # => { /a/  => ["liba"] }  # not affected
-  #   #    # /b/ and all rules removed.
-  #   #    # /c/ not affected because it had no rules anyway.
+  #   #    # /b/ and all paths removed.
+  #   #    # /c/ not affected because it had no paths anyway.
   # 
   def delete!( *regexs )
-    @rules.delete_if { |regex, paths|  regexs.include? regex }
+    @paths.delete_if { |regex, paths|  regexs.include? regex }
     self
   end
 
@@ -238,7 +238,7 @@ class NiceFFI::PathSet
   end
 
 
-  # Try to find a file based on the rules in this PathSet.
+  # Try to find a file based on the paths in this PathSet.
   # 
   # *names:: Strings to try substituting for [NAME] in the paths.
   # 
@@ -267,7 +267,7 @@ class NiceFFI::PathSet
     os_supported = false
 
     # Find the regexs that matches our OS.
-    os_matches = @rules.keys.find_all{ |regex|  regex =~ os }
+    os_matches = @paths.keys.find_all{ |regex|  regex =~ os }
 
     # Drat, they are using an unsupported OS.
     if os_matches.empty?
@@ -277,7 +277,7 @@ class NiceFFI::PathSet
 
     os_matches.each do |os_match|
       # Fetch the paths for the matching OS.
-      paths = @rules[os_match]
+      paths = @paths[os_match]
 
       # Fill in for [NAME] and expand the paths.
       paths = names.collect { |name|
@@ -300,19 +300,19 @@ class NiceFFI::PathSet
   private
 
 
-  def _modify( rules, &block )  # :nodoc:
+  def _modify( pathset, &block )  # :nodoc:
     raise "No block given!" unless block_given?
 
-    case rules
+    case pathset
     when self.class
-      _modify( rules.rules, &block )
+      _modify( pathset.paths, &block )
     when Hash
-      rules.each do |regex, paths|
-        _apply_modifier( regex, (@rules[regex] or []), paths, &block )
+      pathset.each do |regex, paths|
+        _apply_modifier( regex, (@paths[regex] or []), paths, &block )
       end
     when Array
-      @rules.each { |regex, paths|
-        _apply_modifier( regex, paths, rules, &block )
+      @pathset.each { |regex, paths|
+        _apply_modifier( regex, paths, pathset, &block )
       }
     end
   end
@@ -324,9 +324,9 @@ class NiceFFI::PathSet
     result = yield( a, b )
 
     if result == []
-      @rules.delete( regex )
+      @paths.delete( regex )
     else
-      @rules[regex] = result
+      @paths[regex] = result
     end
   end
 
