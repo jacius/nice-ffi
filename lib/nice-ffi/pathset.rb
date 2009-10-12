@@ -286,9 +286,35 @@ class NiceFFI::PathSet
   alias :- :remove
 
 
+  # Like remove!, but only affects @paths.
+  def remove_paths!( *paths )
+    _modify_part( :paths, paths ) { |a,b|  a - b }
+    self
+  end
 
-  # Remove all paths for the given regex(es). Has no effect on
-  # regexes that are not given.
+  # Like #remove_paths!, but returns a copy instead of modifying the
+  # original.
+  def remove_paths( *paths )
+    self.dup.remove_paths!( *paths )
+  end
+
+
+  # Like remove!, but only affects @files.
+  def remove_files!( *files )
+    _modify_part( :files, files ) { |a,b|  a - b }
+    self
+  end
+
+  # Like #remove_files!, but returns a copy instead of modifying the
+  # original.
+  def remove_files( *files )
+    self.dup.remove_files!( *files )
+  end
+
+
+
+  # Remove all paths and files for the given regex(es). Has no effect
+  # on regexes that are not given.
   # 
   # 
   # Example:
