@@ -94,7 +94,32 @@ class NiceFFI::PathSet
   end
 
   alias :+  :append
-  #alias :<< :append
+
+
+  # Like append!, but only affects @paths.
+  def append_paths!( *paths )
+    _modify_part( :paths, paths ) { |a,b|  a + b }
+    self
+  end
+
+  # Like #append_paths!, but returns a copy instead of modifying the
+  # original.
+  def append_paths( *paths )
+    self.dup.append_paths!( *paths )
+  end
+
+
+  # Like append!, but only affects @files.
+  def append_files!( *files )
+    _modify_part( :files, files ) { |a,b|  a + b }
+    self
+  end
+
+  # Like #append_files!, but returns a copy instead of modifying the
+  # original.
+  def append_files( *files )
+    self.dup.append_files!( *files )
+  end
 
 
 
