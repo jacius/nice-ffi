@@ -63,27 +63,33 @@ module NiceFFI::Library
   end
 
 
+  dirs = {
+    /linux|bsd/  => [ "/usr/local/lib/",
+                      "/usr/lib/" ],
+
+    /darwin/     => [ "/usr/local/lib/",
+                      "/sw/lib/",
+                      "/opt/local/lib/",
+                      "~/Library/Frameworks/",
+                      "/Library/Frameworks/" ],
+
+    /win32/      => [ "C:\\windows\\system32\\",
+                      "C:\\windows\\system\\" ]
+  }
+
+  files = {
+    /linux|bsd/  => [ "lib[NAME].so" ],
+
+    /darwin/     => [ "lib[NAME].dylib",
+                      "[NAME].framework/[NAME]" ],
+
+    /win32/      => [ "[NAME].dll" ]
+  }
+
   # The default paths to look for libraries. See PathSet 
   # and #load_library.
   # 
-  DEFAULT_PATHS = NiceFFI::PathSet.new(
-
-    /linux|bsd/  => [ "/usr/local/lib/lib[NAME].so",
-                      "/usr/lib/lib[NAME].so",
-                      "[NAME]" ],
-
-    /darwin/     => [ "/usr/local/lib/lib[NAME].dylib",
-                      "/sw/lib/lib[NAME].dylib",
-                      "/opt/local/lib/lib[NAME].dylib",
-                      "~/Library/Frameworks/[NAME].framework/[NAME]",
-                      "/Library/Frameworks/[NAME].framework/[NAME]",
-                      "[NAME]" ],
-
-    /win32/      => [ "C:\\windows\\system32\\[NAME].dll",
-                      "C:\\windows\\system\\[NAME].dll",
-                      "[NAME]" ]
-
-  )
+  DEFAULT_PATHS = NiceFFI::PathSet.new( dirs, files ) 
 
 
   # Try to find and load a library (e.g. "SDL_ttf") into an FFI

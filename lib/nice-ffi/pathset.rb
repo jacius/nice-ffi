@@ -47,14 +47,15 @@
 class NiceFFI::PathSet
 
 
-  def initialize( paths={} )
+  def initialize( paths={}, files={} )
     @paths = paths
+    @files = files
   end
   
-  attr_reader :paths
+  attr_reader :paths, :files
 
   def dup
-    self.class.new( @paths.dup )
+    self.class.new( @paths.dup, @files.dup )
   end
 
 
@@ -300,33 +301,45 @@ class NiceFFI::PathSet
   private
 
 
-  def _modify( pathset, &block )  # :nodoc:
+  def _modify( other, &block )  # :nodoc:
+    if other.kind_of? self.class
+      # Other is a PathSet, so apply both its paths and its files to ours.
+      _modify_set( @paths, other.paths, &block )
+      _modify_set( @files, other.files, &block )
+    else
+      # Not a PathSet, so apply other to our paths.
+      _modify_set( @paths, other, &block )
+    end
+  end
+
+
+  def _modify_set( ours, other, &block )  # :nodoc:
     raise "No block given!" unless block_given?
 
-    case pathset
-    when self.class
-      _modify( pathset.paths, &block )
+    case other
     when Hash
-      pathset.each do |regex, paths|
-        _apply_modifier( regex, (@paths[regex] or []), paths, &block )
+      # Apply each of the regexs in `other` to the same regex in `ours`
+      other.each do |regex, paths|
+        _apply_modifier( ours, regex, (ours[regex] or []), paths, &block )
       end
     when Array
-      @pathset.each { |regex, paths|
-        _apply_modifier( regex, paths, pathset, &block )
+      # Apply `other` to each of the regexs in `ours`
+      ours.each { |regex, paths|
+        _apply_modifier( ours, regex, paths, other, &block )
       }
     end
   end
 
 
-  def _apply_modifier( regex, a, b, &block ) # :nodoc:
+  def _apply_modifier( ours, regex, a, b, &block ) # :nodoc:
     raise "No block given!" unless block_given?
 
     result = yield( a, b )
 
     if result == []
-      @paths.delete( regex )
+      ours.delete( regex )
     else
-      @paths[regex] = result
+      ours[regex] = result
     end
   end
 
