@@ -157,7 +157,31 @@ class NiceFFI::PathSet
     self.dup.prepend!( *pathsets )
   end
 
-  #alias :>> :prepend
+
+  # Like prepend!, but only affects @paths.
+  def prepend_paths!( *paths )
+    _modify_part( :paths, paths ) { |a,b|  b + a }
+    self
+  end
+
+  # Like #prepend_paths!, but returns a copy instead of modifying the
+  # original.
+  def prepend_paths( *paths )
+    self.dup.prepend_paths!( *paths )
+  end
+
+
+  # Like prepend!, but only affects @files.
+  def prepend_files!( *files )
+    _modify_part( :files, files ) { |a,b|  b + a }
+    self
+  end
+
+  # Like #prepend_files!, but returns a copy instead of modifying the
+  # original.
+  def prepend_files( *files )
+    self.dup.prepend_files!( *files )
+  end
 
 
 
