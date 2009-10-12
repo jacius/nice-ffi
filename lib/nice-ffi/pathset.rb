@@ -327,6 +327,11 @@ class NiceFFI::PathSet
       ours.each { |regex, paths|
         _apply_modifier( ours, regex, paths, other, &block )
       }
+    when Regexp, String
+      # Apply an Array holding `other` to each of the regexs in `ours`
+      ours.each { |regex, paths|
+        _apply_modifier( ours, regex, paths, [other], &block )
+      }
     end
   end
 
