@@ -431,9 +431,9 @@ class NiceFFI::PathSet
   #   other.paths or other.files when other is a PathSet.
   # 
   # * others is an array which may contain one or more PathSets,
-  #   Hashes, Arrays, Regexps, or Strings, or a mixture of those
-  #   types. Each item is passed to #_modify_set. PathSets are changed
-  #   into either other.paths or other.files first, though.
+  #   Hashes, Arrays, Strings, or a mixture of those types. Each item
+  #   is passed to #_modify_set. PathSets are changed into either
+  #   other.paths or other.files first, though.
   #
   def _modify_part( part, others, &block ) # :nodoc:
     unless [:paths, :files].include? part
@@ -465,7 +465,7 @@ class NiceFFI::PathSet
       ours.each { |regex, paths|
         _apply_modifier( ours, regex, paths, other, &block )
       }
-    when Regexp, String
+    when String
       # Apply an Array holding `other` to each of the regexs in `ours`
       ours.each { |regex, paths|
         _apply_modifier( ours, regex, paths, [other], &block )
