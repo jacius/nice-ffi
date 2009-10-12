@@ -220,6 +220,32 @@ class NiceFFI::PathSet
   end
 
 
+  # Like replace!, but only affects @paths.
+  def replace_paths!( *paths )
+    _modify_part( :paths, paths ) { |a,b|  b }
+    self
+  end
+
+  # Like #replace_paths!, but returns a copy instead of modifying the
+  # original.
+  def replace_paths( *paths )
+    self.dup.replace_paths!( *paths )
+  end
+
+
+  # Like replace!, but only affects @files.
+  def replace_files!( *files )
+    _modify_part( :files, files ) { |a,b|  b }
+    self
+  end
+
+  # Like #replace_files!, but returns a copy instead of modifying the
+  # original.
+  def replace_files( *files )
+    self.dup.replace_files!( *files )
+  end
+
+
 
   # Remove the given paths from the PathSet, if it has them.
   # This only removes the paths that are given, other paths
