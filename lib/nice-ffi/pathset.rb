@@ -331,12 +331,37 @@ class NiceFFI::PathSet
   # 
   def delete!( *regexs )
     @paths.delete_if { |regex, paths|  regexs.include? regex }
+    @files.delete_if { |regex, files|  regexs.include? regex }
     self
   end
 
   # Like #delete!, but returns a copy instead of modifying the original.
   def delete( *regexs )
     self.dup.delete!( *regexs )
+  end
+
+
+  # Like delete!, but only affects @paths
+  def delete_paths!( *regexs )
+    @paths.delete_if { |regex, paths|  regexs.include? regex }
+    self
+  end
+
+  # Like #delete_paths!, but returns a copy instead of modifying the original.
+  def delete_paths( *regexs )
+    self.dup.delete_paths!( *regexs )
+  end
+
+
+  # Like delete!, but only affects @files
+  def delete_files!( *regexs )
+    @files.delete_if { |regex, files|  regexs.include? regex }
+    self
+  end
+
+  # Like #delete_files!, but returns a copy instead of modifying the original.
+  def delete_files( *regexs )
+    self.dup.delete_files!( *regexs )
   end
 
 
