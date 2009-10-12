@@ -312,6 +312,33 @@ class NiceFFI::PathSet
     end
   end
 
+  # This method does the work for #append_paths, #append_files,
+  # #prepend_paths, etc.
+  # 
+  # * part is either :paths or :files. It indicates whether @paths or
+  #   @files should be modified, and whether to get values from
+  #   other.paths or other.files when other is a PathSet.
+  # 
+  # * others is an array which may contain one or more PathSets,
+  #   Hashes, Arrays, Regexps, or Strings, or a mixture of those
+  #   types. Each item is passed to #_modify_set. PathSets are changed
+  #   into either other.paths or other.files first, though.
+  #
+  def _modify_part( part, others, &block ) # :nodoc:
+    unless [:paths, :files].include? part
+      raise( ArgumentError, "Invalid PathSet part #{part.inspect} " +
+             "(expected :paths or :files)" )
+    end
+
+    ours = self.send(part)      # self.paths or self.files
+    others.each do |other|
+      if other.kind_of? self.class
+        other = other.send(part)
+      end
+      _modify_set( ours, other, &block )
+    end
+  end
+
 
   def _modify_set( ours, other, &block )  # :nodoc:
     raise "No block given!" unless block_given?
