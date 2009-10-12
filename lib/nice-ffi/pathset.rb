@@ -384,43 +384,28 @@ class NiceFFI::PathSet
   #   ps.find( "foo", "foo_alt_name" )
   # 
   def find( *names )
-
     os = FFI::Platform::OS
 
-    # Remember the paths that we found.
-    found = []
+    # Fetch the paths and files for the matching OSes.
+    paths = @paths.collect{ |regex,ps| regex =~ os ? ps : [] }.flatten
+    files = @files.collect{ |regex,fs| regex =~ os ? fs : [] }.flatten
 
-    # Remember whether any of the search paths included our OS.
-    os_supported = false
-
-    # Find the regexs that matches our OS.
-    os_matches = @paths.keys.find_all{ |regex|  regex =~ os }
-
-    # Drat, they are using an unsupported OS.
-    if os_matches.empty?
+    # Drat, they are using an OS with no matches.
+    if paths.empty? and files.empty?
       raise( LoadError, "Your OS (#{os}) is not supported yet.\n" +
              "Please report this and help us support more platforms." )
     end
 
-    os_matches.each do |os_match|
-      # Fetch the paths for the matching OS.
-      paths = @paths[os_match]
-
-      # Fill in for [NAME] and expand the paths.
-      paths = names.collect { |name|
-        paths.collect { |path|
-          File.expand_path( path.gsub("[NAME]", name) )
-        }
-      }.flatten!
-
-      # Delete all the paths that don't exist.
-      paths.delete_if { |path| not File.exist?(path) }
-
-      # Add what's left.
-      found += paths
+    results = paths.collect do |path|
+      files.collect do |file|
+        names.collect do |name|
+          # Concat path and file, fill in for [NAME], and expand.
+          File.expand_path( (path+file).gsub("[NAME]", name) )
+        end
+      end
     end
 
-    return found
+    return results.flatten.select{ |r| File.exist? r }
   end
 
 
