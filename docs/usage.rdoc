@@ -30,14 +30,14 @@ of "extend FFI::Library", and use "load_library" instead of "ffi_lib":
 
   
   require 'nice-ffi'
-
+  
   module MyLibraryModule
     extend NiceFFI::Library
-
+  
     load_library("SDL")  # look for libSDL.so, SDL.dll, etc.
-
+  
     # structs, functions, etc. as usual.
-
+  
   end
   
 
@@ -47,53 +47,61 @@ As mentioned, load_library uses NiceFFI::PathSet to search for the
 library in likely directories. Specifically, it looks for:
 
   
-  NiceFFI::Library::DEFAULT_PATHS = NiceFFI::PathSet.new(
-
-    /linux|bsd/  => [ "/usr/local/lib/lib[NAME].so",
-                      "/usr/lib/lib[NAME].so",
-                      "[NAME]" ],
-
-    /darwin/     => [ "/usr/local/lib/lib[NAME].dylib",
-                      "/sw/lib/lib[NAME].dylib",
-                      "/opt/local/lib/lib[NAME].dylib",
-                      "~/Library/Frameworks/[NAME].framework/[NAME]",
-                      "/Library/Frameworks/[NAME].framework/[NAME]",
-                      "[NAME]" ],
-
-    /win32/      => [ "C:\\windows\\system32\\[NAME].dll",
-                      "C:\\windows\\system\\[NAME].dll",
-                      "[NAME]" ]
-  )
+  paths = {
+    /linux|bsd/  => [ "/usr/local/lib/",
+                      "/usr/lib/" ],
+  
+    /darwin/     => [ "/usr/local/lib/",
+                      "/sw/lib/",
+                      "/opt/local/lib/",
+                      "~/Library/Frameworks/",
+                      "/Library/Frameworks/" ],
+  
+    /win32/      => [ "C:\\windows\\system32\\",
+                      "C:\\windows\\system\\" ]
+  }
+  
+  files = {
+    /linux|bsd/  => [ "lib[NAME].so" ],
+  
+    /darwin/     => [ "lib[NAME].dylib",
+                      "[NAME].framework/[NAME]" ],
+  
+    /win32/      => [ "[NAME].dll" ]
+  }
+  
+  NiceFFI::PathSet::DEFAULT = NiceFFI::PathSet.new( paths, files )
   
 
-The string "[NAME]" is replaced with whatever string you pass to
+The paths hash tells PathSet where to look for libraries, and the
+files hash tells it the format of the library filename itself. The
+string "[NAME]" is replaced with whatever string you pass to
 load_library.
 
 So, if the user is running Linux and you try to load "SDL", it will
-first look for "/usr/local/lib/libSDL.so". If it couldn't find the
-first one, it will then look for "/usr/lib/libSDL.so", and finally it
-will just try loading "SDL" using ffi_lib (which does some
-platform-appropriate guesses too). It would also use those same
-paths for FreeBSD, because that OS matches /linux|bsd/, too.
-/darwin/ matches on MacOS X, and /win32/ matches on Windows.
+first look for "/usr/local/lib/libSDL.so". If it can't find that, it
+will then look for "/usr/lib/libSDL.so". It would also use those same
+paths for FreeBSD, because that OS matches /linux|bsd/, too. /darwin/
+matches on MacOS X, and /win32/ matches on Windows.
+
+If the library could not be found in any of the given directories with
+the given file name formats, load_library will just try loading "SDL"
+using ffi_lib (which does some platform-appropriate guesses too). If
+that fails too, LoadError is raised.
 
 If you want to load from a different path, you can make a custom
 PathSet and pass it to load_library:
 
   
-  this_dir = File.dirname(__FILE__)
+  libs_dir = File.dirname(__FILE__) + "/libs/"
   
-  my_pathset = NiceFFI::Library::DEFAULT_PATHS.prepend(
-    /linux|bsd/  => [ "#{this_dir}/libs/lib[NAME].so" ],
-    /darwin/     => [ "#{this_dir}/libs/lib[NAME].dylib" ],
-    /win32/      => [ "#{this_dir}/libs/[NAME].dll" ]
-  )
+  pathset = NiceFFI::PathSet::DEFAULT.prepend( libs_dir )
   
   load_library( "SDL", my_pathset )
   
 
 The above example prepends (adds in front) the new paths so
-that load_library will look for the library in in "./libs/" first.
+that load_library will look for the library in "./libs/" first.
 See PathSet for other useful methods for modifying PathSets.
 
 
