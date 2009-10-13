@@ -28,21 +28,40 @@
 #++
 
 
-# PathSet is essentially a Hash of { os_regex => path_templates } pairs,
-# paths describing where to look for files (libraries) on each
-# operating system.
+# PathSet is a collection of directory paths and file name templates,
+# used to help NiceFFI find library files. It allows per-operating
+# system paths and file name templates, using regular expressions to
+# match the OS name.
 # 
-# * os_regex is a regular expression that matches FFI::Platform::OS
-#   for the operating system(s) that the path templates are for.
+# Each PathSet holds two hashes, @paths and @files.
 # 
-# * path_templates is an Array of one or more strings describing
-#   a template for where a library might be found on this OS.
-#   The string [NAME] will be replaced with the library name.
-#   So "/usr/lib/lib[NAME].so" becomes e.g. "/usr/lib/libSDL_ttf.so".
+# * The keys for both hashes are regexps that match FFI::Platform::OS
+#   for the operating system(s) that the paths or file templates
+#   apply to.
 # 
-# You can use #append!, #prepend!, #replace!, #remove!, and #clear!
-# to modify the paths, and #find to look for a file with a matching
-# name.
+# * The values of @paths are Arrays of one or more strings describing
+#   a directory for where a library might be found on this OS. So for
+#   example, one pair in the hash might be { /linux|bsd/ =>
+#   ["/usr/local/lib/", "/usr/lib/"] }, which means "For operating
+#   systems that match /linux|bsd/ (e.g. linux, freebsd, and openbsd),
+#   look first in /usr/local/lib/, then in /usr/lib/."
+# 
+# * The value of @files are Arrays of one or more strings describing
+#   the possible formats of library names for that operating system.
+#   These are templates -- they should include string "[NAME]",
+#   which will be replaced with the library name. For example,
+#   "lib[NAME].so" would become "libSDL_ttf.so" when searching for the
+#   "SDL_ttf" library.
+# 
+# There are many methods to modify one or both of the hashes, such as
+# #append!, #prepend!, #replace!, #remove!, and #delete!.
+# 
+# You can use #find to look for a file with a matching name.
+# 
+# NiceFFI::PathSet::DEFAULT is a pre-made PathSet with paths and file
+# name templates for Linux/BSD, Mac (Darwin), and Windows. It is the
+# default PathSet used by NiceFFI::Library.load_library, and you can
+# also use it as a base for custom PathSets.
 # 
 class NiceFFI::PathSet
 
@@ -61,15 +80,32 @@ class NiceFFI::PathSet
   end
 
 
-  # Append the new paths to this PathSet. If this PathSet already
-  # has paths for a regex in the new paths, the new paths will be
-  # added after the current paths.
+  # Append the new paths and/or files to this PathSet. If this PathSet
+  # already has entries for a given regex, the new entries will be
+  # added after the current entries.
   # 
-  # The given paths can be Hashes or existing PathSets; or
-  # Arrays to append the given paths to every existing regex.
+  # pathsets:: One or more PathSets, Hashes, Arrays, or Strings,
+  #            or any assortment of these types.
   # 
+  # * If given a PathSet, its @paths and @files are appended to this
+  #   PathSet's @paths and @files (respectively).
   # 
-  # Example:
+  # * If given a Hash, it is appended to this PathSet's @paths, but
+  #   @files is not affected.
+  # 
+  # * If given an Array (which should contain only Strings), the array
+  #   contents are appended to this PathSet's @paths.
+  # 
+  # * If given a String, the string is appended to this PathSet's
+  #   @paths.
+  # 
+  # * If given multiple objects, they are handled in order according to
+  #   the above rules.
+  # 
+  # See also #append_paths! and #append_files!.
+  # 
+  #--
+  # Example (out of date):
   # 
   #   ps = PathSet.new( /a/ => ["liba"],
   #                     /b/ => ["libb"] )
@@ -82,7 +118,7 @@ class NiceFFI::PathSet
   #   #              "newliba"],        # added in back
   #   #      /b/ => ["libb"],           # not affected
   #   #      /c/ => ["libc"] }          # added
-  # 
+  #++
   def append!( *pathsets )
     pathsets.each do |pathset|
       _modify( pathset ) { |a,b|  a + b }
@@ -98,7 +134,8 @@ class NiceFFI::PathSet
   alias :+  :append
 
 
-  # Like append!, but only affects @paths.
+  # Like #append!, but only affects @paths, and never affects @files.
+  # See also #append_paths for a non-destructive version.
   def append_paths!( *paths )
     _modify_part( :paths, paths ) { |a,b|  a + b }
     self
@@ -111,7 +148,8 @@ class NiceFFI::PathSet
   end
 
 
-  # Like append!, but only affects @files.
+  # Like #append!, but affects @files, and never affects @paths.
+  # See also #append_files for a non-destructive version.
   def append_files!( *files )
     _modify_part( :files, files ) { |a,b|  a + b }
     self
@@ -125,15 +163,32 @@ class NiceFFI::PathSet
 
 
 
-  # Prepend the new paths to this PathSet. If this PathSet already
-  # has paths for a regex in the new paths, the new paths will be
-  # added before the current paths.
+  # Prepend the new paths and/or files to this PathSet. If this PathSet
+  # already has entries for a given regex, the new entries will be
+  # added before the current entries.
   # 
-  # The given paths can be Hashes or existing PathSets; or
-  # Arrays to prepend the given paths to every existing regex.
+  # pathsets:: One or more PathSets, Hashes, Arrays, or Strings,
+  #            or any assortment of these types.
   # 
+  # * If given a PathSet, its @paths and @files are prepended to this
+  #   PathSet's @paths and @files (respectively).
   # 
-  # Example:
+  # * If given a Hash, it is prepended to this PathSet's @paths, but
+  #   @files is not affected.
+  # 
+  # * If given an Array (which should contain only Strings), the array
+  #   contents are prepended to this PathSet's @paths.
+  # 
+  # * If given a String, the string is prepended to this PathSet's
+  #   @paths.
+  # 
+  # * If given multiple objects, they are handled in order according to
+  #   the above rules.
+  # 
+  # See also #prepend_paths! and #prepend_files!.
+  # 
+  #--
+  # Example (out of date):
   # 
   #   ps = PathSet.new( /a/ => ["liba"],
   #                     /b/ => ["libb"] )
@@ -146,7 +201,7 @@ class NiceFFI::PathSet
   #   #              "liba"],
   #   #      /b/ => ["libb"],           # not affected                
   #   #      /c/ => ["libc"] }          # added
-  # 
+  #++
   def prepend!( *pathsets )
     pathsets.each do |pathset|
       _modify( pathset ) { |a,b|  b + a }
@@ -160,7 +215,8 @@ class NiceFFI::PathSet
   end
 
 
-  # Like prepend!, but only affects @paths.
+  # Like #prepend!, but only affects @paths, and never affects @files.
+  # See also #prepend_paths for a non-destructive version.
   def prepend_paths!( *paths )
     _modify_part( :paths, paths ) { |a,b|  b + a }
     self
@@ -173,7 +229,8 @@ class NiceFFI::PathSet
   end
 
 
-  # Like prepend!, but only affects @files.
+  # Like #prepend!, but affects @files, and never affects @paths.
+  # See also #prepend_files for a non-destructive version.
   def prepend_files!( *files )
     _modify_part( :files, files ) { |a,b|  b + a }
     self
@@ -187,16 +244,37 @@ class NiceFFI::PathSet
 
 
 
-  # Override existing paths with the new paths to this PathSet.
-  # If this PathSet already has paths for a regex in the new paths,
-  # the old paths will be discarded and the new paths used instead.
-  # Old paths are kept if their regex doesn't appear in the new paths.
+  # Override existing entries in this PathSet with the new entries.
+  # If this PathSet already has entries for a regex in the new entries,
+  # the old entries will be discarded and the new entries used instead.
   # 
-  # The given paths can be Hashes or existing PathSets; or
-  # Arrays to replace the given paths for every existing regex.
+  # pathsets:: One or more PathSets, Hashes, Arrays, or Strings,
+  #            or any assortment of these types.
   # 
+  # * If given a PathSet, its @paths and @files are prepended to this
+  #   PathSet's @paths and @files (respectively). Old entries in this
+  #   PathSet are kept if their regex doesn't appear in the given
+  #   PathSet.
   # 
-  # Example:
+  # * If given a Hash, entries in this PathSet's @paths are replaced
+  #   with the new entries, but @files is not affected. Old entries in
+  #   this PathSet are kept if their regex doesn't appear in the given
+  #   PathSet.
+  # 
+  # * If given an Array (which should contain only Strings), entries
+  #   for every regex in this PathSet's @paths are replaced with the
+  #   array contents.
+  # 
+  # * If given a String, all entries for every regex in this PathSet's
+  #   @paths are replaced with the string.
+  # 
+  # * If given multiple objects, they are handled in order according to
+  #   the above rules.
+  # 
+  # See also #replace_paths! and #replace_files!.
+  # 
+  #--
+  # Example (out of date):
   # 
   #   ps = PathSet.new( /a/ => ["liba"],
   #                     /b/ => ["libb"] )
@@ -208,7 +286,7 @@ class NiceFFI::PathSet
   #   # => { /a/ => ["newliba"],        # replaced
   #   #      /b/ => ["libb"],           # not affected
   #   #      /c/ => ["libc"] }          # added
-  # 
+  #++
   def replace!( *pathsets )
     pathsets.each do |pathset|
       _modify( pathset ) { |a,b|  b }
@@ -222,7 +300,8 @@ class NiceFFI::PathSet
   end
 
 
-  # Like replace!, but only affects @paths.
+  # Like #replace!, but only affects @paths, and never affects @files.
+  # See also #replace_paths for a non-destructive version.
   def replace_paths!( *paths )
     _modify_part( :paths, paths ) { |a,b|  b }
     self
@@ -235,7 +314,8 @@ class NiceFFI::PathSet
   end
 
 
-  # Like replace!, but only affects @files.
+  # Like #replace!, but affects @files, and never affects @paths.
+  # See also #replace_files for a non-destructive version.
   def replace_files!( *files )
     _modify_part( :files, files ) { |a,b|  b }
     self
@@ -249,17 +329,34 @@ class NiceFFI::PathSet
 
 
 
-  # Remove the given paths from the PathSet, if it has them.
-  # This only removes the paths that are given, other paths
-  # for the same regex are kept.
+  # Remove the given entries from the PathSet, if it has them. This
+  # only removes the entries that are given, other entries for the
+  # same regex are kept. Regexes with no entries left afterwards are
+  # removed from the PathSet.
   # 
-  # The given paths can be Hashes or existing PathSets; or
-  # Arrays to remove the given paths from every existing regex.
+  # pathsets:: One or more PathSets, Hashes, Arrays, or Strings,
+  #            or any assortment of these types.
   # 
-  # Regexes with no paths left are pruned.
+  # * If given a PathSet, entries from its @paths and @files are
+  #   removed from this PathSet's @paths and @files (respectively).
   # 
+  # * If given a Hash, the given entries are removed from this
+  #   PathSet's @paths, but @files is not affected.
   # 
-  # Example:
+  # * If given an Array (which should contain only Strings), the array
+  #   contents are removed from the entries for every regex in this
+  #   PathSet's @paths.
+  # 
+  # * If given a String, the string is removed from the entries for
+  #   every regex in this PathSet's @paths.
+  # 
+  # * If given multiple objects, they are handled in order according to
+  #   the above rules.
+  # 
+  # See also #remove_paths! and #remove_files!.
+  # 
+  #--
+  # Example (out of date):
   # 
   #   ps = PathSet.new( /a/ => ["liba", "badliba"],
   #                     /b/ => ["libb"] )
@@ -272,7 +369,7 @@ class NiceFFI::PathSet
   #   # => { /a/ => ["liba"] }          # removed only "badliba".
   #   #    # /b/ paths were all removed.
   #   #    # /c/ not affected because it had no old paths anyway.
-  # 
+  #++
   def remove!( *pathsets )
     pathsets.each do |pathset|
       _modify( pathset ) { |a,b|  a - b }
@@ -288,7 +385,8 @@ class NiceFFI::PathSet
   alias :- :remove
 
 
-  # Like remove!, but only affects @paths.
+  # Like #remove!, but only affects @paths, and never affects @files.
+  # See also #remove_paths for a non-destructive version.
   def remove_paths!( *paths )
     _modify_part( :paths, paths ) { |a,b|  a - b }
     self
@@ -301,7 +399,8 @@ class NiceFFI::PathSet
   end
 
 
-  # Like remove!, but only affects @files.
+  # Like #remove!, but affects @files, and never affects @paths.
+  # See also #remove_files for a non-destructive version.
   def remove_files!( *files )
     _modify_part( :files, files ) { |a,b|  a - b }
     self
@@ -315,11 +414,13 @@ class NiceFFI::PathSet
 
 
 
-  # Remove all paths and files for the given regex(es). Has no effect
-  # on regexes that are not given.
+  # Delete all entries for the given regex(es) from both @paths and
+  # @files. Has no effect on entries for regexes that are not given.
   # 
+  # See also #delete_paths! and #delete_files!.
   # 
-  # Example:
+  #--
+  # Example (out of date):
   # 
   #   ps = PathSet.new( /a/ => ["liba"],
   #                     /b/ => ["libb"] )
@@ -330,7 +431,7 @@ class NiceFFI::PathSet
   #   # => { /a/  => ["liba"] }  # not affected
   #   #    # /b/ and all paths removed.
   #   #    # /c/ not affected because it had no paths anyway.
-  # 
+  #++ 
   def delete!( *regexs )
     @paths.delete_if { |regex, paths|  regexs.include? regex }
     @files.delete_if { |regex, files|  regexs.include? regex }
@@ -343,7 +444,8 @@ class NiceFFI::PathSet
   end
 
 
-  # Like delete!, but only affects @paths
+  # Like #delete!, but only affects @paths, and never affects @files.
+  # See also #delete_paths for a non-destructive version.
   def delete_paths!( *regexs )
     @paths.delete_if { |regex, paths|  regexs.include? regex }
     self
@@ -355,7 +457,8 @@ class NiceFFI::PathSet
   end
 
 
-  # Like delete!, but only affects @files
+  # Like #delete!, but affects @files, and never affects @paths.
+  # See also #delete_files for a non-destructive version.
   def delete_files!( *regexs )
     @files.delete_if { |regex, files|  regexs.include? regex }
     self
@@ -377,14 +480,15 @@ class NiceFFI::PathSet
   # Raises LoadError if the current operating system did not match
   # any of the regular expressions in the PathSet.
   # 
-  # Examples:
+  #--
+  # Examples (out of date):
   # 
   #   ps = PathSet.new( /linux/ => ["/usr/lib/lib[NAME].so"],
   #                     /win32/ => ["C:\\windows\\system32\\[NAME].dll"] )
   #   
   #   ps.find( "SDL" )
   #   ps.find( "foo", "foo_alt_name" )
-  # 
+  #++
   def find( *names )
     os = FFI::Platform::OS
 
@@ -520,6 +624,6 @@ files = {
 }
 
 # The default paths to look for libraries. See PathSet 
-# and #load_library.
+# and NiceFFI::Library.load_library.
 # 
 NiceFFI::PathSet::DEFAULT = NiceFFI::PathSet.new( paths, files )
