@@ -77,16 +77,8 @@ module NiceFFI::Library
 
     paths = search_paths.find( *names )
 
-    pretty_names = if names.size == 1
-                     names[0]
-                   else
-                     names[0..-2].join(", ") + ", or " + names[-1]
-                   end
-
-    # Oops, couldn't find it anywhere.
-    if paths.empty?
-      raise LoadError, "Could not find #{pretty_names}. Is it installed?"
-    end
+    # Try just the plain library name(s), as last resort.
+    paths += names
 
     # Try loading each path until one works.
     loaded = paths.find { |path| 
@@ -101,8 +93,14 @@ module NiceFFI::Library
       end
     }
 
-    # Oops, none of them worked.
     if loaded.nil?
+      # Oops, none of them worked.
+      pretty_names = if names.size == 1
+                       names[0]
+                     else
+                       names[0..-2].join(", ") + ", or " + names[-1]
+                     end
+
       raise( LoadError, "Could not load #{pretty_names}." )
     else
       # Return the one that did work
