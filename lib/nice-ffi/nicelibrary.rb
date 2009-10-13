@@ -63,35 +63,6 @@ module NiceFFI::Library
   end
 
 
-  dirs = {
-    /linux|bsd/  => [ "/usr/local/lib/",
-                      "/usr/lib/" ],
-
-    /darwin/     => [ "/usr/local/lib/",
-                      "/sw/lib/",
-                      "/opt/local/lib/",
-                      "~/Library/Frameworks/",
-                      "/Library/Frameworks/" ],
-
-    /win32/      => [ "C:\\windows\\system32\\",
-                      "C:\\windows\\system\\" ]
-  }
-
-  files = {
-    /linux|bsd/  => [ "lib[NAME].so" ],
-
-    /darwin/     => [ "lib[NAME].dylib",
-                      "[NAME].framework/[NAME]" ],
-
-    /win32/      => [ "[NAME].dll" ]
-  }
-
-  # The default paths to look for libraries. See PathSet 
-  # and #load_library.
-  # 
-  DEFAULT_PATHS = NiceFFI::PathSet.new( dirs, files ) 
-
-
   # Try to find and load a library (e.g. "SDL_ttf") into an FFI
   # wrapper module (e.g. SDL::TTF). This method searches in
   # different locations depending on your OS. See PathSet.
@@ -100,7 +71,7 @@ module NiceFFI::Library
   # 
   # Raises LoadError if it could not find or load the library.
   # 
-  def load_library( names, search_paths=NiceFFI::Library::DEFAULT_PATHS )
+  def load_library( names, search_paths=NiceFFI::PathSet::DEFAULT_PATHS )
 
     names = [names] unless names.kind_of? Array
 

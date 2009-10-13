@@ -487,3 +487,37 @@ class NiceFFI::PathSet
   end
 
 end
+
+
+
+#--
+# NOTE: If you update these defaults, update doc/usage.rdoc too.
+#++
+
+paths = {
+  /linux|bsd/  => [ "/usr/local/lib/",
+                    "/usr/lib/" ],
+
+  /darwin/     => [ "/usr/local/lib/",
+                    "/sw/lib/",
+                    "/opt/local/lib/",
+                    "~/Library/Frameworks/",
+                    "/Library/Frameworks/" ],
+
+  /win32/      => [ "C:\\windows\\system32\\",
+                    "C:\\windows\\system\\" ]
+}
+
+files = {
+  /linux|bsd/  => [ "lib[NAME].so" ],
+
+  /darwin/     => [ "lib[NAME].dylib",
+                    "[NAME].framework/[NAME]" ],
+
+  /win32/      => [ "[NAME].dll" ]
+}
+
+# The default paths to look for libraries. See PathSet 
+# and #load_library.
+# 
+NiceFFI::PathSet::DEFAULT = NiceFFI::PathSet.new( paths, files )
