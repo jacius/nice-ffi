@@ -48,8 +48,10 @@ class NiceFFI::PathSet
 
 
   def initialize( paths={}, files={} )
-    @paths = paths
-    @files = files
+    @paths = {}
+    @files = {}
+    append_paths!( paths )
+    append_files!( files )
   end
   
   attr_reader :paths, :files
