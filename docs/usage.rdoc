@@ -57,7 +57,7 @@ library in likely directories. Specifically, it looks for:
                       "~/Library/Frameworks/",
                       "/Library/Frameworks/" ],
   
-    /win32/      => [ "C:\\windows\\system32\\",
+    /windows/    => [ "C:\\windows\\system32\\",
                       "C:\\windows\\system\\" ]
   }
   
@@ -67,7 +67,7 @@ library in likely directories. Specifically, it looks for:
     /darwin/     => [ "lib[NAME].dylib",
                       "[NAME].framework/[NAME]" ],
   
-    /win32/      => [ "[NAME].dll" ]
+    /windows/    => [ "[NAME].dll" ]
   }
   
   NiceFFI::PathSet::DEFAULT = NiceFFI::PathSet.new( paths, files )
@@ -82,7 +82,7 @@ So, if the user is running Linux and you try to load "SDL", it will
 first look for "/usr/local/lib/libSDL.so". If it can't find that, it
 will then look for "/usr/lib/libSDL.so". It would also use those same
 paths for FreeBSD, because that OS matches /linux|bsd/, too. /darwin/
-matches on MacOS X, and /win32/ matches on Windows.
+matches on MacOS X, and /windows/ matches on Windows.
 
 If the library could not be found in any of the given directories with
 the given file name formats, load_library will just try loading "SDL"

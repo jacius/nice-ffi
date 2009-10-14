@@ -443,8 +443,8 @@ class NiceFFI::PathSet
   #--
   # Examples (out of date):
   # 
-  #   ps = PathSet.new( /linux/ => ["/usr/lib/lib[NAME].so"],
-  #                     /win32/ => ["C:\\windows\\system32\\[NAME].dll"] )
+  #   ps = PathSet.new( /linux/   => ["/usr/lib/lib[NAME].so"],
+  #                     /windows/ => ["C:\\windows\\system32\\[NAME].dll"] )
   #   
   #   ps.find( "SDL" )
   #   ps.find( "foo", "foo_alt_name" )
@@ -574,7 +574,7 @@ paths = {
                     "~/Library/Frameworks/",
                     "/Library/Frameworks/" ],
 
-  /win32/      => [ "C:\\windows\\system32\\",
+  /windows/    => [ "C:\\windows\\system32\\",
                     "C:\\windows\\system\\" ]
 }
 
@@ -584,7 +584,7 @@ files = {
   /darwin/     => [ "lib[NAME].dylib",
                     "[NAME].framework/[NAME]" ],
 
-  /win32/      => [ "[NAME].dll" ]
+  /windows/    => [ "[NAME].dll" ]
 }
 
 # The default paths to look for libraries. See PathSet 
