@@ -35,16 +35,17 @@
 # 
 # Each PathSet holds two hashes, @paths and @files.
 # 
-# * The keys for both hashes are regexps that match FFI::Platform::OS
-#   for the operating system(s) that the paths or file templates
-#   apply to.
+# * The keys for both @paths and @files are regexps that match
+#   FFI::Platform::OS for the operating system(s) that the paths or
+#   file templates apply to.
 # 
 # * The values of @paths are Arrays of one or more strings describing
 #   a directory for where a library might be found on this OS. So for
-#   example, one pair in the hash might be { /linux|bsd/ =>
-#   ["/usr/local/lib/", "/usr/lib/"] }, which means "For operating
-#   systems that match /linux|bsd/ (e.g. linux, freebsd, and openbsd),
-#   look first in /usr/local/lib/, then in /usr/lib/."
+#   example, one pair in @paths might be { /linux|bsd/ =>
+#   ["/usr/local/lib/", "/usr/lib/"] }, which means: "For operating
+#   systems that match the regular expression /linux|bsd/ (e.g.
+#   'linux', 'freebsd', and 'openbsd'), look for libraries first in
+#   the directory '/usr/local/lib/', then in '/usr/lib/'."
 # 
 # * The value of @files are Arrays of one or more strings describing
 #   the possible formats of library names for that operating system.
@@ -53,10 +54,11 @@
 #   "lib[NAME].so" would become "libSDL_ttf.so" when searching for the
 #   "SDL_ttf" library.
 # 
-# There are many methods to modify one or both of the hashes, such as
+# There are several methods to modify @paths and/or @files. See
 # #append, #prepend, #replace, #remove, and #delete.
 # 
-# You can use #find to look for a file with a matching name.
+# Once @paths and @files are set up, use #find to look for a file with
+# a matching name.
 # 
 # NiceFFI::PathSet::DEFAULT is a pre-made PathSet with paths and file
 # name templates for Linux/BSD, Mac (Darwin), and Windows. It is the
@@ -85,7 +87,7 @@ class NiceFFI::PathSet
   #   append( option, *entries )
   # 
   # Create a copy of this PathSet and append the new paths and/or
-  # files. If this PathSet already has entries for a given regexp, the
+  # files. If the copy already has entries for a given regexp, the
   # new entries will be added after the current entries.
   # 
   # option::  You can optionally give either :paths or :files as the
@@ -97,20 +99,20 @@ class NiceFFI::PathSet
   # entries:: One or more PathSets, Hashes, Arrays, or Strings,
   #           or any assortment of these types.
   # 
-  # * If given a PathSet, its @paths and @files are appended to this
-  #   PathSet's @paths and @files (respectively). If option is :paths,
+  # * If given a PathSet, its @paths and @files are appended to the
+  #   copy's @paths and @files (respectively). If option is :paths,
   #   only @paths is modified. If option is :files, only @files is
   #   modified.
   # 
-  # * If given a Hash, it is appended to this PathSet's @paths, but
+  # * If given a Hash, it is appended to the copy's @paths, but
   #   @files is not affected. If option is :files, @files is modified
   #   instead of @paths.
   # 
   # * If given an Array (which should contain only Strings), the array
-  #   contents are appended to this PathSet's @paths. If option is
+  #   contents are appended to the copy's @paths. If option is
   #   :files, @files is modified instead of @paths.
   # 
-  # * If given a String, the string is appended to this PathSet's
+  # * If given a String, the string is appended to the copy's
   #   @paths. If option is :files, @files is modified instead of
   #   @paths.
   # 
@@ -156,7 +158,7 @@ class NiceFFI::PathSet
   #   prepend( option, *entries )
   # 
   # Creates a copy of this PathSet and prepends the new paths and/or
-  # files. If this PathSet already has entries for a given regexp, the
+  # files. If the copy already has entries for a given regexp, the
   # new entries will be added before the current entries.
   # 
   # option::  You can optionally give either :paths or :files as the
@@ -173,15 +175,15 @@ class NiceFFI::PathSet
   #   only @paths is modified. If option is :files, only @files is
   #   modified.
   #
-  # * If given a Hash, it is prepended to this PathSet's @paths, but
+  # * If given a Hash, it is prepended to the copy's @paths, but
   #   @files is not affected. If option is :files, @files is modified
   #   instead of @paths.
   # 
   # * If given an Array (which should contain only Strings), the array
-  #   contents are prepended to this PathSet's @paths. If option is
+  #   contents are prepended to the copy's @paths. If option is
   #   :files, @files is modified instead of @paths.
   # 
-  # * If given a String, the string is prepended to this PathSet's
+  # * If given a String, the string is prepended to the copy's
   #   @paths. If option is :files, @files is modified instead of
   #   @paths.
   # 
@@ -226,7 +228,7 @@ class NiceFFI::PathSet
   #   replace( option, *entries )
   # 
   # Creates a copy of this PathSet and overrides existing entries with
-  # the new entries. If this PathSet already has entries for a regexp
+  # the new entries. If the copy already has entries for a regexp
   # in the new entries, the old entries will be discarded and the new
   # entries used instead.
   # 
@@ -239,24 +241,24 @@ class NiceFFI::PathSet
   # entries:: One or more PathSets, Hashes, Arrays, or Strings,
   #           or any assortment of these types.
   # 
-  # * If given a PathSet, this PathSet's @paths and @files with the
+  # * If given a PathSet, the copy's @paths and @files with the
   #   other PathSet's @paths and @files (respectively). Old entries in
-  #   this PathSet are kept if their regexp doesn't appear in the given
+  #   the copy are kept if their regexp doesn't appear in the given
   #   PathSet. If option is :paths, only @paths is modified. If option
   #   is :files, only @files is modified.
   # 
-  # * If given a Hash, entries in this PathSet's @paths are replaced
+  # * If given a Hash, entries in the copy's @paths are replaced
   #   with the new entries, but @files is not affected. Old entries in
-  #   this PathSet are kept if their regexp doesn't appear in the given
+  #   the copy are kept if their regexp doesn't appear in the given
   #   PathSet. If option is :files, @files is modified instead of
   #   @paths.
   # 
   # * If given an Array (which should contain only Strings), entries
-  #   for every regexp in this PathSet's @paths are replaced with the
+  #   for every regexp in the copy's @paths are replaced with the
   #   array contents. If option is :files, @files is modified instead
   #   of @paths.
   # 
-  # * If given a String, all entries for every regexp in this PathSet's
+  # * If given a String, all entries for every regexp in the copy's
   #   @paths are replaced with the string. If option is :files, @files
   #   is modified instead of @paths.
   # 
@@ -299,10 +301,10 @@ class NiceFFI::PathSet
   #   remove( *entries )
   #   remove( option, *entries )
   # 
-  # Creates a copy of this PathSet and removes the given entries, if
-  # it has them. This only removes the entries that are given, other
-  # entries for the same regexp are kept. Regexps with no entries left
-  # afterwards are removed from the PathSet.
+  # Creates a copy of this PathSet and removes the given entries from
+  # the copy, if it has them. This only removes the entries that are
+  # given, other entries for the same regexp are kept. Regexps with no
+  # entries left afterwards are removed from the PathSet.
   # 
   # option::  You can optionally give either :paths or :files as the
   #           first argument to this method. If :paths, only @paths
@@ -314,7 +316,7 @@ class NiceFFI::PathSet
   #           or any assortment of these types.
   # 
   # * If given a PathSet, entries from its @paths and @files are
-  #   removed from this PathSet's @paths and @files (respectively). If
+  #   removed from the copy's @paths and @files (respectively). If
   #   option is :paths, only @paths is modified. If option is :files,
   #   only @files is modified.
   # 
@@ -328,7 +330,7 @@ class NiceFFI::PathSet
   #   instead of @paths.
   # 
   # * If given a String, the string is removed from the entries for
-  #   every regexp in this PathSet's @paths. If option is :files,
+  #   every regexp in the copy's @paths. If option is :files,
   #   @files is modified instead of @paths.
   # 
   # * If given multiple objects, they are handled in order according to
@@ -373,9 +375,9 @@ class NiceFFI::PathSet
   #   delete( *regexps )
   #   delete( option, *regexps )
   # 
-  # Creates a copy of this PathSet and delete all entries for the
-  # given regexp(s) from @paths and/or @files. Has no effect on
-  # entries for regexps that are not given.
+  # Creates a copy of this PathSet and delete all entries from the
+  # copy for the given regexp(s) from @paths and/or @files. Has no
+  # effect on entries for regexps that are not given.
   # 
   # option::  You can optionally give either :paths or :files as the
   #           first argument to this method. If :paths, only @paths
