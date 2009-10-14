@@ -81,21 +81,21 @@ class NiceFFI::PathSet
 
 
   # call-seq:
-  #   append!( *pathsets )
-  #   append!( option, *pathsets )
+  #   append!( *entries )
+  #   append!( option, *entries )
   # 
   # Append the new paths and/or files to this PathSet. If this PathSet
   # already has entries for a given regexp, the new entries will be
   # added after the current entries.
   # 
-  # option::   You can optionally give either :paths or :files as the
-  #            first argument to this method. If :paths, only @paths
-  #            will be modified, @files will never be modified. If
-  #            :files, only @files will be modified, @paths will never
-  #            be modified.
+  # option::  You can optionally give either :paths or :files as the
+  #           first argument to this method. If :paths, only @paths
+  #           will be modified, @files will never be modified. If
+  #           :files, only @files will be modified, @paths will never
+  #           be modified.
   # 
-  # pathsets:: One or more PathSets, Hashes, Arrays, or Strings,
-  #            or any assortment of these types.
+  # entries:: One or more PathSets, Hashes, Arrays, or Strings,
+  #           or any assortment of these types.
   # 
   # * If given a PathSet, its @paths and @files are appended to this
   #   PathSet's @paths and @files (respectively). If option is :paths,
@@ -135,38 +135,38 @@ class NiceFFI::PathSet
   #   #      /b/ => ["libb"],           # not affected
   #   #      /c/ => ["libc"] }          # added
   #++
-  def append!( *pathsets )
-    _modify( *pathsets ) { |a,b|  a + b }
+  def append!( *entries )
+    _modify( *entries ) { |a,b|  a + b }
   end
 
   # call-seq:
-  #   append( *pathsets )
-  #   append( option, *pathsets )
+  #   append( *entries )
+  #   append( option, *entries )
   # 
   # Like #append!, but returns a copy instead of modifying the original.
-  def append( *pathsets )
-    self.dup.append!( *pathsets )
+  def append( *entries )
+    self.dup.append!( *entries )
   end
 
   alias :+  :append
 
 
   # call-seq:
-  #   prepend!( *pathsets )
-  #   prepend!( option, *pathsets )
+  #   prepend!( *entries )
+  #   prepend!( option, *entries )
   # 
   # Prepend the new paths and/or files to this PathSet. If this PathSet
   # already has entries for a given regexp, the new entries will be
   # added before the current entries.
   # 
-  # option::   You can optionally give either :paths or :files as the
-  #            first argument to this method. If :paths, only @paths
-  #            will be modified, @files will never be modified. If
-  #            :files, only @files will be modified, @paths will never
-  #            be modified.
+  # option::  You can optionally give either :paths or :files as the
+  #           first argument to this method. If :paths, only @paths
+  #           will be modified, @files will never be modified. If
+  #           :files, only @files will be modified, @paths will never
+  #           be modified.
   # 
-  # pathsets:: One or more PathSets, Hashes, Arrays, or Strings,
-  #            or any assortment of these types.
+  # entries:: One or more PathSets, Hashes, Arrays, or Strings,
+  #           or any assortment of these types.
   # 
   # * If given a PathSet, its @paths and @files are prepended to this
   #   PathSet's @paths and @files (respectively). If option is :paths,
@@ -206,37 +206,37 @@ class NiceFFI::PathSet
   #   #      /b/ => ["libb"],           # not affected                
   #   #      /c/ => ["libc"] }          # added
   #++
-  def prepend!( *pathsets )
-    _modify( *pathsets ) { |a,b|  b + a }
+  def prepend!( *entries )
+    _modify( *entries ) { |a,b|  b + a }
   end
 
   # call-seq:
-  #   prepend( *pathsets )
-  #   prepend( option, *pathsets )
+  #   prepend( *entries )
+  #   prepend( option, *entries )
   # 
   # Like #prepend!, but returns a copy instead of modifying the original.
-  def prepend( *pathsets )
-    self.dup.prepend!( *pathsets )
+  def prepend( *entries )
+    self.dup.prepend!( *entries )
   end
 
 
 
   # call-seq:
-  #   replace!( *pathsets )
-  #   replace!( option, *pathsets )
+  #   replace!( *entries )
+  #   replace!( option, *entries )
   # 
   # Override existing entries in this PathSet with the new entries.
   # If this PathSet already has entries for a regexp in the new entries,
   # the old entries will be discarded and the new entries used instead.
   # 
-  # option::   You can optionally give either :paths or :files as the
-  #            first argument to this method. If :paths, only @paths
-  #            will be modified, @files will never be modified. If
-  #            :files, only @files will be modified, @paths will never
-  #            be modified.
+  # option::  You can optionally give either :paths or :files as the
+  #           first argument to this method. If :paths, only @paths
+  #           will be modified, @files will never be modified. If
+  #           :files, only @files will be modified, @paths will never
+  #           be modified.
   # 
-  # pathsets:: One or more PathSets, Hashes, Arrays, or Strings,
-  #            or any assortment of these types.
+  # entries:: One or more PathSets, Hashes, Arrays, or Strings,
+  #           or any assortment of these types.
   # 
   # * If given a PathSet, this PathSet's @paths and @files with the
   #   other PathSet's @paths and @files (respectively). Old entries in
@@ -279,38 +279,38 @@ class NiceFFI::PathSet
   #   #      /b/ => ["libb"],           # not affected
   #   #      /c/ => ["libc"] }          # added
   #++
-  def replace!( *pathsets )
-    _modify( *pathsets ) { |a,b|  b }
+  def replace!( *entries )
+    _modify( *entries ) { |a,b|  b }
   end
 
   # call-seq:
-  #   replace( *pathsets )
-  #   replace( option, *pathsets )
+  #   replace( *entries )
+  #   replace( option, *entries )
   # 
   # Like #replace!, but returns a copy instead of modifying the original.
-  def replace( *pathsets )
-    self.dup.replace!( *pathsets )
+  def replace( *entries )
+    self.dup.replace!( *entries )
   end
 
 
 
   # call-seq:
-  #   remove!( *pathsets )
-  #   remove!( option, *pathsets )
+  #   remove!( *entries )
+  #   remove!( option, *entries )
   # 
   # Remove the given entries from the PathSet, if it has them. This
   # only removes the entries that are given, other entries for the
   # same regexp are kept. Regexps with no entries left afterwards are
   # removed from the PathSet.
   # 
-  # option::   You can optionally give either :paths or :files as the
-  #            first argument to this method. If :paths, only @paths
-  #            will be modified, @files will never be modified. If
-  #            :files, only @files will be modified, @paths will never
-  #            be modified.
+  # option::  You can optionally give either :paths or :files as the
+  #           first argument to this method. If :paths, only @paths
+  #           will be modified, @files will never be modified. If
+  #           :files, only @files will be modified, @paths will never
+  #           be modified.
   # 
-  # pathsets:: One or more PathSets, Hashes, Arrays, or Strings,
-  #            or any assortment of these types.
+  # entries:: One or more PathSets, Hashes, Arrays, or Strings,
+  #           or any assortment of these types.
   # 
   # * If given a PathSet, entries from its @paths and @files are
   #   removed from this PathSet's @paths and @files (respectively). If
@@ -351,17 +351,17 @@ class NiceFFI::PathSet
   #   #    # /b/ paths were all removed.
   #   #    # /c/ not affected because it had no old paths anyway.
   #++
-  def remove!( *pathsets )
-    _modify( *pathsets ) { |a,b|  a - b }
+  def remove!( *entries )
+    _modify( *entries ) { |a,b|  a - b }
   end
 
   # call-seq:
-  #   remove( *pathsets )
-  #   remove( option, *pathsets )
+  #   remove( *entries )
+  #   remove( option, *entries )
   # 
   # Like #remove!, but returns a copy instead of modifying the original.
-  def remove( *pathsets )
-    self.dup.remove!( *pathsets )
+  def remove( *entries )
+    self.dup.remove!( *entries )
   end
 
   alias :- :remove
@@ -375,11 +375,11 @@ class NiceFFI::PathSet
   # Delete all entries for the given regexp(s) from @paths and/or
   # @files. Has no effect on entries for regexps that are not given.
   # 
-  # option:: You can optionally give either :paths or :files as the
-  #          first argument to this method. If :paths, only @paths
-  #          will be modified, @files will never be modified. If
-  #          :files, only @files will be modified, @paths will never
-  #          be modified.
+  # option::  You can optionally give either :paths or :files as the
+  #           first argument to this method. If :paths, only @paths
+  #           will be modified, @files will never be modified. If
+  #           :files, only @files will be modified, @paths will never
+  #           be modified.
   # 
   # regexps:: One or more Regexps to remove entries for.
   # 
@@ -470,13 +470,13 @@ class NiceFFI::PathSet
   private
 
 
-  def _modify( *pathsets, &block )
+  def _modify( *entries, &block )
     # could be :paths or :files, or perhaps an entry
-    part = pathsets[0]
+    part = entries[0]
 
     case part
     when :paths, :files, :default
-      pathsets = pathsets[1..-1]
+      entries = entries[1..-1]
     when Symbol # other symbols are invalid
       raise( "Invalid symbol option '#{first.inspect}'. " +
              "Expected :paths or :files." )
@@ -484,19 +484,19 @@ class NiceFFI::PathSet
       part = :default
     end
 
-    pathsets.each do |pathset|
-      if pathset.kind_of? self.class
+    entries.each do |entry|
+      if entry.kind_of? self.class
         if part == :default
-          _modify_set( :paths, pathset.paths, &block )
-          _modify_set( :files, pathset.files, &block )
+          _modify_set( :paths, entry.paths, &block )
+          _modify_set( :files, entry.files, &block )
         else
-          _modify_set( part, pathset.send(part), &block )
+          _modify_set( part, entry.send(part), &block )
         end
       else
         if part == :default
-          _modify_set( :paths, pathset, &block )
+          _modify_set( :paths, entry, &block )
         else
-          _modify_set( part, pathset, &block )
+          _modify_set( part, entry, &block )
         end
       end
     end
