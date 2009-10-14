@@ -136,7 +136,7 @@ class NiceFFI::PathSet
   #   #      /c/ => ["libc"] }          # added
   #++
   def append!( *pathsets )
-    _operator( *pathsets ) { |a,b|  a + b }
+    _modify( *pathsets ) { |a,b|  a + b }
   end
 
   # call-seq:
@@ -207,7 +207,7 @@ class NiceFFI::PathSet
   #   #      /c/ => ["libc"] }          # added
   #++
   def prepend!( *pathsets )
-    _operator( *pathsets ) { |a,b|  b + a }
+    _modify( *pathsets ) { |a,b|  b + a }
   end
 
   # call-seq:
@@ -280,7 +280,7 @@ class NiceFFI::PathSet
   #   #      /c/ => ["libc"] }          # added
   #++
   def replace!( *pathsets )
-    _operator( *pathsets ) { |a,b|  b }
+    _modify( *pathsets ) { |a,b|  b }
   end
 
   # call-seq:
@@ -352,7 +352,7 @@ class NiceFFI::PathSet
   #   #    # /c/ not affected because it had no old paths anyway.
   #++
   def remove!( *pathsets )
-    _operator( *pathsets ) { |a,b|  a - b }
+    _modify( *pathsets ) { |a,b|  a - b }
   end
 
   # call-seq:
@@ -470,64 +470,51 @@ class NiceFFI::PathSet
   private
 
 
-  def _operator( *pathsets, &block )
-    first = pathsets[0]
-    case first
-    when :paths, :files
-      _modify_part( first, pathsets[1..-1], &block )
-    when Symbol
+  def _modify( *pathsets, &block )
+    # could be :paths or :files, or perhaps an entry
+    part = pathsets[0]
+
+    case part
+    when :paths, :files, :default
+      pathsets = pathsets[1..-1]
+    when Symbol # other symbols are invalid
       raise( "Invalid symbol option '#{first.inspect}'. " +
              "Expected :paths or :files." )
     else
-      pathsets.each do |pathset|
-        _modify( pathset, &block )
+      part = :default
+    end
+
+    pathsets.each do |pathset|
+      if pathset.kind_of? self.class
+        if part == :default
+          _modify_set( :paths, pathset.paths, &block )
+          _modify_set( :files, pathset.files, &block )
+        else
+          _modify_set( part, pathset.send(part), &block )
+        end
+      else
+        if part == :default
+          _modify_set( :paths, pathset, &block )
+        else
+          _modify_set( part, pathset, &block )
+        end
       end
     end
-    self
-  end
 
-
-  def _modify( other, &block )  # :nodoc:
-    if other.kind_of? self.class
-      # Other is a PathSet, so apply both its paths and its files to ours.
-      _modify_set( @paths, other.paths, &block )
-      _modify_set( @files, other.files, &block )
-    else
-      # Not a PathSet, so apply other to our paths.
-      _modify_set( @paths, other, &block )
-    end
-  end
-
-  # This method does the work for #append_paths, #append_files,
-  # #prepend_paths, etc.
-  # 
-  # * part is either :paths or :files. It indicates whether @paths or
-  #   @files should be modified, and whether to get values from
-  #   other.paths or other.files when other is a PathSet.
-  # 
-  # * others is an array which may contain one or more PathSets,
-  #   Hashes, Arrays, Strings, or a mixture of those types. Each item
-  #   is passed to #_modify_set. PathSets are changed into either
-  #   other.paths or other.files first, though.
-  #
-  def _modify_part( part, others, &block ) # :nodoc:
-    unless [:paths, :files].include? part
-      raise( ArgumentError, "Invalid PathSet part #{part.inspect} " +
-             "(expected :paths or :files)" )
-    end
-
-    ours = self.send(part)      # self.paths or self.files
-    others.each do |other|
-      if other.kind_of? self.class
-        other = other.send(part)
-      end
-      _modify_set( ours, other, &block )
-    end
+    return self
   end
 
 
   def _modify_set( ours, other, &block )  # :nodoc:
     raise "No block given!" unless block_given?
+
+    ours = case ours
+           when :paths;  @paths
+           when :files;  @files
+           else
+             raise( "Invalid symbol option '#{ours.inspect}'. " +
+                    "Expected :paths or :files." )
+           end
 
     case other
     when Hash
