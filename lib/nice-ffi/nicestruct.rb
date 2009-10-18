@@ -28,12 +28,6 @@
 #++
 
 
-require 'ffi'
-
-need{ 'typedpointer' }
-need{ 'autorelease' }
-
-
 # A class to be used as a baseclass where you would use FFI::Struct.
 # It acts mostly like FFI::Struct, but with nice extra features and
 # conveniences to make life easier:

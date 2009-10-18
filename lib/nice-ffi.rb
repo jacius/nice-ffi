@@ -28,21 +28,26 @@
 #++
 
 
-require 'need'
+require 'ffi'
 
 
 module NiceFFI
 end
 
 
+this_dir = File.expand_path( File.dirname(__FILE__) )
+
 %w{
 
+  typedpointer
+  pathset
   nicelibrary
+  autorelease
   nicestruct
   opaquestruct
 
 }.each do |f|
 
-  need { File.join( 'nice-ffi', f ) }
+  require File.join( this_dir, 'nice-ffi', f )
 
 end

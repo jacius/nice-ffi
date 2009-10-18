@@ -1,5 +1,4 @@
-require 'need'
-need { File.join("..", "lib", "nice-ffi") }
+require 'spec_helper.rb'
 
 
 class OpaqueThing < NiceFFI::OpaqueStruct

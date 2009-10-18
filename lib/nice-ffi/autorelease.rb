@@ -28,7 +28,6 @@
 #++
 
 
-require 'ffi'
 
 #--
 # Don't scan this module for RDoc/RI.

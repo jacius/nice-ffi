@@ -28,12 +28,6 @@
 #++
 
 
-require 'ffi'
-
-need{ 'typedpointer' }
-need{ 'pathset' }
-
-
 # A module to be used in place of FFI::Library. It acts mostly
 # like FFI::Library, but with some nice extra features and
 # conveniences to make life easier:

@@ -1,6 +1,4 @@
-require 'need'
-need { File.join("..", "lib", "nice-ffi") }
-
+require 'spec_helper.rb'
 
 # NOTE: When using $open_pointers, always use different pointer
 # addresses than any other specs have used! Otherwise, a pointer from

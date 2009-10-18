@@ -28,11 +28,6 @@
 #++
 
 
-
-require 'ffi'
-need{ 'autorelease' }
-
-
 # OpaqueStruct represents a Struct with an unknown layout.
 # This is meant to be used when the C library designer has
 # intentionally hidden the layout (e.g. to prevent user access).
@@ -88,7 +83,6 @@ class NiceFFI::OpaqueStruct
     when FFI::Pointer
       if( val.instance_of? FFI::Pointer ) # not MemoryPointer or Buffer
         @pointer = _make_autopointer( val, options[:autorelease] )
-
       else
         raise TypeError, "unsupported pointer type #{val.class.name}"
       end

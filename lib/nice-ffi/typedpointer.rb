@@ -28,9 +28,6 @@
 #++
 
 
-require 'ffi'
-
-
 # TypedPointer represents a :pointer (FFI type) that is a specific
 # struct type. You can use TypedPointer( SomeStructClass ) instead
 # of :pointer in these situations:
