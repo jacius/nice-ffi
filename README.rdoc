@@ -1,8 +1,8 @@
 
 = Nice-FFI
 
-Version::    0.1
-Date::       2009-07-05
+Version::    0.2
+Date::       2009-10-??
 
 Homepage::   http://github.com/jacius/nice-ffi/
 Author::     John Croisant <jacius@gmail.com>
@@ -12,22 +12,30 @@ Copyright::  2009  John Croisant
 == Description
 
 Nice-FFI is a layer on top of Ruby-FFI [1] (and compatible FFI
-systems) to augment it with features to aid development of
-FFI-based libraries.
+systems) with features to ease development of FFI-based libraries.
 
 Nice-FFI currently features:
-
-* NiceFFI::Struct: a stand-in for FFI::Struct that provides automatic
-  accessors for struct members, more instance initialization options,
-  pretty to_s and inspect methods, and other niceties.
 
 * NiceFFI::Library: a stand-in for FFI::Library that provides methods
   for easily finding and loading libraries on any platform, plus
   automatic wrapping of functions that return struct pointers.
 
+* NiceFFI::PathSet: a class with customizable rules for finding
+  library files on multiple operating system. PathSet is used by
+  NiceFFI::Library.load_library.
+
+* NiceFFI::Struct: a stand-in for FFI::Struct that provides automatic
+  accessors for struct members, optional automatic memory management,
+  more instance initialization options, pretty to_s and inspect
+  methods, and other niceties.
+
+* NiceFFI::OpaqueStruct: a base class for structs with no user-exposed
+  members. Useful when the struct definition is hidden by the
+  underlying C library.
+
 Nice-FFI was originally developed as part of Ruby-SDL-FFI [2].
 
-1. Ruby-FFI: http://kenai.com/projects/ruby-ffi/
+1. Ruby-FFI: http://github.com/ffi/ffi
 2. Ruby-SDL-FFI: http://github.com/jacius/ruby-sdl-ffi/
 
 
@@ -46,8 +54,13 @@ match the new API, then you should wait until version 1.0.
 
 == Requirements
 
-* Ruby-FFI  >= 0.3.0 (or compatible)
+* Ruby-FFI  >= 0.4.0 (or compatible)
 * need      >= 1.1.0
+
+
+== Usage
+
+See docs/usage.rdoc for usage information.
 
 
 == License

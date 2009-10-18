@@ -38,25 +38,24 @@ end
 $gemspec = Gem::Specification.new do |s|
 
   s.name     = "nice-ffi"
-  s.version  = "0.1"
+  s.version  = "0.2"
   s.authors  = ["John Croisant"]
   s.email    = "jacius@gmail.com"
   s.homepage = "http://github.com/jacius/nice-ffi/"
   s.summary  = "Convenience layer atop Ruby-FFI"
   s.description = <<EOF
-Nice-FFI is a layer on top of Ruby-FFI (and compatible FFI
-systems) to augment that library with features to aide
-development of FFI-based libraries.
+Nice-FFI is a layer on top of Ruby-FFI (and compatible FFI systems)
+with features to ease development of FFI-based libraries.
 EOF
 
-  s.has_rdoc = false
+  s.has_rdoc = true
 
   s.files = Dir["**/*.rdoc", "lib/**/*.rb"] + ["ChangeLog.txt"]
   s.require_paths = ["lib"]
 
   s.required_ruby_version = ">= 1.8"
 
-  s.add_dependency( "ffi",  ">=0.3.0" )
+  s.add_dependency( "ffi",  ">=0.4.0" )
   s.add_dependency( "need", ">=1.1.0" )
 
 end
