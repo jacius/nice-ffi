@@ -77,7 +77,7 @@ class NiceFFI::OpaqueStruct
     case val
 
     when self.class
-      @pointer = initialize( val.pointer, options )
+      initialize( val.pointer, options )
 
     when FFI::AutoPointer
       @pointer = val
