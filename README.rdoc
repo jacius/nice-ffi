@@ -54,8 +54,7 @@ match the new API, then you should wait until version 1.0.
 
 == Requirements
 
-* Ruby-FFI  >= 0.4.0 (or compatible)
-* need      >= 1.1.0
+* Ruby-FFI  >= 0.4.0 (or compatible FFI implementation)
 
 
 == Usage

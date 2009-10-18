@@ -56,6 +56,5 @@ EOF
   s.required_ruby_version = ">= 1.8"
 
   s.add_dependency( "ffi",  ">=0.4.0" )
-  s.add_dependency( "need", ">=1.1.0" )
 
 end
