@@ -78,11 +78,22 @@ files hash tells it the format of the library filename itself. The
 string "[NAME]" is replaced with whatever string you pass to
 load_library.
 
+Each key in the hash should be a Regexp that matches an OS name from
+FFI::Platform::OS. As of this writing (October 2009), the list of
+recognized OS names is:
+
+* "darwin" (MacOS X)
+* "freebsd"
+* "linux"
+* "openbsd"
+* "solaris"
+* "windows"
+
 So, if the user is running Linux and you try to load "SDL", it will
 first look for "/usr/local/lib/libSDL.so". If it can't find that, it
 will then look for "/usr/lib/libSDL.so". It would also use those same
-paths for FreeBSD, because that OS matches /linux|bsd/, too. /darwin/
-matches on MacOS X, and /windows/ matches on Windows.
+paths for FreeBSD or OpenBSD, because those OS names also match the
+regexp /linux|bsd/.
 
 If the library could not be found in any of the given directories with
 the given file name formats, load_library will just try loading "SDL"
@@ -143,8 +154,12 @@ With TypedPointer, the wrapping happens automatically. Just attach
 the function with a TypedPointer instead of :pointer:
 
   
-  attach_function :get_my_struct, [:int], NiceFFI::TypedPointer( MyStruct )
+  attach_function :make_my_struct, [:int, :int], NiceFFI::TypedPointer( MyStruct )
   
+  # If MyStruct is based on NiceFFI::Struct, you can do this instead:
+  
+  attach_function :make_my_struct, [:int, :int], MyStruct.typed_pointer
+
 
 Then you automatically get a MyStruct instance when you call the function:
 
@@ -154,7 +169,6 @@ Then you automatically get a MyStruct instance when you call the function:
   
 
 Voila!
-
 
 
 == NiceFFI::Struct
@@ -260,3 +274,88 @@ struct pointer, but if you specify a TypedPointer instead of
   # Seamlessly unwraps the struct and stores the pointer  
   struct.my = MyStruct.new([-4,-3])
   
+
+=== Automatic Memory Managment
+
+Ruby-FFI already provides automatic memory management when you create
+a FFI::MemoryPointer or FFI::Buffer instance. When those instances are
+garbage collected, their memory is automatically released so it can be
+used elsewhere.
+
+That feature is used by NiceFFI::Struct when you create a new instance
+by passing a Hash, Array, String, or another instance. In those cases,
+new memory is allocated for the struct instance, and automatically
+released when the struct instance is galbage collected.
+
+NiceFFI::Struct also provides an optional automatic memory management
+system for normal pointers. To use this system, define a "release"
+class method in your class. Then if you create a new struct instance
+with an FFI::Pointer, the release class method will automatically be
+called when the memory for a struct instance needs to be freed.
+
+(This also applies to attached functions with TypedPointer return
+values. The pointers returned from those functions are wrapped in the
+struct class, so if you have defined the release class method, they
+will be automatically memory managed.)
+
+The release class method must accept an FFI::Pointer and call an
+appropriate function to free the struct's memory. Here's an example
+from Ruby-SDL-FFI:
+
+  
+  class Surface < NiceFFI::Struct
+  
+    def self.release( pointer )
+      SDL.FreeSurface( pointer )
+    end
+  
+    # ...
+  
+  end
+  
+
+Note: the release class method should not have any side effects
+besides freeing the struct's memory. Don't be clever!
+
+The memory management system keeps a reference count for each pointer
+address, so the release class method will only be called when all
+struct instances that are using that memory have been garbage
+collected. That means it's safe to have many instances sharing the
+same memory.
+
+If you want to create an instance that doesn't use the memory
+management system, you can disable the :autorelease option when
+creating the instance, like so:
+
+  
+  struct = MyStructClass.new( a_pointer, :autorelease => false )
+  
+
+== NiceFFI::OpaqueStruct
+
+Some C libraries have structs with no publicly-visible layout.
+Instead, the internal details are hidden, and only modified by calling
+functions in the library.
+
+For example, the SDL_mixer library has this definition in its header
+file:
+
+  
+  typedef struct _Mix_Music Mix_Music;
+  
+
+"_Mix_Music" is a struct that is defined within SDL_mixer, but its
+internals are different depending on what features SDL_mixer was
+compiled with. The struct members are not revealed in the header file,
+so they can't be accessed like a normal struct.
+
+NiceFFI provides a class for handling special cases like this,
+NiceFFI::OpaqueStruct. OpaqueStruct has no layout and no members, and
+cannot be created by passing in Hashes, Arrays, etc. It simply holds a
+pointer to the struct memory. As with NiceStruct (and FFI::Struct),
+instances of OpaqueStruct-based classes can be passed directly to
+functions expecting a pointer of the appropriate struct type.
+
+OpaqueStruct features the same optional memory management system as
+NiceStruct. Read the "Automatic Memory Management" section above for
+information about how to use this feature.
