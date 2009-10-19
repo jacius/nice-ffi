@@ -44,8 +44,11 @@ module NiceFFI::AutoRelease
 
       # Increment the reference count for this address.
       def _incr_refcount( address )
-        _make_refcounts
-        @refcounts[address] += 1
+        @ptr_mutex ||= Mutex.new
+        @ptr_mutex.synchronize {
+          @ptr_refcounts ||= Hash.new(0)
+          @ptr_refcounts[address] += 1
+        }
         return nil
       end
 
@@ -53,10 +56,13 @@ module NiceFFI::AutoRelease
       # the memory if the reference count falls below 1.
       #
       def _release( pointer )
-        _decr_refcount(pointer.address)
-        if( @refcounts[pointer.address] < 1 )
-          release( pointer )
-        end
+        @ptr_mutex ||= Mutex.new
+        @ptr_mutex.synchronize {
+          _decr_refcount(pointer.address)
+          if( @ptr_refcounts[pointer.address] < 1 )
+            release( pointer )
+          end
+        }
       end
 
       private
@@ -64,16 +70,15 @@ module NiceFFI::AutoRelease
       # Decrement the reference count for this address. If the count falls
       # below 1, the address is removed from Hash altogether.
       #
+      # Note: this method does not have a Mutex lock by itself, but you
+      # should use a lock in any methods that call it.
+      # 
       def _decr_refcount( address )
-        _make_refcounts
-        @refcounts[address] -= 1
-        if( @refcounts[address] < 1 )
-          @refcounts.delete(address)
+        @ptr_refcounts ||= Hash.new(0)
+        @ptr_refcounts[address] -= 1
+        if( @ptr_refcounts[address] < 1 )
+          @ptr_refcounts.delete(address)
         end
-      end
-
-      def _make_refcounts
-        @refcounts = Hash.new(0) unless defined? @refcounts
       end
 
     end
