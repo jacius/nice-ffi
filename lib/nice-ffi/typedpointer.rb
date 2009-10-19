@@ -43,11 +43,22 @@ class NiceFFI::TypedPointer
   # type must be a class (not an instance) which is a descendent of
   # FFI::Struct (or is FFI::Struct itself).
   # 
-  def initialize( type )
+  # options must be a Hash of zero or more options.
+  # The current meaningful options are:
+  # 
+  # * :autorelease - If false, instances of NiceStruct and
+  #   OpaqueStruct (and subclasses) created via this TypedPointer will
+  #   be passed {:autorelease => false} to disable automatic memory
+  #   management. Use this for return values of functions that should
+  #   not be autoreleased.
+  # 
+  def initialize( type, options={} )
     # unless type.is_a? Class and type.ancestors.include? FFI::Struct
     #   raise TypeError, "#{self.class} only wraps FFI::Struct and subclasses."
     # end
     @type = type
+    options = {:autorelease => true}.merge!( options )
+    @autorelease = options[:autorelease]
   end
 
   attr_reader :type
@@ -58,7 +69,12 @@ class NiceFFI::TypedPointer
     unless pointer.is_a? FFI::Pointer
       raise TypeError, "#{self.class}[ #{@type} ] cannot wrap #{pointer.type}"
     end
-    @type.new( pointer )
+
+    if @type.included_modules.include?( NiceFFI::AutoRelease )
+      @type.new( pointer, :autorelease => @autorelease )
+    else
+      @type.new( pointer )
+    end
   end
 
 

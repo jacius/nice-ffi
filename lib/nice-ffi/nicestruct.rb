@@ -63,9 +63,10 @@ class NiceFFI::Struct < FFI::Struct
   class << self
 
     # Returns a NiceFFI::TypedPointer instance for this class.
-    def typed_pointer
-      @typed_pointer or
-        (@typed_pointer = NiceFFI::TypedPointer.new(self))
+    # Equivalent to NiceFFI::TypedPointer.new( this_class, options )
+    # 
+    def typed_pointer( options={} )
+      NiceFFI::TypedPointer.new(self, options)
     end
 
 
