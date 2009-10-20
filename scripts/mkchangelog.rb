@@ -1,5 +1,7 @@
 #!/bin/env ruby
 
+require 'fileutils'
+
 # Constructs a ChangeLog from the git log.
 # Strips out commit ids, since they might change (merge, rebase, etc.).
 
