@@ -41,9 +41,9 @@ this_dir = File.expand_path( File.dirname(__FILE__) )
 
   typedpointer
   pathset
-  nicelibrary
+  library
   autorelease
-  nicestruct
+  struct
   opaquestruct
 
 }.each do |f|
