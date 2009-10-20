@@ -49,6 +49,7 @@ with features to ease development of FFI-based libraries.
 EOF
 
   s.has_rdoc = true
+  s.rubyforge_project = "nice-ffi"
 
   s.files = Dir["**/*.rdoc", "lib/**/*.rb"] + ["ChangeLog.txt"]
   s.require_paths = ["lib"]
