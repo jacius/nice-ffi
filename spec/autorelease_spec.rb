@@ -11,7 +11,7 @@ $open_pointers = []
 
 def do_gc
   if RUBY_PLATFORM =~ /java/
-    java.lang.System.gc
+    Java::Java.lang.System.gc
   else
     GC.start
   end
@@ -100,7 +100,7 @@ describe NiceFFI::AutoRelease do
       5.times{  do_gc;  sleep 0.05  }
 
       remembered_things.each do |thing|
-        $open_pointers.should include( thing.pointer.address )
+        $open_pointers.should include( thing.pointer[0].address )
       end
 
       # Almost all of the rest should have been garbage collected by now
@@ -112,7 +112,7 @@ describe NiceFFI::AutoRelease do
       ptr = FFI::Pointer.new(1)
       thing = AutoReleaseThing.new( ptr )
       thing.pointer.should be_kind_of( FFI::AutoPointer )
-      thing.pointer.address.should == ptr.address
+      thing.pointer[0].address.should == ptr.address
     end
   end
 

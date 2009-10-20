@@ -29,13 +29,13 @@ describe NiceFFI::OpaqueStruct do
 
 
 
-  it "should accept a NullPointer" do
-    ptr = FFI::NullPointer.new(1)
+  it "should accept a null pointer" do
+    ptr = FFI::Pointer.new(0)
     lambda{ OpaqueThing.new( ptr ) }.should_not raise_error
   end
 
-  it "should use the given NullPointer" do
-    ptr = FFI::NullPointer.new(1)
+  it "should use the given null pointer" do
+    ptr = FFI::Pointer.new(0)
     op = OpaqueThing.new( ptr )
     op.pointer.should equal( ptr )
   end

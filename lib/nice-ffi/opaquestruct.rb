@@ -77,14 +77,13 @@ class NiceFFI::OpaqueStruct
     when FFI::AutoPointer
       @pointer = val
 
-    when FFI::NullPointer
-      @pointer = val
-
     when FFI::Pointer
-      if( val.instance_of? FFI::Pointer ) # not MemoryPointer or Buffer
-        @pointer = _make_autopointer( val, options[:autorelease] )
-      else
+      if val.is_a? FFI::MemoryPointer or val.is_a? FFI::Buffer
         raise TypeError, "unsupported pointer type #{val.class.name}"
+      elsif val.null?
+        @pointer = val
+      else
+        @pointer = _make_autopointer( val, options[:autorelease] )
       end
 
     else

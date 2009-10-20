@@ -33,6 +33,8 @@
 # Don't scan this module for RDoc/RI.
 
 
+require 'thread' # for Mutex. JRuby doesn't load this by default.
+
 # A mixin module to provide automatic memory management for C structs.
 #
 module NiceFFI::AutoRelease
@@ -89,8 +91,11 @@ module NiceFFI::AutoRelease
 
 
   def _make_autopointer( ptr, autorelease=true )
-    if( autorelease and ptr.instance_of?(FFI::Pointer) and 
-        self.class.respond_to?(:release) )
+    if( autorelease and
+        self.class.respond_to?(:release) and
+        ptr.is_a?(FFI::Pointer) and
+        not ptr.is_a?(FFI::MemoryPointer) and
+        not ptr.is_a?(FFI::Buffer) )
 
       # Increment the reference count for this pointer address
       self.class._incr_refcount( ptr.address )

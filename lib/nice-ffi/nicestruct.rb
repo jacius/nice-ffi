@@ -265,11 +265,8 @@ class NiceFFI::Struct < FFI::Struct
       else
         self.class_eval do
           define_method( member ) do
-            begin
-              self[member]
-            rescue FFI::NullPointerError
-              nil
-            end
+            return nil if self.pointer.null?
+            return self[member]
           end
         end
       end
@@ -431,12 +428,16 @@ class NiceFFI::Struct < FFI::Struct
 
 
   def to_s
+    if self.pointer.null?
+      return "#<NULL %s:%#.x>"%[self.class.name, self.object_id]
+    end
+
     mems = members.collect{ |m|
       unless self.class.hidden?( m )
         val = self.send(m)
 
         # Cleanup/simplify for display
-        if val.is_a? FFI::NullPointer or val.nil?
+        if val.nil? or (val.is_a? FFI::Pointer and val.null?)
           val = "NULL" 
         elsif val.kind_of? FFI::Struct
           val = "#<#{val.class}:%#.x>"%val.object_id
