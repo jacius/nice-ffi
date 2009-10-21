@@ -151,4 +151,41 @@ module NiceFFI::Library
     end
 
   end
+
+
+  # Calls the given block, but rescues and prints a warning if
+  # FFI::NotFoundError is raised. If warn_message is nil, the
+  # error message is printed instead.
+  # 
+  # This is intended to be used around #attach_function for cases
+  # where the function may not exist (e.g. because the user has an
+  # old version of the library) and the library should continue loading
+  # anyway (with the function missing).
+  # 
+  # 
+  # Example:
+  # 
+  #   module Foo
+  #     extend NiceFFI::Library
+  #   
+  #     load_library( "libfoo" )
+  #     
+  #     optional( "Warning: Your libfoo doesn't have opt_func()" ) do
+  #       attach_function :opt_func, [], :int
+  #     end
+  #   end
+  # 
+  def optional( warn_message=nil, &block )
+    raise LocalJumpError, "no block given" unless block_given?
+    begin
+      block.call()
+    rescue FFI::NotFoundError => e
+      if warn_message
+        puts warn_message
+      else
+        puts "Warning: #{e.message}"
+      end
+    end
+  end
+
 end
