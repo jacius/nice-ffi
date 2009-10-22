@@ -188,4 +188,13 @@ module NiceFFI::Library
     end
   end
 
+
+  # Like #attach_function, but wrapped in #optional.
+  def optional_function( *args )
+    optional {  attach_function( *args )  }
+  end
+
+  alias :optfunc :optional_function
+
+
 end
