@@ -265,7 +265,7 @@ class NiceFFI::Struct < FFI::Struct
       else
         self.class_eval do
           define_method( member ) do
-            return nil if self.pointer.null?
+            return nil if self.pointer.null? rescue NoMethodError
             return self[member]
           end
         end
@@ -354,7 +354,7 @@ class NiceFFI::Struct < FFI::Struct
       super()                         # Create empty struct
       init_from_bytes( val.to_bytes ) # Read the values from another instance.
 
-    when FFI::Pointer
+    when FFI::Pointer, FFI::Buffer
       val = _make_autopointer( val, options[:autorelease] )
 
       # Normal FFI::Struct behavior to wrap the pointer.
@@ -428,8 +428,11 @@ class NiceFFI::Struct < FFI::Struct
 
 
   def to_s
-    if self.pointer.null?
-      return "#<NULL %s:%#.x>"%[self.class.name, self.object_id]
+    begin
+      if self.pointer.null?
+        return "#<NULL %s:%#.x>"%[self.class.name, self.object_id]
+      end
+    rescue NoMethodError
     end
 
     mems = members.collect{ |m|
