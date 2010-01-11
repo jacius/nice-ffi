@@ -579,12 +579,15 @@ paths = {
 }
 
 files = {
-  /linux|bsd/  => [ "lib[NAME].so" ],
+  /linux|bsd/  => [ "lib[NAME].so*",
+                    "lib[NAME]-*.so*" ],
 
   /darwin/     => [ "lib[NAME].dylib",
+                    "lib[NAME]-*.dylib",
                     "[NAME].framework/[NAME]" ],
 
-  /windows/    => [ "[NAME].dll" ]
+  /windows/    => [ "[NAME].dll",
+                    "[NAME]-*.dll"]
 }
 
 # The default paths to look for libraries. See PathSet 

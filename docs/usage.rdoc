@@ -62,12 +62,15 @@ library in likely directories. Specifically, it looks for:
   }
   
   files = {
-    /linux|bsd/  => [ "lib[NAME].so" ],
+    /linux|bsd/  => [ "lib[NAME].so*",
+                      "lib[NAME]-*.so*" ],
   
     /darwin/     => [ "lib[NAME].dylib",
+                      "lib[NAME]-*.dylib",
                       "[NAME].framework/[NAME]" ],
   
-    /windows/    => [ "[NAME].dll" ]
+    /windows/    => [ "[NAME].dll",
+                      "[NAME]-*.dll"]
   }
   
   NiceFFI::PathSet::DEFAULT = NiceFFI::PathSet.new( paths, files )
