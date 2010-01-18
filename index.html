@@ -3,23 +3,27 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
 
 <head>
-  <title>jacius/nice-ffi @ GitHub</title>
+  <title>Nice-FFI</title>
   <link href="style.css" rel="stylesheet" type="text/css" />
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 </head>
 
 <body>
-  <a href="http://github.com/jacius/nice-ffi"><img style="position: absolute; top: 0; right: 0; border: 0;" src="http://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png" alt="Fork me on GitHub" /></a>
+  <a href="http://github.com/jacius/nice-ffi">
+    <img style="position: absolute; top: 0; right: 0; border: 0;"
+         src="http://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png"
+         alt="Fork me on GitHub" />
+  </a>
   
   <div id="container">
 
     <div class="top-header">
       <div class="download">
-        <a href="http://github.com/jacius/nice-ffi/zipball/v0.1">
+        <a href="http://github.com/jacius/nice-ffi/zipball/master">
           <img class="icon"
                src="http://github.com/images/modules/download/zip.png" />
         </a>
-        <a href="http://github.com/jacius/nice-ffi/tarball/v0.1">
+        <a href="http://github.com/jacius/nice-ffi/tarball/master">
           <img class="icon"
                src="http://github.com/images/modules/download/tar.png" />
         </a>
@@ -27,10 +31,10 @@
 
       <div class="latest section">
         <em>Latest Version</em><br />
-        <a href="http://github.com/jacius/nice-ffi/tree/v0.1">
-          nice-ffi-0.1
+        <a href="http://github.com/jacius/nice-ffi/tree/v0.3">
+          nice-ffi-0.3
         </a><br />
-        <span class="date">(2009-07-05)</span>
+        <span class="date">(2010-01-17)</span>
       </div>
 
       <h1>
@@ -39,14 +43,14 @@
           by <a href="http://github.com/jacius">jacius</a>
         </span>
       </h1>
-
     </div>
+
 
     <div class="section">
       <h2>About</h2>
       <p>
         Nice-FFI is a layer on top of 
-        <a href="http://kenai.com/projects/ruby-ffi/">Ruby-FFI</a>
+        <a href="http://github.com/ffi/ffi">Ruby-FFI</a>
         (and compatible FFI systems) to augment it with features to
         aid development of FFI-based libraries.
       </p>
@@ -55,16 +59,31 @@
 
       <ul>
         <li>
-          <code>NiceFFI::Struct</code>, a stand-in for
-          <code>FFI::Struct</code> that provides automatic accessors
-          for struct members, more instance initialization options,
-          pretty to_s and inspect methods, and other niceties.
+          <code>NiceFFI::Library</code>: a stand-in for FFI::Library
+          that provides methods for easily finding and loading
+          libraries on any platform, plus automatic wrapping of
+          functions that return struct pointers.
         </li>
+
         <li>
-          <code>NiceFFI::Library</code>, a stand-in for
-          <code>FFI::Library</code> that provides methods for
-          easily finding and loading libraries on any platform, plus
-          automatic wrapping of functions that return struct pointers.
+          <code>NiceFFI::PathSet</code>: a class with customizable
+          rules for finding library files on multiple operating
+          system. PathSet is used
+          by <code>NiceFFI::Library.load_library</code>.
+        </li>
+
+        <li>
+          <code>NiceFFI::Struct</code>: a stand-in
+          for <code>FFI::Struct</code> that provides automatic
+          accessors for struct members, optional automatic memory
+          management, more instance initialization options, pretty
+          to_s and inspect methods, and other niceties.
+        </li>
+
+        <li>
+          <code>NiceFFI::OpaqueStruct</code>: a base class for structs
+          with no user-exposed members. Useful when the struct
+          definition is hidden by the underlying C library.
         </li>
       </ul>
 
@@ -73,6 +92,7 @@
         <a href="http://github.com/jacius/ruby-sdl-ffi/">Ruby-SDL-FFI</a>.
       </p>
     </div>
+
 
     <div class="section">
       <h2>Caveats</h2>
@@ -95,15 +115,17 @@
       </p>
     </div>
 
+
     <div class="section">
       <h2>Dependencies</h2>
       <ul>
-        <li><a href="http://kenai.com/projects/ruby-ffi/">Ruby-FFI</a>
-          &gt;= 0.3.0 (or compatible)</li>
-        <li><a href="http://need.rubyforge.org/">need</a>
-          &gt;= 1.1.0</li>
+        <li>
+          <a href="http://github.com/ffi/ffi">Ruby-FFI</a>
+          &gt;= 0.5.0 (or compatible)
+        </li>
       </ul>
     </div>
+
 
     <div class="section">
       <h2>License</h2>
@@ -113,7 +135,7 @@
 
       <blockquote class="license">
         <p>
-          Copyright &copy; 2009 John Croisant
+          Copyright &copy; 2009-2010 John Croisant
         </p>
 
         <p>
@@ -143,6 +165,7 @@
       </blockquote>
     </div>
 
+
     <div class="section">
       <h2>Download</h2>
       <p>
@@ -151,18 +174,21 @@
       </p>
       <p>
         You can also clone the project with
-        <a href="http://git-scm.com">Git</a> by running:
+        <a href="http://git-scm.com">Git</a>:
         <pre>$ git clone git://github.com/jacius/nice-ffi</pre>
       </p>
       <p>
         Or, you can download the source in either
-        <a href="http://github.com/jacius/nice-ffi/zipball/master">zip</a> or
-        <a href="http://github.com/jacius/nice-ffi/tarball/master">tar</a> formats.
+        <a href="http://github.com/jacius/nice-ffi/zipball/master">zip</a>
+        or
+        <a href="http://github.com/jacius/nice-ffi/tarball/master">tar</a>
+        formats.
       </p>
     </div>
     
+
     <div class="footer">
-      get the source code on GitHub:
+      Get the source code on GitHub:
       <a href="http://github.com/jacius/nice-ffi">jacius/nice-ffi</a>
     </div>
     
