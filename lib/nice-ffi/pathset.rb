@@ -4,7 +4,7 @@
 #
 # Nice-FFI - Convenience layer atop Ruby-FFI
 #
-# Copyright (c) 2009 John Croisant
+# Copyright (c) 2009-2010 John Croisant
 #
 # Permission is hereby granted, free of charge, to any person obtaining
 # a copy of this software and associated documentation files (the

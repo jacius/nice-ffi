@@ -38,7 +38,7 @@ end
 $gemspec = Gem::Specification.new do |s|
 
   s.name     = "nice-ffi"
-  s.version  = "0.2"
+  s.version  = "0.3"
   s.authors  = ["John Croisant"]
   s.email    = "jacius@gmail.com"
   s.homepage = "http://github.com/jacius/nice-ffi/"
