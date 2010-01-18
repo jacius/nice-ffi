@@ -17,12 +17,12 @@ describe NiceFFI::OpaqueStruct do
 
 
   it "should accept an AutoPointer" do
-    ptr = FFI::AutoPointer.new( FFI::Pointer.new(1) )
+    ptr = FFI::AutoPointer.new( FFI::Pointer.new(1), proc{} )
     lambda{ OpaqueThing.new( ptr ) }.should_not raise_error
   end
 
   it "should use the given AutoPointer" do
-    ptr = FFI::AutoPointer.new( FFI::Pointer.new(1) )
+    ptr = FFI::AutoPointer.new( FFI::Pointer.new(1), proc{} )
     op = OpaqueThing.new( ptr )
     op.pointer.should equal( ptr )
   end
