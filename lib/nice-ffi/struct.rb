@@ -338,20 +338,20 @@ class NiceFFI::Struct < FFI::Struct
     case val
 
     when Hash
-      super()                       # Create empty struct
+      super(FFI::Buffer.new(size))
       init_from_hash( val )         # Read the values from a Hash.
 
     # Note: plain "Array" would mean FFI::Struct::Array in this scope.
     when ::Array
-      super()                       # Create empty struct
+      super(FFI::Buffer.new(size))
       init_from_array( val )        # Read the values from an Array.
 
     when String
-      super()                       # Create empty struct
+      super(FFI::Buffer.new(size))
       init_from_bytes( val )        # Read the values from a bytestring.
 
     when self.class
-      super()                         # Create empty struct
+      super(FFI::Buffer.new(size))
       init_from_bytes( val.to_bytes ) # Read the values from another instance.
 
     when FFI::Pointer, FFI::Buffer
