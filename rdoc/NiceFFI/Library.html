@@ -1,0 +1,541 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+	"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+	<meta content="text/html; charset=utf-8" http-equiv="Content-Type" />
+
+	<title>Module: NiceFFI::Library</title>
+
+	<link rel="stylesheet" href="../rdoc.css" type="text/css" media="screen" />
+
+	<script src="../js/jquery.js" type="text/javascript"
+		charset="utf-8"></script>
+	<script src="../js/thickbox-compressed.js" type="text/javascript"
+		charset="utf-8"></script>
+	<script src="../js/quicksearch.js" type="text/javascript"
+		charset="utf-8"></script>
+	<script src="../js/darkfish.js" type="text/javascript"
+		charset="utf-8"></script>
+
+</head>
+<body class="module">
+
+	<div id="metadata">
+		<div id="file-metadata">
+			<div id="file-list-section" class="section">
+				<h3 class="section-header">In Files</h3>
+				<div class="section-body">
+					<ul>
+					
+						<li><a href="../lib/nice-ffi/library_rb.html?TB_iframe=true&amp;height=550&amp;width=785"
+							class="thickbox" title="lib/nice-ffi/library.rb">lib/nice-ffi/library.rb</a></li>
+					
+					</ul>
+				</div>
+			</div>
+
+			
+		</div>
+
+		<div id="class-metadata">
+
+			<!-- Parent Class -->
+			
+
+			<!-- Namespace Contents -->
+			
+
+			<!-- Method Quickref -->
+			
+			<div id="method-list-section" class="section">
+				<h3 class="section-header">Methods</h3>
+				<ul class="link-list">
+					
+					<li><a href="#M000052">::extend_object</a></li>
+					
+					<li><a href="#M000054">#attach_function</a></li>
+					
+					<li><a href="#M000053">#load_library</a></li>
+					
+					<li><a href="#M000057">#optfunc</a></li>
+					
+					<li><a href="#M000055">#optional</a></li>
+					
+					<li><a href="#M000056">#optional_function</a></li>
+					
+				</ul>
+			</div>
+			
+
+			<!-- Included Modules -->
+			
+		</div>
+
+		<div id="project-metadata">
+			
+			
+			<div id="fileindex-section" class="section project-section">
+				<h3 class="section-header">Files</h3>
+				<ul>
+				
+					<li class="file"><a href="../README_rdoc.html">README.rdoc</a></li>
+				
+					<li class="file"><a href="../TODO_rdoc.html">TODO.rdoc</a></li>
+				
+					<li class="file"><a href="../docs/usage_rdoc.html">usage.rdoc</a></li>
+				
+					<li class="file"><a href="../pkg/nice-ffi-0_2/README_rdoc.html">README.rdoc</a></li>
+				
+					<li class="file"><a href="../pkg/nice-ffi-0_2/TODO_rdoc.html">TODO.rdoc</a></li>
+				
+					<li class="file"><a href="../pkg/nice-ffi-0_2/docs/usage_rdoc.html">usage.rdoc</a></li>
+				
+					<li class="file"><a href="../pkg/nice-ffi-0_3/README_rdoc.html">README.rdoc</a></li>
+				
+					<li class="file"><a href="../pkg/nice-ffi-0_3/TODO_rdoc.html">TODO.rdoc</a></li>
+				
+					<li class="file"><a href="../pkg/nice-ffi-0_3/docs/usage_rdoc.html">usage.rdoc</a></li>
+				
+					<li class="file"><a href="../pkg/nice-ffi-0_3/pkg/nice-ffi-0_2/README_rdoc.html">README.rdoc</a></li>
+				
+					<li class="file"><a href="../pkg/nice-ffi-0_3/pkg/nice-ffi-0_2/TODO_rdoc.html">TODO.rdoc</a></li>
+				
+					<li class="file"><a href="../pkg/nice-ffi-0_3/pkg/nice-ffi-0_2/docs/usage_rdoc.html">usage.rdoc</a></li>
+				
+				</ul>
+			</div>
+			
+
+			<div id="classindex-section" class="section project-section">
+				<h3 class="section-header">Class Index
+					<span class="search-toggle"><img src="../images/find.png"
+						height="16" width="16" alt="[+]"
+						title="show/hide quicksearch" /></span></h3>
+				<form action="#" method="get" accept-charset="utf-8" class="initially-hidden">
+				<fieldset>
+					<legend>Quicksearch</legend>
+					<input type="text" name="quicksearch" value=""
+						class="quicksearch-field" />
+				</fieldset>
+				</form>
+
+				<ul class="link-list">
+				
+					<li><a href="../NiceFFI.html">NiceFFI</a></li>
+				
+					<li><a href="../NiceFFI/AutoRelease.html">NiceFFI::AutoRelease</a></li>
+				
+					<li><a href="../NiceFFI/Library.html">NiceFFI::Library</a></li>
+				
+					<li><a href="../NiceFFI/OpaqueStruct.html">NiceFFI::OpaqueStruct</a></li>
+				
+					<li><a href="../NiceFFI/PathSet.html">NiceFFI::PathSet</a></li>
+				
+					<li><a href="../NiceFFI/Struct.html">NiceFFI::Struct</a></li>
+				
+					<li><a href="../NiceFFI/TypedPointer.html">NiceFFI::TypedPointer</a></li>
+				
+				</ul>
+				<div id="no-class-search-results" style="display: none;">No matching classes.</div>
+			</div>
+
+			
+		</div>
+	</div>
+
+	<div id="documentation">
+		<h1 class="module">NiceFFI::Library</h1>
+
+		<div id="description">
+			<p>
+A module to be used in place of FFI::Library. It acts mostly like
+FFI::Library, but with some nice extra features and conveniences to make
+life easier:
+</p>
+<ul>
+<li><a href="Library.html#M000053">load_library</a> method to help find and
+load libraries from common (or custom) places for the current OS. Use it
+instead of ffi_lib.
+
+</li>
+<li><a href="Library.html#M000054">attach_function</a> accepts TypedPointers as
+return type, in which case it wraps the return value of the bound function
+in the TypedPointer&#8217;s type.
+
+</li>
+<li>Shorthand aliases to improve code readability:
+
+<ul>
+<li>func = <a href="Library.html#M000054">attach_function</a>
+
+</li>
+<li>var = attach_variable
+
+</li>
+</ul>
+</li>
+</ul>
+
+		</div>
+
+		<!-- Constants -->
+		
+
+		<!-- Attributes -->
+		
+
+		<!-- Methods -->
+		
+		<div id="public-class-method-details" class="method-section section">
+			<h3 class="section-header">Public Class Methods</h3>
+
+		
+			<div id="extend-object-method" class="method-detail ">
+				<a name="M000052"></a>
+
+				<div class="method-heading">
+				
+					<span class="method-name">extend_object</span><span
+						class="method-args">( klass )</span>
+					<span class="method-click-advice">click to toggle source</span>
+				
+				</div>
+
+				<div class="method-description">
+					
+					<p class="missing-docs">(Not documented)</p>
+					
+
+					
+					<div class="method-source-code"
+						id="extend-object-source">
+<pre>
+<span class="ruby-comment cmt"># File lib/nice-ffi/library.rb, line 48</span>
+  <span class="ruby-keyword kw">def</span> <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">extend_object</span>( <span class="ruby-identifier">klass</span> )
+    <span class="ruby-identifier">klass</span>.<span class="ruby-identifier">extend</span> <span class="ruby-constant">FFI</span><span class="ruby-operator">::</span><span class="ruby-constant">Library</span>
+
+    <span class="ruby-keyword kw">super</span>
+
+    <span class="ruby-keyword kw">class</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-identifier">klass</span>
+      <span class="ruby-keyword kw">alias</span> <span class="ruby-identifier">:func</span> <span class="ruby-identifier">:attach_function</span>
+      <span class="ruby-keyword kw">alias</span> <span class="ruby-identifier">:var</span>  <span class="ruby-identifier">:attach_variable</span>
+    <span class="ruby-keyword kw">end</span>
+  <span class="ruby-keyword kw">end</span></pre>
+					</div>
+					
+				</div>
+
+				
+			</div>
+
+		
+		</div>
+	
+		<div id="public-instance-method-details" class="method-section section">
+			<h3 class="section-header">Public Instance Methods</h3>
+
+		
+			<div id="attach-function-method" class="method-detail ">
+				<a name="M000054"></a>
+
+				<div class="method-heading">
+				
+					<span class="method-name">attach_function</span><span
+						class="method-args">( methname, arg1, arg2, arg3=nil )</span>
+					<span class="method-click-advice">click to toggle source</span>
+				
+				</div>
+
+				<div class="method-description">
+					
+					<p class="missing-docs">(Not documented)</p>
+					
+
+					
+					<div class="method-source-code"
+						id="attach-function-source">
+<pre>
+<span class="ruby-comment cmt"># File lib/nice-ffi/library.rb, line 106</span>
+  <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">attach_function</span>( <span class="ruby-identifier">methname</span>, <span class="ruby-identifier">arg1</span>, <span class="ruby-identifier">arg2</span>, <span class="ruby-identifier">arg3</span>=<span class="ruby-keyword kw">nil</span> )
+
+    <span class="ruby-comment cmt"># To match the normal attach_function's weird syntax.</span>
+    <span class="ruby-comment cmt"># The arguments can be either:</span>
+    <span class="ruby-comment cmt"># </span>
+    <span class="ruby-comment cmt"># 1. methname, args, retrn_type  (funcname = methname)</span>
+    <span class="ruby-comment cmt"># 2. methname, funcname, args, retrn_type</span>
+    <span class="ruby-comment cmt"># </span>
+    <span class="ruby-identifier">funcname</span>, <span class="ruby-identifier">args</span>, <span class="ruby-identifier">retrn_type</span> = <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">arg1</span>.<span class="ruby-identifier">kind_of?</span>(<span class="ruby-constant">Array</span>)
+                                   [<span class="ruby-identifier">methname</span>, <span class="ruby-identifier">arg1</span>, <span class="ruby-identifier">arg2</span>]
+                                 <span class="ruby-keyword kw">else</span>
+                                   [<span class="ruby-identifier">arg1</span>, <span class="ruby-identifier">arg2</span>, <span class="ruby-identifier">arg3</span>]
+                                 <span class="ruby-keyword kw">end</span>
+
+    <span class="ruby-keyword kw">unless</span> <span class="ruby-identifier">retrn_type</span>.<span class="ruby-identifier">kind_of?</span> <span class="ruby-constant">NiceFFI</span><span class="ruby-operator">::</span><span class="ruby-constant">TypedPointer</span>
+      <span class="ruby-comment cmt"># Normal FFI::Library.attach_function behavior.</span>
+      <span class="ruby-keyword kw">super</span>
+    <span class="ruby-keyword kw">else</span>
+
+      <span class="ruby-comment cmt"># Create the raw FFI binding, which returns a pointer.</span>
+      <span class="ruby-comment cmt"># We call it __methname because it's not meant to be called</span>
+      <span class="ruby-comment cmt"># by users. We also make it private below.</span>
+      <span class="ruby-comment cmt"># </span>
+      <span class="ruby-keyword kw">super</span>( <span class="ruby-node">&quot;__#{methname}&quot;</span>.<span class="ruby-identifier">to_sym</span>, <span class="ruby-identifier">funcname</span>, <span class="ruby-identifier">args</span>, <span class="ruby-identifier">:pointer</span> )
+
+
+      <span class="ruby-comment cmt"># CAUTION: Metaclass hackery ahead! Handle with care!</span>
+
+      <span class="ruby-identifier">metaklass</span> = <span class="ruby-keyword kw">class</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-keyword kw">self</span>; <span class="ruby-keyword kw">self</span>; <span class="ruby-keyword kw">end</span>
+      <span class="ruby-identifier">metaklass</span>.<span class="ruby-identifier">instance_eval</span> {
+
+        <span class="ruby-comment cmt"># Create the nice method, which calls __methname and wraps the</span>
+        <span class="ruby-comment cmt"># return value (a pointer) the appropriate class using</span>
+        <span class="ruby-comment cmt"># TypedPointer#wrap. This is the one that users should call,</span>
+        <span class="ruby-comment cmt"># so we don't prepend the name with _'s.</span>
+        <span class="ruby-comment cmt"># </span>
+        <span class="ruby-identifier">define_method</span>( <span class="ruby-identifier">methname</span> ) <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-operator">*</span><span class="ruby-identifier">args</span><span class="ruby-operator">|</span>
+          <span class="ruby-identifier">retrn_type</span>.<span class="ruby-identifier">wrap</span>( <span class="ruby-identifier">send</span>(<span class="ruby-node">&quot;__#{methname}&quot;</span>.<span class="ruby-identifier">to_sym</span>, <span class="ruby-operator">*</span><span class="ruby-identifier">args</span>) )
+        <span class="ruby-keyword kw">end</span>
+
+        <span class="ruby-comment cmt"># __methname is private.</span>
+        <span class="ruby-identifier">private</span> <span class="ruby-node">&quot;__#{methname}&quot;</span>.<span class="ruby-identifier">to_sym</span>
+
+      }
+
+    <span class="ruby-keyword kw">end</span>
+
+  <span class="ruby-keyword kw">end</span></pre>
+					</div>
+					
+				</div>
+
+				
+			</div>
+
+		
+			<div id="load-library-method" class="method-detail ">
+				<a name="M000053"></a>
+
+				<div class="method-heading">
+				
+					<span class="method-name">load_library</span><span
+						class="method-args">( names, search_paths=NiceFFI::PathSet::DEFAULT_PATHS )</span>
+					<span class="method-click-advice">click to toggle source</span>
+				
+				</div>
+
+				<div class="method-description">
+					
+					<p>
+Try to find and load a library (e.g. &#8220;SDL_ttf&#8220;) into an FFI
+wrapper module (e.g. SDL::TTF). This method searches in different locations
+depending on your OS. See <a href="PathSet.html">PathSet</a>.
+</p>
+<p>
+Returns the path to the library that was loaded.
+</p>
+<p>
+Raises LoadError if it could not find or load the library.
+</p>
+					
+
+					
+					<div class="method-source-code"
+						id="load-library-source">
+<pre>
+<span class="ruby-comment cmt"># File lib/nice-ffi/library.rb, line 68</span>
+  <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">load_library</span>( <span class="ruby-identifier">names</span>, <span class="ruby-identifier">search_paths</span>=<span class="ruby-constant">NiceFFI</span><span class="ruby-operator">::</span><span class="ruby-constant">PathSet</span><span class="ruby-operator">::</span><span class="ruby-constant">DEFAULT_PATHS</span> )
+
+    <span class="ruby-identifier">names</span> = [<span class="ruby-identifier">names</span>] <span class="ruby-keyword kw">unless</span> <span class="ruby-identifier">names</span>.<span class="ruby-identifier">kind_of?</span> <span class="ruby-constant">Array</span>
+
+    <span class="ruby-identifier">paths</span> = <span class="ruby-identifier">search_paths</span>.<span class="ruby-identifier">find</span>( <span class="ruby-operator">*</span><span class="ruby-identifier">names</span> )
+
+    <span class="ruby-comment cmt"># Try just the plain library name(s), as last resort.</span>
+    <span class="ruby-identifier">paths</span> <span class="ruby-operator">+=</span> <span class="ruby-identifier">names</span>
+
+    <span class="ruby-comment cmt"># Try loading each path until one works.</span>
+    <span class="ruby-identifier">loaded</span> = <span class="ruby-identifier">paths</span>.<span class="ruby-identifier">find</span> { <span class="ruby-operator">|</span><span class="ruby-identifier">path</span><span class="ruby-operator">|</span> 
+      <span class="ruby-keyword kw">begin</span>
+        <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">module_eval</span> {
+          <span class="ruby-identifier">ffi_lib</span> <span class="ruby-identifier">path</span>
+        }
+      <span class="ruby-keyword kw">rescue</span> <span class="ruby-constant">LoadError</span>
+        <span class="ruby-keyword kw">false</span>
+      <span class="ruby-keyword kw">else</span>
+        <span class="ruby-keyword kw">true</span>
+      <span class="ruby-keyword kw">end</span>
+    }
+
+    <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">loaded</span>.<span class="ruby-identifier">nil?</span>
+      <span class="ruby-comment cmt"># Oops, none of them worked.</span>
+      <span class="ruby-identifier">pretty_names</span> = <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">names</span>.<span class="ruby-identifier">size</span> <span class="ruby-operator">==</span> <span class="ruby-value">1</span>
+                       <span class="ruby-identifier">names</span>[<span class="ruby-value">0</span>]
+                     <span class="ruby-keyword kw">else</span>
+                       <span class="ruby-identifier">names</span>[<span class="ruby-value">0</span><span class="ruby-operator">..</span><span class="ruby-value">-2</span>].<span class="ruby-identifier">join</span>(<span class="ruby-value str">&quot;, &quot;</span>) <span class="ruby-operator">+</span> <span class="ruby-value str">&quot;, or &quot;</span> <span class="ruby-operator">+</span> <span class="ruby-identifier">names</span>[<span class="ruby-value">-1</span>]
+                     <span class="ruby-keyword kw">end</span>
+
+      <span class="ruby-identifier">raise</span>( <span class="ruby-constant">LoadError</span>, <span class="ruby-node">&quot;Could not load #{pretty_names}.&quot;</span> )
+    <span class="ruby-keyword kw">else</span>
+      <span class="ruby-comment cmt"># Return the one that did work</span>
+      <span class="ruby-keyword kw">return</span> <span class="ruby-identifier">loaded</span>
+    <span class="ruby-keyword kw">end</span>
+  <span class="ruby-keyword kw">end</span></pre>
+					</div>
+					
+				</div>
+
+				
+			</div>
+
+		
+			<div id="optfunc-method" class="method-detail method-alias">
+				<a name="M000057"></a>
+
+				<div class="method-heading">
+				
+					<span class="method-name">optfunc</span><span
+						class="method-args">( *args )</span>
+					<span class="method-click-advice">click to toggle source</span>
+				
+				</div>
+
+				<div class="method-description">
+					
+					<p>
+Alias for <a href="Library.html#M000056">optional_function</a>
+</p>
+					
+
+					
+				</div>
+
+				
+			</div>
+
+		
+			<div id="optional-method" class="method-detail ">
+				<a name="M000055"></a>
+
+				<div class="method-heading">
+				
+					<span class="method-name">optional</span><span
+						class="method-args">( warn_message=nil, &block )</span>
+					<span class="method-click-advice">click to toggle source</span>
+				
+				</div>
+
+				<div class="method-description">
+					
+					<p>
+Calls the given block, but rescues and prints a warning if
+FFI::NotFoundError is raised. If warn_message is nil, the error message is
+printed instead.
+</p>
+<p>
+This is intended to be used around <a
+href="Library.html#M000054">attach_function</a> for cases where the
+function may not exist (e.g. because the user has an old version of the
+library) and the library should continue loading anyway (with the function
+missing).
+</p>
+<p>
+Example:
+</p>
+<pre>
+  module Foo
+    extend NiceFFI::Library
+
+    load_library( &quot;libfoo&quot; )
+
+    optional( &quot;Warning: Your libfoo doesn't have opt_func()&quot; ) do
+      attach_function :opt_func, [], :int
+    end
+  end
+</pre>
+					
+
+					
+					<div class="method-source-code"
+						id="optional-source">
+<pre>
+<span class="ruby-comment cmt"># File lib/nice-ffi/library.rb, line 178</span>
+  <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">optional</span>( <span class="ruby-identifier">warn_message</span>=<span class="ruby-keyword kw">nil</span>, <span class="ruby-operator">&amp;</span><span class="ruby-identifier">block</span> )
+    <span class="ruby-identifier">raise</span> <span class="ruby-constant">LocalJumpError</span>, <span class="ruby-value str">&quot;no block given&quot;</span> <span class="ruby-keyword kw">unless</span> <span class="ruby-identifier">block_given?</span>
+    <span class="ruby-keyword kw">begin</span>
+      <span class="ruby-identifier">block</span>.<span class="ruby-identifier">call</span>()
+    <span class="ruby-keyword kw">rescue</span> <span class="ruby-constant">FFI</span><span class="ruby-operator">::</span><span class="ruby-constant">NotFoundError</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">e</span>
+      <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">warn_message</span>
+        <span class="ruby-identifier">puts</span> <span class="ruby-identifier">warn_message</span>
+      <span class="ruby-keyword kw">else</span>
+        <span class="ruby-identifier">puts</span> <span class="ruby-node">&quot;Warning: #{e.message}&quot;</span>
+      <span class="ruby-keyword kw">end</span>
+    <span class="ruby-keyword kw">end</span>
+  <span class="ruby-keyword kw">end</span></pre>
+					</div>
+					
+				</div>
+
+				
+			</div>
+
+		
+			<div id="optional-function-method" class="method-detail ">
+				<a name="M000056"></a>
+
+				<div class="method-heading">
+				
+					<span class="method-name">optional_function</span><span
+						class="method-args">( *args )</span>
+					<span class="method-click-advice">click to toggle source</span>
+				
+				</div>
+
+				<div class="method-description">
+					
+					<p>
+Like <a href="Library.html#M000054">attach_function</a>, but wrapped in <a
+href="Library.html#M000055">optional</a>.
+</p>
+					
+
+					
+					<div class="method-source-code"
+						id="optional-function-source">
+<pre>
+<span class="ruby-comment cmt"># File lib/nice-ffi/library.rb, line 193</span>
+  <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">optional_function</span>( <span class="ruby-operator">*</span><span class="ruby-identifier">args</span> )
+    <span class="ruby-identifier">optional</span> {  <span class="ruby-identifier">attach_function</span>( <span class="ruby-operator">*</span><span class="ruby-identifier">args</span> )  }
+  <span class="ruby-keyword kw">end</span></pre>
+					</div>
+					
+				</div>
+
+				
+				<div class="aliases">
+					Also aliased as: <a href="Library.html#M000057">optfunc</a>
+				</div>
+				
+			</div>
+
+		
+		</div>
+	
+
+	</div>
+
+
+	<div id="rdoc-debugging-section-dump" class="debugging-section">
+	
+		<p>Disabled; run with --debug to generate this.</p>
+	
+	</div>
+
+	<div id="validator-badges">
+		<p><small><a href="http://validator.w3.org/check/referer">[Validate]</a></small></p>
+		<p><small>Generated with the <a href="http://deveiate.org/projects/Darkfish-Rdoc/">Darkfish
+			Rdoc Generator</a> 1.1.6</small>.</p>
+	</div>
+
+</body>
+</html>
+

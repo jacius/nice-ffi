@@ -1,0 +1,1134 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+	"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+	<meta content="text/html; charset=utf-8" http-equiv="Content-Type" />
+
+	<title>Class: NiceFFI::PathSet</title>
+
+	<link rel="stylesheet" href="../rdoc.css" type="text/css" media="screen" />
+
+	<script src="../js/jquery.js" type="text/javascript"
+		charset="utf-8"></script>
+	<script src="../js/thickbox-compressed.js" type="text/javascript"
+		charset="utf-8"></script>
+	<script src="../js/quicksearch.js" type="text/javascript"
+		charset="utf-8"></script>
+	<script src="../js/darkfish.js" type="text/javascript"
+		charset="utf-8"></script>
+
+</head>
+<body class="class">
+
+	<div id="metadata">
+		<div id="file-metadata">
+			<div id="file-list-section" class="section">
+				<h3 class="section-header">In Files</h3>
+				<div class="section-body">
+					<ul>
+					
+						<li><a href="../lib/nice-ffi/pathset_rb.html?TB_iframe=true&amp;height=550&amp;width=785"
+							class="thickbox" title="lib/nice-ffi/pathset.rb">lib/nice-ffi/pathset.rb</a></li>
+					
+					</ul>
+				</div>
+			</div>
+
+			
+		</div>
+
+		<div id="class-metadata">
+
+			<!-- Parent Class -->
+			
+			<div id="parent-class-section" class="section">
+				<h3 class="section-header">Parent</h3>
+				
+				<p class="link">Object</p>
+				
+			</div>
+			
+
+			<!-- Namespace Contents -->
+			
+
+			<!-- Method Quickref -->
+			
+			<div id="method-list-section" class="section">
+				<h3 class="section-header">Methods</h3>
+				<ul class="link-list">
+					
+					<li><a href="#M000000">::new</a></li>
+					
+					<li><a href="#M000004">#+</a></li>
+					
+					<li><a href="#M000011">#-</a></li>
+					
+					<li><a href="#M000015">#_modify</a></li>
+					
+					<li><a href="#M000002">#append</a></li>
+					
+					<li><a href="#M000003">#append!</a></li>
+					
+					<li><a href="#M000012">#delete</a></li>
+					
+					<li><a href="#M000013">#delete!</a></li>
+					
+					<li><a href="#M000001">#dup</a></li>
+					
+					<li><a href="#M000014">#find</a></li>
+					
+					<li><a href="#M000005">#prepend</a></li>
+					
+					<li><a href="#M000006">#prepend!</a></li>
+					
+					<li><a href="#M000009">#remove</a></li>
+					
+					<li><a href="#M000010">#remove!</a></li>
+					
+					<li><a href="#M000007">#replace</a></li>
+					
+					<li><a href="#M000008">#replace!</a></li>
+					
+				</ul>
+			</div>
+			
+
+			<!-- Included Modules -->
+			
+		</div>
+
+		<div id="project-metadata">
+			
+			
+			<div id="fileindex-section" class="section project-section">
+				<h3 class="section-header">Files</h3>
+				<ul>
+				
+					<li class="file"><a href="../README_rdoc.html">README.rdoc</a></li>
+				
+					<li class="file"><a href="../TODO_rdoc.html">TODO.rdoc</a></li>
+				
+					<li class="file"><a href="../docs/usage_rdoc.html">usage.rdoc</a></li>
+				
+					<li class="file"><a href="../pkg/nice-ffi-0_2/README_rdoc.html">README.rdoc</a></li>
+				
+					<li class="file"><a href="../pkg/nice-ffi-0_2/TODO_rdoc.html">TODO.rdoc</a></li>
+				
+					<li class="file"><a href="../pkg/nice-ffi-0_2/docs/usage_rdoc.html">usage.rdoc</a></li>
+				
+					<li class="file"><a href="../pkg/nice-ffi-0_3/README_rdoc.html">README.rdoc</a></li>
+				
+					<li class="file"><a href="../pkg/nice-ffi-0_3/TODO_rdoc.html">TODO.rdoc</a></li>
+				
+					<li class="file"><a href="../pkg/nice-ffi-0_3/docs/usage_rdoc.html">usage.rdoc</a></li>
+				
+					<li class="file"><a href="../pkg/nice-ffi-0_3/pkg/nice-ffi-0_2/README_rdoc.html">README.rdoc</a></li>
+				
+					<li class="file"><a href="../pkg/nice-ffi-0_3/pkg/nice-ffi-0_2/TODO_rdoc.html">TODO.rdoc</a></li>
+				
+					<li class="file"><a href="../pkg/nice-ffi-0_3/pkg/nice-ffi-0_2/docs/usage_rdoc.html">usage.rdoc</a></li>
+				
+				</ul>
+			</div>
+			
+
+			<div id="classindex-section" class="section project-section">
+				<h3 class="section-header">Class Index
+					<span class="search-toggle"><img src="../images/find.png"
+						height="16" width="16" alt="[+]"
+						title="show/hide quicksearch" /></span></h3>
+				<form action="#" method="get" accept-charset="utf-8" class="initially-hidden">
+				<fieldset>
+					<legend>Quicksearch</legend>
+					<input type="text" name="quicksearch" value=""
+						class="quicksearch-field" />
+				</fieldset>
+				</form>
+
+				<ul class="link-list">
+				
+					<li><a href="../NiceFFI.html">NiceFFI</a></li>
+				
+					<li><a href="../NiceFFI/AutoRelease.html">NiceFFI::AutoRelease</a></li>
+				
+					<li><a href="../NiceFFI/Library.html">NiceFFI::Library</a></li>
+				
+					<li><a href="../NiceFFI/OpaqueStruct.html">NiceFFI::OpaqueStruct</a></li>
+				
+					<li><a href="../NiceFFI/PathSet.html">NiceFFI::PathSet</a></li>
+				
+					<li><a href="../NiceFFI/Struct.html">NiceFFI::Struct</a></li>
+				
+					<li><a href="../NiceFFI/TypedPointer.html">NiceFFI::TypedPointer</a></li>
+				
+				</ul>
+				<div id="no-class-search-results" style="display: none;">No matching classes.</div>
+			</div>
+
+			
+		</div>
+	</div>
+
+	<div id="documentation">
+		<h1 class="class">NiceFFI::PathSet</h1>
+
+		<div id="description">
+			<p>
+<a href="PathSet.html">PathSet</a> is a collection of directory paths and
+file name templates, used to help <a href="../NiceFFI.html">NiceFFI</a>
+find library files. It allows per-operating system paths and file name
+templates, using regular expressions to match the OS name.
+</p>
+<p>
+Each <a href="PathSet.html">PathSet</a> holds two hashes, @paths and
+@files.
+</p>
+<ul>
+<li>The keys for both @paths and @files are regexps that match
+FFI::Platform::OS for the operating system(s) that the paths or file
+templates apply to.
+
+</li>
+<li>The values of @paths are Arrays of one or more strings describing a
+directory for where a library might be found on this OS. So for example,
+one pair in @paths might be { /linux|bsd/ =>
+
+<dl>
+<dt>&#8220;/usr/local/lib/&#8220;, &#8220;/usr/lib/&#8220;</dt><dd>}, which means: &#8220;For operating
+
+</dd>
+</dl>
+<p>
+systems that match the regular expression /linux|bsd/ (e.g.
+&#8216;linux&#8217;, &#8216;freebsd&#8217;, and &#8216;openbsd&#8217;),
+look for libraries first in the directory &#8216;/usr/local/lib/&#8217;,
+then in &#8216;/usr/lib/&#8217;.&#8220;
+</p>
+</li>
+<li>The value of @files are Arrays of one or more strings describing the
+possible formats of library names for that operating system. These are
+templates &#8212; they should include string &#8220;[NAME]&#8221;, which
+will be replaced with the library name. For example,
+&#8220;lib[NAME].so&#8221; would become &#8220;libSDL_ttf.so&#8220; when
+searching for the &#8220;SDL_ttf&#8220; library.
+
+</li>
+</ul>
+<p>
+There are several methods to modify @paths and/or @files. See <a
+href="PathSet.html#M000002">append</a>, <a
+href="PathSet.html#M000005">prepend</a>, <a
+href="PathSet.html#M000007">replace</a>, <a
+href="PathSet.html#M000009">remove</a>, and <a
+href="PathSet.html#M000012">delete</a>.
+</p>
+<p>
+Once @paths and @files are set up, use <a
+href="PathSet.html#M000014">find</a> to look for a file with a matching
+name.
+</p>
+<p>
+NiceFFI::PathSet::DEFAULT is a pre-made <a href="PathSet.html">PathSet</a>
+with paths and file name templates for Linux/BSD, Mac (Darwin), and
+Windows. It is the default <a href="PathSet.html">PathSet</a> used by <a
+href="Library.html#M000053">NiceFFI::Library.load_library</a>, and you can
+also use it as a base for custom PathSets.
+</p>
+
+		</div>
+
+		<!-- Constants -->
+		
+
+		<!-- Attributes -->
+		
+		<div id="attribute-method-details" class="method-section section">
+			<h3 class="section-header">Attributes</h3>
+
+			
+			<div id="paths-attribute-method" class="method-detail">
+				<a name="paths"></a>
+				
+				<div class="method-heading attribute-method-heading">
+					<span class="method-name">paths</span><span
+						class="attribute-access-type">[R]</span>
+				</div>
+
+				<div class="method-description">
+				
+				<p class="missing-docs">(Not documented)</p>
+				
+				</div>
+			</div>
+			
+			<div id="files-attribute-method" class="method-detail">
+				<a name="files"></a>
+				
+				<div class="method-heading attribute-method-heading">
+					<span class="method-name">files</span><span
+						class="attribute-access-type">[R]</span>
+				</div>
+
+				<div class="method-description">
+				
+				<p class="missing-docs">(Not documented)</p>
+				
+				</div>
+			</div>
+			
+		</div>
+		
+
+		<!-- Methods -->
+		
+		<div id="public-class-method-details" class="method-section section">
+			<h3 class="section-header">Public Class Methods</h3>
+
+		
+			<div id="new-method" class="method-detail ">
+				<a name="M000000"></a>
+
+				<div class="method-heading">
+				
+					<span class="method-name">new</span><span
+						class="method-args">( paths={}, files={} )</span>
+					<span class="method-click-advice">click to toggle source</span>
+				
+				</div>
+
+				<div class="method-description">
+					
+					<p class="missing-docs">(Not documented)</p>
+					
+
+					
+					<div class="method-source-code"
+						id="new-source">
+<pre>
+<span class="ruby-comment cmt"># File lib/nice-ffi/pathset.rb, line 71</span>
+  <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">initialize</span>( <span class="ruby-identifier">paths</span>={}, <span class="ruby-identifier">files</span>={} )
+    <span class="ruby-ivar">@paths</span> = {}
+    <span class="ruby-ivar">@files</span> = {}
+    <span class="ruby-identifier">append!</span>( <span class="ruby-identifier">:paths</span>, <span class="ruby-identifier">paths</span> )
+    <span class="ruby-identifier">append!</span>( <span class="ruby-identifier">:files</span>, <span class="ruby-identifier">files</span> )
+  <span class="ruby-keyword kw">end</span></pre>
+					</div>
+					
+				</div>
+
+				
+			</div>
+
+		
+		</div>
+	
+		<div id="public-instance-method-details" class="method-section section">
+			<h3 class="section-header">Public Instance Methods</h3>
+
+		
+			<div id="--method" class="method-detail method-alias">
+				<a name="M000004"></a>
+
+				<div class="method-heading">
+				
+					<span class="method-name">+</span><span
+						class="method-args">( *entries )</span>
+					<span class="method-click-advice">click to toggle source</span>
+				
+				</div>
+
+				<div class="method-description">
+					
+					<p>
+Alias for <a href="PathSet.html#M000002">append</a>
+</p>
+					
+
+					
+				</div>
+
+				
+			</div>
+
+		
+			<div id="--method" class="method-detail method-alias">
+				<a name="M000011"></a>
+
+				<div class="method-heading">
+				
+					<span class="method-name">-</span><span
+						class="method-args">( *entries )</span>
+					<span class="method-click-advice">click to toggle source</span>
+				
+				</div>
+
+				<div class="method-description">
+					
+					<p>
+Alias for <a href="PathSet.html#M000009">remove</a>
+</p>
+					
+
+					
+				</div>
+
+				
+			</div>
+
+		
+			<div id="append-method" class="method-detail ">
+				<a name="M000002"></a>
+
+				<div class="method-heading">
+				
+					<span class="method-callseq">append( *entries )
+append( option, *entries )</span>
+					<span class="method-click-advice">click to toggle source</span>
+				
+				</div>
+
+				<div class="method-description">
+					
+					<p>
+Create a copy of this <a href="PathSet.html">PathSet</a> and append the new
+paths and/or files. If the copy already has entries for a given regexp, the
+new entries will be added after the current entries.
+</p>
+<table>
+<tr><td valign="top">option:</td><td>You can optionally give either :paths or :files as the first argument to
+this method. If :paths, only @paths will be modified, @files will never be
+modified. If :files, only @files will be modified, @paths will never be
+modified.
+
+</td></tr>
+<tr><td valign="top">entries:</td><td>One or more PathSets, Hashes, Arrays, or Strings, or any assortment of
+these types.
+
+</td></tr>
+</table>
+<ul>
+<li>If given a <a href="PathSet.html">PathSet</a>, its @paths and @files are
+appended to the copy&#8217;s @paths and @files (respectively). If option is
+:paths, only @paths is modified. If option is :files, only @files is
+modified.
+
+</li>
+<li>If given a Hash, it is appended to the copy&#8217;s @paths, but @files is
+not affected. If option is :files, @files is modified instead of @paths.
+
+</li>
+<li>If given an Array (which should contain only Strings), the array contents
+are appended to the copy&#8217;s @paths. If option is :files, @files is
+modified instead of @paths.
+
+</li>
+<li>If given a String, the string is appended to the copy&#8217;s @paths. If
+option is :files, @files is modified instead of @paths.
+
+</li>
+<li>If given multiple objects, they are handled in order according to the above
+rules.
+
+</li>
+</ul>
+<p>
+See also <a href="PathSet.html#M000003">append!</a> for a version of this
+method which modifies self instead of making a copy.
+</p>
+					
+
+					
+					<div class="method-source-code"
+						id="append-source">
+<pre>
+<span class="ruby-comment cmt"># File lib/nice-ffi/pathset.rb, line 140</span>
+  <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">append</span>( <span class="ruby-operator">*</span><span class="ruby-identifier">entries</span> )
+    <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">dup</span>.<span class="ruby-identifier">append!</span>( <span class="ruby-operator">*</span><span class="ruby-identifier">entries</span> )
+  <span class="ruby-keyword kw">end</span></pre>
+					</div>
+					
+				</div>
+
+				
+				<div class="aliases">
+					Also aliased as: <a href="PathSet.html#M000004">+</a>
+				</div>
+				
+			</div>
+
+		
+			<div id="append--method" class="method-detail ">
+				<a name="M000003"></a>
+
+				<div class="method-heading">
+				
+					<span class="method-callseq">append!( *entries )
+append!( option, *entries )</span>
+					<span class="method-click-advice">click to toggle source</span>
+				
+				</div>
+
+				<div class="method-description">
+					
+					<p>
+Like <a href="PathSet.html#M000002">append</a>, but modifies self instead
+of making a copy.
+</p>
+					
+
+					
+					<div class="method-source-code"
+						id="append--source">
+<pre>
+<span class="ruby-comment cmt"># File lib/nice-ffi/pathset.rb, line 149</span>
+  <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">append!</span>( <span class="ruby-operator">*</span><span class="ruby-identifier">entries</span> )
+    <span class="ruby-identifier">_modify</span>( <span class="ruby-operator">*</span><span class="ruby-identifier">entries</span> ) { <span class="ruby-operator">|</span><span class="ruby-identifier">a</span>,<span class="ruby-identifier">b</span><span class="ruby-operator">|</span>  <span class="ruby-identifier">a</span> <span class="ruby-operator">+</span> <span class="ruby-identifier">b</span> }
+  <span class="ruby-keyword kw">end</span></pre>
+					</div>
+					
+				</div>
+
+				
+			</div>
+
+		
+			<div id="delete-method" class="method-detail ">
+				<a name="M000012"></a>
+
+				<div class="method-heading">
+				
+					<span class="method-callseq">delete( *regexps )
+delete( option, *regexps )</span>
+					<span class="method-click-advice">click to toggle source</span>
+				
+				</div>
+
+				<div class="method-description">
+					
+					<p>
+Creates a copy of this <a href="PathSet.html">PathSet</a> and delete all
+entries from the copy for the given regexp(s) from @paths and/or @files.
+Has no effect on entries for regexps that are not given.
+</p>
+<table>
+<tr><td valign="top">option:</td><td>You can optionally give either :paths or :files as the first argument to
+this method. If :paths, only @paths will be modified, @files will never be
+modified. If :files, only @files will be modified, @paths will never be
+modified.
+
+</td></tr>
+<tr><td valign="top">regexps:</td><td>One or more Regexps to remove entries for.
+
+</td></tr>
+</table>
+<p>
+See also <a href="PathSet.html#M000013">delete!</a> for a version of this
+method which modifies self instead of making a copy.
+</p>
+					
+
+					
+					<div class="method-source-code"
+						id="delete-source">
+<pre>
+<span class="ruby-comment cmt"># File lib/nice-ffi/pathset.rb, line 406</span>
+  <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">delete</span>( <span class="ruby-operator">*</span><span class="ruby-identifier">regexps</span> )
+    <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">dup</span>.<span class="ruby-identifier">delete!</span>( <span class="ruby-operator">*</span><span class="ruby-identifier">regexps</span> )
+  <span class="ruby-keyword kw">end</span></pre>
+					</div>
+					
+				</div>
+
+				
+			</div>
+
+		
+			<div id="delete--method" class="method-detail ">
+				<a name="M000013"></a>
+
+				<div class="method-heading">
+				
+					<span class="method-callseq">delete!( *regexps )
+delete!( option, *regexps )</span>
+					<span class="method-click-advice">click to toggle source</span>
+				
+				</div>
+
+				<div class="method-description">
+					
+					<p>
+Like <a href="PathSet.html#M000012">delete</a>, but modifies self instead
+of making a copy.
+</p>
+					
+
+					
+					<div class="method-source-code"
+						id="delete--source">
+<pre>
+<span class="ruby-comment cmt"># File lib/nice-ffi/pathset.rb, line 415</span>
+  <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">delete!</span>( <span class="ruby-operator">*</span><span class="ruby-identifier">regexps</span> )
+    <span class="ruby-keyword kw">case</span> <span class="ruby-identifier">regexps</span>[<span class="ruby-value">0</span>]
+    <span class="ruby-keyword kw">when</span> <span class="ruby-identifier">:paths</span>
+      <span class="ruby-ivar">@paths</span>.<span class="ruby-identifier">delete_if</span> { <span class="ruby-operator">|</span><span class="ruby-identifier">regexp</span>, <span class="ruby-identifier">paths</span><span class="ruby-operator">|</span>  <span class="ruby-identifier">regexps</span>.<span class="ruby-identifier">include?</span> <span class="ruby-identifier">regexp</span> }
+    <span class="ruby-keyword kw">when</span> <span class="ruby-identifier">:files</span>
+      <span class="ruby-ivar">@files</span>.<span class="ruby-identifier">delete_if</span> { <span class="ruby-operator">|</span><span class="ruby-identifier">regexp</span>, <span class="ruby-identifier">files</span><span class="ruby-operator">|</span>  <span class="ruby-identifier">regexps</span>.<span class="ruby-identifier">include?</span> <span class="ruby-identifier">regexp</span> }
+    <span class="ruby-keyword kw">when</span> <span class="ruby-constant">Symbol</span>
+      <span class="ruby-identifier">raise</span>( <span class="ruby-node">&quot;Invalid symbol option '#{first.inspect}'. &quot;</span> <span class="ruby-operator">+</span>
+             <span class="ruby-value str">&quot;Expected :paths or :files.&quot;</span> )
+    <span class="ruby-keyword kw">else</span>
+      <span class="ruby-ivar">@paths</span>.<span class="ruby-identifier">delete_if</span> { <span class="ruby-operator">|</span><span class="ruby-identifier">regexp</span>, <span class="ruby-identifier">paths</span><span class="ruby-operator">|</span>  <span class="ruby-identifier">regexps</span>.<span class="ruby-identifier">include?</span> <span class="ruby-identifier">regexp</span> }
+      <span class="ruby-ivar">@files</span>.<span class="ruby-identifier">delete_if</span> { <span class="ruby-operator">|</span><span class="ruby-identifier">regexp</span>, <span class="ruby-identifier">files</span><span class="ruby-operator">|</span>  <span class="ruby-identifier">regexps</span>.<span class="ruby-identifier">include?</span> <span class="ruby-identifier">regexp</span> }
+    <span class="ruby-keyword kw">end</span>
+    <span class="ruby-keyword kw">self</span>
+  <span class="ruby-keyword kw">end</span></pre>
+					</div>
+					
+				</div>
+
+				
+			</div>
+
+		
+			<div id="dup-method" class="method-detail ">
+				<a name="M000001"></a>
+
+				<div class="method-heading">
+				
+					<span class="method-name">dup</span><span
+						class="method-args">()</span>
+					<span class="method-click-advice">click to toggle source</span>
+				
+				</div>
+
+				<div class="method-description">
+					
+					<p class="missing-docs">(Not documented)</p>
+					
+
+					
+					<div class="method-source-code"
+						id="dup-source">
+<pre>
+<span class="ruby-comment cmt"># File lib/nice-ffi/pathset.rb, line 80</span>
+  <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">dup</span>
+    <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">class</span>.<span class="ruby-identifier">new</span>( <span class="ruby-ivar">@paths</span>.<span class="ruby-identifier">dup</span>, <span class="ruby-ivar">@files</span>.<span class="ruby-identifier">dup</span> )
+  <span class="ruby-keyword kw">end</span></pre>
+					</div>
+					
+				</div>
+
+				
+			</div>
+
+		
+			<div id="find-method" class="method-detail ">
+				<a name="M000014"></a>
+
+				<div class="method-heading">
+				
+					<span class="method-name">find</span><span
+						class="method-args">( *names )</span>
+					<span class="method-click-advice">click to toggle source</span>
+				
+				</div>
+
+				<div class="method-description">
+					
+					<p>
+Try to find a file based on the paths in this <a
+href="PathSet.html">PathSet</a>.
+</p>
+<table>
+<tr><td valign="top">*names:</td><td>Strings to try substituting for [NAME] in the paths.
+
+</td></tr>
+</table>
+<p>
+Returns an Array of the paths of matching files, or [] if there were no
+matches.
+</p>
+<p>
+Raises LoadError if the current operating system did not match any of the
+regular expressions in the <a href="PathSet.html">PathSet</a>.
+</p>
+					
+
+					
+					<div class="method-source-code"
+						id="find-source">
+<pre>
+<span class="ruby-comment cmt"># File lib/nice-ffi/pathset.rb, line 452</span>
+  <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">find</span>( <span class="ruby-operator">*</span><span class="ruby-identifier">names</span> )
+    <span class="ruby-identifier">os</span> = <span class="ruby-constant">FFI</span><span class="ruby-operator">::</span><span class="ruby-constant">Platform</span><span class="ruby-operator">::</span><span class="ruby-constant">OS</span>
+
+    <span class="ruby-comment cmt"># Fetch the paths and files for the matching OSes.</span>
+    <span class="ruby-identifier">paths</span> = <span class="ruby-ivar">@paths</span>.<span class="ruby-identifier">collect</span>{ <span class="ruby-operator">|</span><span class="ruby-identifier">regexp</span>,<span class="ruby-identifier">ps</span><span class="ruby-operator">|</span> <span class="ruby-identifier">regexp</span> <span class="ruby-operator">=~</span> <span class="ruby-identifier">os</span> <span class="ruby-value">? </span><span class="ruby-identifier">ps</span> <span class="ruby-operator">:</span> [] }.<span class="ruby-identifier">flatten</span>
+    <span class="ruby-identifier">files</span> = <span class="ruby-ivar">@files</span>.<span class="ruby-identifier">collect</span>{ <span class="ruby-operator">|</span><span class="ruby-identifier">regexp</span>,<span class="ruby-identifier">fs</span><span class="ruby-operator">|</span> <span class="ruby-identifier">regexp</span> <span class="ruby-operator">=~</span> <span class="ruby-identifier">os</span> <span class="ruby-value">? </span><span class="ruby-identifier">fs</span> <span class="ruby-operator">:</span> [] }.<span class="ruby-identifier">flatten</span>
+
+    <span class="ruby-comment cmt"># Drat, they are using an OS with no matches.</span>
+    <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">paths</span>.<span class="ruby-identifier">empty?</span> <span class="ruby-keyword kw">and</span> <span class="ruby-identifier">files</span>.<span class="ruby-identifier">empty?</span>
+      <span class="ruby-identifier">raise</span>( <span class="ruby-constant">LoadError</span>, <span class="ruby-node">&quot;Your OS (#{os}) is not supported yet.\n&quot;</span> <span class="ruby-operator">+</span>
+             <span class="ruby-value str">&quot;Please report this and help us support more platforms.&quot;</span> )
+    <span class="ruby-keyword kw">end</span>
+
+    <span class="ruby-identifier">results</span> = <span class="ruby-identifier">paths</span>.<span class="ruby-identifier">collect</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">path</span><span class="ruby-operator">|</span>
+      <span class="ruby-identifier">files</span>.<span class="ruby-identifier">collect</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">file</span><span class="ruby-operator">|</span>
+        <span class="ruby-identifier">names</span>.<span class="ruby-identifier">collect</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">name</span><span class="ruby-operator">|</span>
+          <span class="ruby-comment cmt"># Concat path and file, fill in for [NAME], and expand.</span>
+          <span class="ruby-constant">File</span>.<span class="ruby-identifier">expand_path</span>( (<span class="ruby-identifier">path</span><span class="ruby-operator">+</span><span class="ruby-identifier">file</span>).<span class="ruby-identifier">gsub</span>(<span class="ruby-value str">&quot;[NAME]&quot;</span>, <span class="ruby-identifier">name</span>) )
+        <span class="ruby-keyword kw">end</span>
+      <span class="ruby-keyword kw">end</span>
+    <span class="ruby-keyword kw">end</span>
+
+    <span class="ruby-keyword kw">return</span> <span class="ruby-identifier">results</span>.<span class="ruby-identifier">flatten</span>.<span class="ruby-identifier">select</span>{ <span class="ruby-operator">|</span><span class="ruby-identifier">r</span><span class="ruby-operator">|</span> <span class="ruby-constant">File</span>.<span class="ruby-identifier">exist?</span> <span class="ruby-identifier">r</span> }
+  <span class="ruby-keyword kw">end</span></pre>
+					</div>
+					
+				</div>
+
+				
+			</div>
+
+		
+			<div id="prepend-method" class="method-detail ">
+				<a name="M000005"></a>
+
+				<div class="method-heading">
+				
+					<span class="method-callseq">prepend( *entries )
+prepend( option, *entries )</span>
+					<span class="method-click-advice">click to toggle source</span>
+				
+				</div>
+
+				<div class="method-description">
+					
+					<p>
+Creates a copy of this <a href="PathSet.html">PathSet</a> and prepends the
+new paths and/or files. If the copy already has entries for a given regexp,
+the new entries will be added before the current entries.
+</p>
+<table>
+<tr><td valign="top">option:</td><td>You can optionally give either :paths or :files as the first argument to
+this method. If :paths, only @paths will be modified, @files will never be
+modified. If :files, only @files will be modified, @paths will never be
+modified.
+
+</td></tr>
+<tr><td valign="top">entries:</td><td>One or more PathSets, Hashes, Arrays, or Strings, or any assortment of
+these types.
+
+</td></tr>
+</table>
+<ul>
+<li>If given a <a href="PathSet.html">PathSet</a>, its @paths and @files are
+prepended to this PathSet&#8217;s @paths and @files (respectively). If
+option is :paths, only @paths is modified. If option is :files, only @files
+is modified.
+
+</li>
+<li>If given a Hash, it is prepended to the copy&#8217;s @paths, but @files is
+not affected. If option is :files, @files is modified instead of @paths.
+
+</li>
+<li>If given an Array (which should contain only Strings), the array contents
+are prepended to the copy&#8217;s @paths. If option is :files, @files is
+modified instead of @paths.
+
+</li>
+<li>If given a String, the string is prepended to the copy&#8217;s @paths. If
+option is :files, @files is modified instead of @paths.
+
+</li>
+<li>If given multiple objects, they are handled in order according to the above
+rules.
+
+</li>
+</ul>
+<p>
+See also <a href="PathSet.html#M000006">prepend!</a> for a version of this
+method which modifies self instead of making a copy.
+</p>
+					
+
+					
+					<div class="method-source-code"
+						id="prepend-source">
+<pre>
+<span class="ruby-comment cmt"># File lib/nice-ffi/pathset.rb, line 211</span>
+  <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">prepend</span>( <span class="ruby-operator">*</span><span class="ruby-identifier">entries</span> )
+    <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">dup</span>.<span class="ruby-identifier">prepend!</span>( <span class="ruby-operator">*</span><span class="ruby-identifier">entries</span> )
+  <span class="ruby-keyword kw">end</span></pre>
+					</div>
+					
+				</div>
+
+				
+			</div>
+
+		
+			<div id="prepend--method" class="method-detail ">
+				<a name="M000006"></a>
+
+				<div class="method-heading">
+				
+					<span class="method-callseq">prepend!( *entries )
+prepend!( option, *entries )</span>
+					<span class="method-click-advice">click to toggle source</span>
+				
+				</div>
+
+				<div class="method-description">
+					
+					<p>
+Like <a href="PathSet.html#M000005">prepend</a>, but modifies self instead
+of making a copy.
+</p>
+					
+
+					
+					<div class="method-source-code"
+						id="prepend--source">
+<pre>
+<span class="ruby-comment cmt"># File lib/nice-ffi/pathset.rb, line 220</span>
+  <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">prepend!</span>( <span class="ruby-operator">*</span><span class="ruby-identifier">entries</span> )
+    <span class="ruby-identifier">_modify</span>( <span class="ruby-operator">*</span><span class="ruby-identifier">entries</span> ) { <span class="ruby-operator">|</span><span class="ruby-identifier">a</span>,<span class="ruby-identifier">b</span><span class="ruby-operator">|</span>  <span class="ruby-identifier">b</span> <span class="ruby-operator">+</span> <span class="ruby-identifier">a</span> }
+  <span class="ruby-keyword kw">end</span></pre>
+					</div>
+					
+				</div>
+
+				
+			</div>
+
+		
+			<div id="remove-method" class="method-detail ">
+				<a name="M000009"></a>
+
+				<div class="method-heading">
+				
+					<span class="method-callseq">remove( *entries )
+remove( option, *entries )</span>
+					<span class="method-click-advice">click to toggle source</span>
+				
+				</div>
+
+				<div class="method-description">
+					
+					<p>
+Creates a copy of this <a href="PathSet.html">PathSet</a> and removes the
+given entries from the copy, if it has them. This only removes the entries
+that are given, other entries for the same regexp are kept. Regexps with no
+entries left afterwards are removed from the <a
+href="PathSet.html">PathSet</a>.
+</p>
+<table>
+<tr><td valign="top">option:</td><td>You can optionally give either :paths or :files as the first argument to
+this method. If :paths, only @paths will be modified, @files will never be
+modified. If :files, only @files will be modified, @paths will never be
+modified.
+
+</td></tr>
+<tr><td valign="top">entries:</td><td>One or more PathSets, Hashes, Arrays, or Strings, or any assortment of
+these types.
+
+</td></tr>
+</table>
+<ul>
+<li>If given a <a href="PathSet.html">PathSet</a>, entries from its @paths and
+@files are removed from the copy&#8217;s @paths and @files (respectively).
+If option is :paths, only @paths is modified. If option is :files, only
+@files is modified.
+
+</li>
+<li>If given a Hash, the given entries are removed from this PathSet&#8217;s
+@paths, but @files is not affected. If option is :files, @files is modified
+instead of @paths.
+
+</li>
+<li>If given an Array (which should contain only Strings), the array contents
+are removed from the entries for every regexp in this PathSet&#8217;s
+@paths. If option is :files, @files is modified instead of @paths.
+
+</li>
+<li>If given a String, the string is removed from the entries for every regexp
+in the copy&#8217;s @paths. If option is :files, @files is modified instead
+of @paths.
+
+</li>
+<li>If given multiple objects, they are handled in order according to the above
+rules.
+
+</li>
+</ul>
+<p>
+See also <a href="PathSet.html#M000010">remove!</a> for a version of this
+method which modifies self instead of making a copy.
+</p>
+					
+
+					
+					<div class="method-source-code"
+						id="remove-source">
+<pre>
+<span class="ruby-comment cmt"># File lib/nice-ffi/pathset.rb, line 357</span>
+  <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">remove</span>( <span class="ruby-operator">*</span><span class="ruby-identifier">entries</span> )
+    <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">dup</span>.<span class="ruby-identifier">remove!</span>( <span class="ruby-operator">*</span><span class="ruby-identifier">entries</span> )
+  <span class="ruby-keyword kw">end</span></pre>
+					</div>
+					
+				</div>
+
+				
+				<div class="aliases">
+					Also aliased as: <a href="PathSet.html#M000011">-</a>
+				</div>
+				
+			</div>
+
+		
+			<div id="remove--method" class="method-detail ">
+				<a name="M000010"></a>
+
+				<div class="method-heading">
+				
+					<span class="method-callseq">remove!( *entries )
+remove!( option, *entries )</span>
+					<span class="method-click-advice">click to toggle source</span>
+				
+				</div>
+
+				<div class="method-description">
+					
+					<p>
+Like <a href="PathSet.html#M000009">remove</a>, but modifies self instead
+of making a copy.
+</p>
+					
+
+					
+					<div class="method-source-code"
+						id="remove--source">
+<pre>
+<span class="ruby-comment cmt"># File lib/nice-ffi/pathset.rb, line 366</span>
+  <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">remove!</span>( <span class="ruby-operator">*</span><span class="ruby-identifier">entries</span> )
+    <span class="ruby-identifier">_modify</span>( <span class="ruby-operator">*</span><span class="ruby-identifier">entries</span> ) { <span class="ruby-operator">|</span><span class="ruby-identifier">a</span>,<span class="ruby-identifier">b</span><span class="ruby-operator">|</span>  <span class="ruby-identifier">a</span> <span class="ruby-operator">-</span> <span class="ruby-identifier">b</span> }
+  <span class="ruby-keyword kw">end</span></pre>
+					</div>
+					
+				</div>
+
+				
+			</div>
+
+		
+			<div id="replace-method" class="method-detail ">
+				<a name="M000007"></a>
+
+				<div class="method-heading">
+				
+					<span class="method-callseq">replace( *entries )
+replace( option, *entries )</span>
+					<span class="method-click-advice">click to toggle source</span>
+				
+				</div>
+
+				<div class="method-description">
+					
+					<p>
+Creates a copy of this <a href="PathSet.html">PathSet</a> and overrides
+existing entries with the new entries. If the copy already has entries for
+a regexp in the new entries, the old entries will be discarded and the new
+entries used instead.
+</p>
+<table>
+<tr><td valign="top">option:</td><td>You can optionally give either :paths or :files as the first argument to
+this method. If :paths, only @paths will be modified, @files will never be
+modified. If :files, only @files will be modified, @paths will never be
+modified.
+
+</td></tr>
+<tr><td valign="top">entries:</td><td>One or more PathSets, Hashes, Arrays, or Strings, or any assortment of
+these types.
+
+</td></tr>
+</table>
+<ul>
+<li>If given a <a href="PathSet.html">PathSet</a>, the copy&#8217;s @paths and
+@files with the other PathSet&#8217;s @paths and @files (respectively). Old
+entries in the copy are kept if their regexp doesn&#8217;t appear in the
+given <a href="PathSet.html">PathSet</a>. If option is :paths, only @paths
+is modified. If option is :files, only @files is modified.
+
+</li>
+<li>If given a Hash, entries in the copy&#8217;s @paths are replaced with the
+new entries, but @files is not affected. Old entries in the copy are kept
+if their regexp doesn&#8217;t appear in the given <a
+href="PathSet.html">PathSet</a>. If option is :files, @files is modified
+instead of @paths.
+
+</li>
+<li>If given an Array (which should contain only Strings), entries for every
+regexp in the copy&#8217;s @paths are replaced with the array contents. If
+option is :files, @files is modified instead of @paths.
+
+</li>
+<li>If given a String, all entries for every regexp in the copy&#8217;s @paths
+are replaced with the string. If option is :files, @files is modified
+instead of @paths.
+
+</li>
+<li>If given multiple objects, they are handled in order according to the above
+rules.
+
+</li>
+</ul>
+<p>
+See also <a href="PathSet.html#M000008">replace!</a> for a version of this
+method which modifies self instead of making a copy.
+</p>
+					
+
+					
+					<div class="method-source-code"
+						id="replace-source">
+<pre>
+<span class="ruby-comment cmt"># File lib/nice-ffi/pathset.rb, line 285</span>
+  <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">replace</span>( <span class="ruby-operator">*</span><span class="ruby-identifier">entries</span> )
+    <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">dup</span>.<span class="ruby-identifier">replace!</span>( <span class="ruby-operator">*</span><span class="ruby-identifier">entries</span> )
+  <span class="ruby-keyword kw">end</span></pre>
+					</div>
+					
+				</div>
+
+				
+			</div>
+
+		
+			<div id="replace--method" class="method-detail ">
+				<a name="M000008"></a>
+
+				<div class="method-heading">
+				
+					<span class="method-callseq">replace!( *entries )
+replace!( option, *entries )</span>
+					<span class="method-click-advice">click to toggle source</span>
+				
+				</div>
+
+				<div class="method-description">
+					
+					<p>
+Like <a href="PathSet.html#M000007">replace</a>, but modifies self instead
+of making a copy.
+</p>
+					
+
+					
+					<div class="method-source-code"
+						id="replace--source">
+<pre>
+<span class="ruby-comment cmt"># File lib/nice-ffi/pathset.rb, line 294</span>
+  <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">replace!</span>( <span class="ruby-operator">*</span><span class="ruby-identifier">entries</span> )
+    <span class="ruby-identifier">_modify</span>( <span class="ruby-operator">*</span><span class="ruby-identifier">entries</span> ) { <span class="ruby-operator">|</span><span class="ruby-identifier">a</span>,<span class="ruby-identifier">b</span><span class="ruby-operator">|</span>  <span class="ruby-identifier">b</span> }
+  <span class="ruby-keyword kw">end</span></pre>
+					</div>
+					
+				</div>
+
+				
+			</div>
+
+		
+		</div>
+	
+		<div id="private-instance-method-details" class="method-section section">
+			<h3 class="section-header">Private Instance Methods</h3>
+
+		
+			<div id="-modify-method" class="method-detail ">
+				<a name="M000015"></a>
+
+				<div class="method-heading">
+				
+					<span class="method-name">_modify</span><span
+						class="method-args">( *entries, &block )</span>
+					<span class="method-click-advice">click to toggle source</span>
+				
+				</div>
+
+				<div class="method-description">
+					
+					<p class="missing-docs">(Not documented)</p>
+					
+
+					
+					<div class="method-source-code"
+						id="-modify-source">
+<pre>
+<span class="ruby-comment cmt"># File lib/nice-ffi/pathset.rb, line 481</span>
+  <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">_modify</span>( <span class="ruby-operator">*</span><span class="ruby-identifier">entries</span>, <span class="ruby-operator">&amp;</span><span class="ruby-identifier">block</span> )
+    <span class="ruby-comment cmt"># could be :paths or :files, or perhaps an entry</span>
+    <span class="ruby-identifier">part</span> = <span class="ruby-identifier">entries</span>[<span class="ruby-value">0</span>]
+
+    <span class="ruby-keyword kw">case</span> <span class="ruby-identifier">part</span>
+    <span class="ruby-keyword kw">when</span> <span class="ruby-identifier">:paths</span>, <span class="ruby-identifier">:files</span>, <span class="ruby-identifier">:default</span>
+      <span class="ruby-identifier">entries</span> = <span class="ruby-identifier">entries</span>[<span class="ruby-value">1</span><span class="ruby-operator">..</span><span class="ruby-value">-1</span>]
+    <span class="ruby-keyword kw">when</span> <span class="ruby-constant">Symbol</span> <span class="ruby-comment cmt"># other symbols are invalid</span>
+      <span class="ruby-identifier">raise</span>( <span class="ruby-node">&quot;Invalid symbol option '#{first.inspect}'. &quot;</span> <span class="ruby-operator">+</span>
+             <span class="ruby-value str">&quot;Expected :paths or :files.&quot;</span> )
+    <span class="ruby-keyword kw">else</span>
+      <span class="ruby-identifier">part</span> = <span class="ruby-identifier">:default</span>
+    <span class="ruby-keyword kw">end</span>
+
+    <span class="ruby-identifier">entries</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">entry</span><span class="ruby-operator">|</span>
+      <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">entry</span>.<span class="ruby-identifier">kind_of?</span> <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">class</span>
+        <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">part</span> <span class="ruby-operator">==</span> <span class="ruby-identifier">:default</span>
+          <span class="ruby-identifier">_modify_set</span>( <span class="ruby-identifier">:paths</span>, <span class="ruby-identifier">entry</span>.<span class="ruby-identifier">paths</span>, <span class="ruby-operator">&amp;</span><span class="ruby-identifier">block</span> )
+          <span class="ruby-identifier">_modify_set</span>( <span class="ruby-identifier">:files</span>, <span class="ruby-identifier">entry</span>.<span class="ruby-identifier">files</span>, <span class="ruby-operator">&amp;</span><span class="ruby-identifier">block</span> )
+        <span class="ruby-keyword kw">else</span>
+          <span class="ruby-identifier">_modify_set</span>( <span class="ruby-identifier">part</span>, <span class="ruby-identifier">entry</span>.<span class="ruby-identifier">send</span>(<span class="ruby-identifier">part</span>), <span class="ruby-operator">&amp;</span><span class="ruby-identifier">block</span> )
+        <span class="ruby-keyword kw">end</span>
+      <span class="ruby-keyword kw">else</span>
+        <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">part</span> <span class="ruby-operator">==</span> <span class="ruby-identifier">:default</span>
+          <span class="ruby-identifier">_modify_set</span>( <span class="ruby-identifier">:paths</span>, <span class="ruby-identifier">entry</span>, <span class="ruby-operator">&amp;</span><span class="ruby-identifier">block</span> )
+        <span class="ruby-keyword kw">else</span>
+          <span class="ruby-identifier">_modify_set</span>( <span class="ruby-identifier">part</span>, <span class="ruby-identifier">entry</span>, <span class="ruby-operator">&amp;</span><span class="ruby-identifier">block</span> )
+        <span class="ruby-keyword kw">end</span>
+      <span class="ruby-keyword kw">end</span>
+    <span class="ruby-keyword kw">end</span>
+
+    <span class="ruby-keyword kw">return</span> <span class="ruby-keyword kw">self</span>
+  <span class="ruby-keyword kw">end</span></pre>
+					</div>
+					
+				</div>
+
+				
+			</div>
+
+		
+		</div>
+	
+
+	</div>
+
+
+	<div id="rdoc-debugging-section-dump" class="debugging-section">
+	
+		<p>Disabled; run with --debug to generate this.</p>
+	
+	</div>
+
+	<div id="validator-badges">
+		<p><small><a href="http://validator.w3.org/check/referer">[Validate]</a></small></p>
+		<p><small>Generated with the <a href="http://deveiate.org/projects/Darkfish-Rdoc/">Darkfish
+			Rdoc Generator</a> 1.1.6</small>.</p>
+	</div>
+
+</body>
+</html>
+

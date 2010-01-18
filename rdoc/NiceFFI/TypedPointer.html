@@ -1,0 +1,431 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+	"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+	<meta content="text/html; charset=utf-8" http-equiv="Content-Type" />
+
+	<title>Class: NiceFFI::TypedPointer</title>
+
+	<link rel="stylesheet" href="../rdoc.css" type="text/css" media="screen" />
+
+	<script src="../js/jquery.js" type="text/javascript"
+		charset="utf-8"></script>
+	<script src="../js/thickbox-compressed.js" type="text/javascript"
+		charset="utf-8"></script>
+	<script src="../js/quicksearch.js" type="text/javascript"
+		charset="utf-8"></script>
+	<script src="../js/darkfish.js" type="text/javascript"
+		charset="utf-8"></script>
+
+</head>
+<body class="class">
+
+	<div id="metadata">
+		<div id="file-metadata">
+			<div id="file-list-section" class="section">
+				<h3 class="section-header">In Files</h3>
+				<div class="section-body">
+					<ul>
+					
+						<li><a href="../lib/nice-ffi/typedpointer_rb.html?TB_iframe=true&amp;height=550&amp;width=785"
+							class="thickbox" title="lib/nice-ffi/typedpointer.rb">lib/nice-ffi/typedpointer.rb</a></li>
+					
+					</ul>
+				</div>
+			</div>
+
+			
+		</div>
+
+		<div id="class-metadata">
+
+			<!-- Parent Class -->
+			
+			<div id="parent-class-section" class="section">
+				<h3 class="section-header">Parent</h3>
+				
+				<p class="link">Object</p>
+				
+			</div>
+			
+
+			<!-- Namespace Contents -->
+			
+
+			<!-- Method Quickref -->
+			
+			<div id="method-list-section" class="section">
+				<h3 class="section-header">Methods</h3>
+				<ul class="link-list">
+					
+					<li><a href="#M000046">::new</a></li>
+					
+					<li><a href="#M000050">#inspect</a></li>
+					
+					<li><a href="#M000049">#to_s</a></li>
+					
+					<li><a href="#M000048">#unwrap</a></li>
+					
+					<li><a href="#M000047">#wrap</a></li>
+					
+				</ul>
+			</div>
+			
+
+			<!-- Included Modules -->
+			
+		</div>
+
+		<div id="project-metadata">
+			
+			
+			<div id="fileindex-section" class="section project-section">
+				<h3 class="section-header">Files</h3>
+				<ul>
+				
+					<li class="file"><a href="../README_rdoc.html">README.rdoc</a></li>
+				
+					<li class="file"><a href="../TODO_rdoc.html">TODO.rdoc</a></li>
+				
+					<li class="file"><a href="../docs/usage_rdoc.html">usage.rdoc</a></li>
+				
+					<li class="file"><a href="../pkg/nice-ffi-0_2/README_rdoc.html">README.rdoc</a></li>
+				
+					<li class="file"><a href="../pkg/nice-ffi-0_2/TODO_rdoc.html">TODO.rdoc</a></li>
+				
+					<li class="file"><a href="../pkg/nice-ffi-0_2/docs/usage_rdoc.html">usage.rdoc</a></li>
+				
+					<li class="file"><a href="../pkg/nice-ffi-0_3/README_rdoc.html">README.rdoc</a></li>
+				
+					<li class="file"><a href="../pkg/nice-ffi-0_3/TODO_rdoc.html">TODO.rdoc</a></li>
+				
+					<li class="file"><a href="../pkg/nice-ffi-0_3/docs/usage_rdoc.html">usage.rdoc</a></li>
+				
+					<li class="file"><a href="../pkg/nice-ffi-0_3/pkg/nice-ffi-0_2/README_rdoc.html">README.rdoc</a></li>
+				
+					<li class="file"><a href="../pkg/nice-ffi-0_3/pkg/nice-ffi-0_2/TODO_rdoc.html">TODO.rdoc</a></li>
+				
+					<li class="file"><a href="../pkg/nice-ffi-0_3/pkg/nice-ffi-0_2/docs/usage_rdoc.html">usage.rdoc</a></li>
+				
+				</ul>
+			</div>
+			
+
+			<div id="classindex-section" class="section project-section">
+				<h3 class="section-header">Class Index
+					<span class="search-toggle"><img src="../images/find.png"
+						height="16" width="16" alt="[+]"
+						title="show/hide quicksearch" /></span></h3>
+				<form action="#" method="get" accept-charset="utf-8" class="initially-hidden">
+				<fieldset>
+					<legend>Quicksearch</legend>
+					<input type="text" name="quicksearch" value=""
+						class="quicksearch-field" />
+				</fieldset>
+				</form>
+
+				<ul class="link-list">
+				
+					<li><a href="../NiceFFI.html">NiceFFI</a></li>
+				
+					<li><a href="../NiceFFI/AutoRelease.html">NiceFFI::AutoRelease</a></li>
+				
+					<li><a href="../NiceFFI/Library.html">NiceFFI::Library</a></li>
+				
+					<li><a href="../NiceFFI/OpaqueStruct.html">NiceFFI::OpaqueStruct</a></li>
+				
+					<li><a href="../NiceFFI/PathSet.html">NiceFFI::PathSet</a></li>
+				
+					<li><a href="../NiceFFI/Struct.html">NiceFFI::Struct</a></li>
+				
+					<li><a href="../NiceFFI/TypedPointer.html">NiceFFI::TypedPointer</a></li>
+				
+				</ul>
+				<div id="no-class-search-results" style="display: none;">No matching classes.</div>
+			</div>
+
+			
+		</div>
+	</div>
+
+	<div id="documentation">
+		<h1 class="class">NiceFFI::TypedPointer</h1>
+
+		<div id="description">
+			<p>
+<a href="TypedPointer.html">TypedPointer</a> represents a :pointer (FFI
+type) that is a specific struct type. You can use TypedPointer(
+SomeStructClass ) instead of :pointer in these situations:
+</p>
+<ul>
+<li>As the type for <a href="Struct.html#M000024">NiceFFI::Struct#layout</a> to
+create type-smart accessors.
+
+</li>
+<li>As the return type for <a
+href="Library.html#M000054">NiceFFI::Library#attach_function</a> to wrap
+the returned pointer.
+
+</li>
+</ul>
+
+		</div>
+
+		<!-- Constants -->
+		
+
+		<!-- Attributes -->
+		
+		<div id="attribute-method-details" class="method-section section">
+			<h3 class="section-header">Attributes</h3>
+
+			
+			<div id="type-attribute-method" class="method-detail">
+				<a name="type"></a>
+				
+				<div class="method-heading attribute-method-heading">
+					<span class="method-name">type</span><span
+						class="attribute-access-type">[R]</span>
+				</div>
+
+				<div class="method-description">
+				
+				<p class="missing-docs">(Not documented)</p>
+				
+				</div>
+			</div>
+			
+		</div>
+		
+
+		<!-- Methods -->
+		
+		<div id="public-class-method-details" class="method-section section">
+			<h3 class="section-header">Public Class Methods</h3>
+
+		
+			<div id="new-method" class="method-detail ">
+				<a name="M000046"></a>
+
+				<div class="method-heading">
+				
+					<span class="method-name">new</span><span
+						class="method-args">( type, options={} )</span>
+					<span class="method-click-advice">click to toggle source</span>
+				
+				</div>
+
+				<div class="method-description">
+					
+					<p>
+Create a new <a href="TypedPointer.html">TypedPointer</a> whose type is the
+given struct class.
+</p>
+<p>
+type must be a class (not an instance) which is a descendent of FFI::Struct
+(or is FFI::Struct itself).
+</p>
+<p>
+options must be a Hash of zero or more options. The current meaningful
+options are:
+</p>
+<ul>
+<li>:autorelease - If false, instances of NiceStruct and <a
+href="OpaqueStruct.html">OpaqueStruct</a> (and subclasses) created via this
+<a href="TypedPointer.html">TypedPointer</a> will be passed {:autorelease
+=> false} to disable automatic memory management. Use this for return
+values of functions that should not be autoreleased.
+
+</li>
+</ul>
+					
+
+					
+					<div class="method-source-code"
+						id="new-source">
+<pre>
+<span class="ruby-comment cmt"># File lib/nice-ffi/typedpointer.rb, line 55</span>
+  <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">initialize</span>( <span class="ruby-identifier">type</span>, <span class="ruby-identifier">options</span>={} )
+    <span class="ruby-comment cmt"># unless type.is_a? Class and type.ancestors.include? FFI::Struct</span>
+    <span class="ruby-comment cmt">#   raise TypeError, &quot;#{self.class} only wraps FFI::Struct and subclasses.&quot;</span>
+    <span class="ruby-comment cmt"># end</span>
+    <span class="ruby-ivar">@type</span> = <span class="ruby-identifier">type</span>
+    <span class="ruby-identifier">options</span> = {<span class="ruby-identifier">:autorelease</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-keyword kw">true</span>}.<span class="ruby-identifier">merge!</span>( <span class="ruby-identifier">options</span> )
+    <span class="ruby-ivar">@autorelease</span> = <span class="ruby-identifier">options</span>[<span class="ruby-identifier">:autorelease</span>]
+  <span class="ruby-keyword kw">end</span></pre>
+					</div>
+					
+				</div>
+
+				
+			</div>
+
+		
+		</div>
+	
+		<div id="public-instance-method-details" class="method-section section">
+			<h3 class="section-header">Public Instance Methods</h3>
+
+		
+			<div id="inspect-method" class="method-detail method-alias">
+				<a name="M000050"></a>
+
+				<div class="method-heading">
+				
+					<span class="method-name">inspect</span><span
+						class="method-args">()</span>
+					<span class="method-click-advice">click to toggle source</span>
+				
+				</div>
+
+				<div class="method-description">
+					
+					<p>
+Alias for <a href="TypedPointer.html#M000049">to_s</a>
+</p>
+					
+
+					
+				</div>
+
+				
+			</div>
+
+		
+			<div id="to-s-method" class="method-detail ">
+				<a name="M000049"></a>
+
+				<div class="method-heading">
+				
+					<span class="method-name">to_s</span><span
+						class="method-args">()</span>
+					<span class="method-click-advice">click to toggle source</span>
+				
+				</div>
+
+				<div class="method-description">
+					
+					<p class="missing-docs">(Not documented)</p>
+					
+
+					
+					<div class="method-source-code"
+						id="to-s-source">
+<pre>
+<span class="ruby-comment cmt"># File lib/nice-ffi/typedpointer.rb, line 90</span>
+  <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">to_s</span>
+    <span class="ruby-node">&quot;#&lt;#{self.class}[ #{@type} ]&gt;&quot;</span>
+  <span class="ruby-keyword kw">end</span></pre>
+					</div>
+					
+				</div>
+
+				
+				<div class="aliases">
+					Also aliased as: <a href="TypedPointer.html#M000050">inspect</a>
+				</div>
+				
+			</div>
+
+		
+			<div id="unwrap-method" class="method-detail ">
+				<a name="M000048"></a>
+
+				<div class="method-heading">
+				
+					<span class="method-name">unwrap</span><span
+						class="method-args">( struct )</span>
+					<span class="method-click-advice">click to toggle source</span>
+				
+				</div>
+
+				<div class="method-description">
+					
+					<p>
+Unwrap (i.e. extract the pointer) from a struct of this type.
+</p>
+					
+
+					
+					<div class="method-source-code"
+						id="unwrap-source">
+<pre>
+<span class="ruby-comment cmt"># File lib/nice-ffi/typedpointer.rb, line 82</span>
+  <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">unwrap</span>( <span class="ruby-identifier">struct</span> )
+    <span class="ruby-keyword kw">unless</span> <span class="ruby-identifier">struct</span>.<span class="ruby-identifier">is_a?</span> <span class="ruby-ivar">@type</span>
+      <span class="ruby-identifier">raise</span> <span class="ruby-constant">TypeError</span>, <span class="ruby-node">&quot;#{self.class}[ #{@type} ] cannot unwrap #{struct.type}&quot;</span>
+    <span class="ruby-keyword kw">end</span>
+    <span class="ruby-identifier">struct</span>.<span class="ruby-identifier">to_ptr</span>
+  <span class="ruby-keyword kw">end</span></pre>
+					</div>
+					
+				</div>
+
+				
+			</div>
+
+		
+			<div id="wrap-method" class="method-detail ">
+				<a name="M000047"></a>
+
+				<div class="method-heading">
+				
+					<span class="method-name">wrap</span><span
+						class="method-args">( pointer )</span>
+					<span class="method-click-advice">click to toggle source</span>
+				
+				</div>
+
+				<div class="method-description">
+					
+					<p>
+Wrap a FFI::Pointer in a new struct of this type.
+</p>
+					
+
+					
+					<div class="method-source-code"
+						id="wrap-source">
+<pre>
+<span class="ruby-comment cmt"># File lib/nice-ffi/typedpointer.rb, line 68</span>
+  <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">wrap</span>( <span class="ruby-identifier">pointer</span> )
+    <span class="ruby-keyword kw">unless</span> <span class="ruby-identifier">pointer</span>.<span class="ruby-identifier">is_a?</span> <span class="ruby-constant">FFI</span><span class="ruby-operator">::</span><span class="ruby-constant">Pointer</span>
+      <span class="ruby-identifier">raise</span> <span class="ruby-constant">TypeError</span>, <span class="ruby-node">&quot;#{self.class}[ #{@type} ] cannot wrap #{pointer.type}&quot;</span>
+    <span class="ruby-keyword kw">end</span>
+
+    <span class="ruby-keyword kw">if</span> <span class="ruby-ivar">@type</span>.<span class="ruby-identifier">included_modules</span>.<span class="ruby-identifier">include?</span>( <span class="ruby-constant">NiceFFI</span><span class="ruby-operator">::</span><span class="ruby-constant">AutoRelease</span> )
+      <span class="ruby-ivar">@type</span>.<span class="ruby-identifier">new</span>( <span class="ruby-identifier">pointer</span>, <span class="ruby-identifier">:autorelease</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-ivar">@autorelease</span> )
+    <span class="ruby-keyword kw">else</span>
+      <span class="ruby-ivar">@type</span>.<span class="ruby-identifier">new</span>( <span class="ruby-identifier">pointer</span> )
+    <span class="ruby-keyword kw">end</span>
+  <span class="ruby-keyword kw">end</span></pre>
+					</div>
+					
+				</div>
+
+				
+			</div>
+
+		
+		</div>
+	
+
+	</div>
+
+
+	<div id="rdoc-debugging-section-dump" class="debugging-section">
+	
+		<p>Disabled; run with --debug to generate this.</p>
+	
+	</div>
+
+	<div id="validator-badges">
+		<p><small><a href="http://validator.w3.org/check/referer">[Validate]</a></small></p>
+		<p><small>Generated with the <a href="http://deveiate.org/projects/Darkfish-Rdoc/">Darkfish
+			Rdoc Generator</a> 1.1.6</small>.</p>
+	</div>
+
+</body>
+</html>
+

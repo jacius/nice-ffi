@@ -1,0 +1,947 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+	"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+	<meta content="text/html; charset=utf-8" http-equiv="Content-Type" />
+
+	<title>Class: NiceFFI::Struct</title>
+
+	<link rel="stylesheet" href="../rdoc.css" type="text/css" media="screen" />
+
+	<script src="../js/jquery.js" type="text/javascript"
+		charset="utf-8"></script>
+	<script src="../js/thickbox-compressed.js" type="text/javascript"
+		charset="utf-8"></script>
+	<script src="../js/quicksearch.js" type="text/javascript"
+		charset="utf-8"></script>
+	<script src="../js/darkfish.js" type="text/javascript"
+		charset="utf-8"></script>
+
+</head>
+<body class="class">
+
+	<div id="metadata">
+		<div id="file-metadata">
+			<div id="file-list-section" class="section">
+				<h3 class="section-header">In Files</h3>
+				<div class="section-body">
+					<ul>
+					
+						<li><a href="../lib/nice-ffi/struct_rb.html?TB_iframe=true&amp;height=550&amp;width=785"
+							class="thickbox" title="lib/nice-ffi/struct.rb">lib/nice-ffi/struct.rb</a></li>
+					
+					</ul>
+				</div>
+			</div>
+
+			
+		</div>
+
+		<div id="class-metadata">
+
+			<!-- Parent Class -->
+			
+			<div id="parent-class-section" class="section">
+				<h3 class="section-header">Parent</h3>
+				
+				<p class="link">FFI::Struct</p>
+				
+			</div>
+			
+
+			<!-- Namespace Contents -->
+			
+
+			<!-- Method Quickref -->
+			
+			<div id="method-list-section" class="section">
+				<h3 class="section-header">Methods</h3>
+				<ul class="link-list">
+					
+					<li><a href="#M000025">::hidden</a></li>
+					
+					<li><a href="#M000026">::hidden?</a></li>
+					
+					<li><a href="#M000024">::layout</a></li>
+					
+					<li><a href="#M000032">::new</a></li>
+					
+					<li><a href="#M000027">::read_only</a></li>
+					
+					<li><a href="#M000028">::read_only?</a></li>
+					
+					<li><a href="#M000023">::typed_pointer</a></li>
+					
+					<li><a href="#M000029">::wrap_member</a></li>
+					
+					<li><a href="#M000045">#inspect</a></li>
+					
+					<li><a href="#M000036">#to_ary</a></li>
+					
+					<li><a href="#M000037">#to_bytes</a></li>
+					
+					<li><a href="#M000038">#to_hash</a></li>
+					
+					<li><a href="#M000039">#to_s</a></li>
+					
+				</ul>
+			</div>
+			
+
+			<!-- Included Modules -->
+			
+			<div id="includes-section" class="section">
+				<h3 class="section-header">Included Modules</h3>
+				<ul class="link-list">
+				
+				
+					<li><a class="include" href="../NiceFFI.html">NiceFFI</a></li>
+				
+				
+				</ul>
+			</div>
+			
+		</div>
+
+		<div id="project-metadata">
+			
+			
+			<div id="fileindex-section" class="section project-section">
+				<h3 class="section-header">Files</h3>
+				<ul>
+				
+					<li class="file"><a href="../README_rdoc.html">README.rdoc</a></li>
+				
+					<li class="file"><a href="../TODO_rdoc.html">TODO.rdoc</a></li>
+				
+					<li class="file"><a href="../docs/usage_rdoc.html">usage.rdoc</a></li>
+				
+					<li class="file"><a href="../pkg/nice-ffi-0_2/README_rdoc.html">README.rdoc</a></li>
+				
+					<li class="file"><a href="../pkg/nice-ffi-0_2/TODO_rdoc.html">TODO.rdoc</a></li>
+				
+					<li class="file"><a href="../pkg/nice-ffi-0_2/docs/usage_rdoc.html">usage.rdoc</a></li>
+				
+					<li class="file"><a href="../pkg/nice-ffi-0_3/README_rdoc.html">README.rdoc</a></li>
+				
+					<li class="file"><a href="../pkg/nice-ffi-0_3/TODO_rdoc.html">TODO.rdoc</a></li>
+				
+					<li class="file"><a href="../pkg/nice-ffi-0_3/docs/usage_rdoc.html">usage.rdoc</a></li>
+				
+					<li class="file"><a href="../pkg/nice-ffi-0_3/pkg/nice-ffi-0_2/README_rdoc.html">README.rdoc</a></li>
+				
+					<li class="file"><a href="../pkg/nice-ffi-0_3/pkg/nice-ffi-0_2/TODO_rdoc.html">TODO.rdoc</a></li>
+				
+					<li class="file"><a href="../pkg/nice-ffi-0_3/pkg/nice-ffi-0_2/docs/usage_rdoc.html">usage.rdoc</a></li>
+				
+				</ul>
+			</div>
+			
+
+			<div id="classindex-section" class="section project-section">
+				<h3 class="section-header">Class Index
+					<span class="search-toggle"><img src="../images/find.png"
+						height="16" width="16" alt="[+]"
+						title="show/hide quicksearch" /></span></h3>
+				<form action="#" method="get" accept-charset="utf-8" class="initially-hidden">
+				<fieldset>
+					<legend>Quicksearch</legend>
+					<input type="text" name="quicksearch" value=""
+						class="quicksearch-field" />
+				</fieldset>
+				</form>
+
+				<ul class="link-list">
+				
+					<li><a href="../NiceFFI.html">NiceFFI</a></li>
+				
+					<li><a href="../NiceFFI/AutoRelease.html">NiceFFI::AutoRelease</a></li>
+				
+					<li><a href="../NiceFFI/Library.html">NiceFFI::Library</a></li>
+				
+					<li><a href="../NiceFFI/OpaqueStruct.html">NiceFFI::OpaqueStruct</a></li>
+				
+					<li><a href="../NiceFFI/PathSet.html">NiceFFI::PathSet</a></li>
+				
+					<li><a href="../NiceFFI/Struct.html">NiceFFI::Struct</a></li>
+				
+					<li><a href="../NiceFFI/TypedPointer.html">NiceFFI::TypedPointer</a></li>
+				
+				</ul>
+				<div id="no-class-search-results" style="display: none;">No matching classes.</div>
+			</div>
+
+			
+		</div>
+	</div>
+
+	<div id="documentation">
+		<h1 class="class">NiceFFI::Struct</h1>
+
+		<div id="description">
+			<p>
+A class to be used as a baseclass where you would use FFI::Struct. It acts
+mostly like FFI::Struct, but with nice extra features and conveniences to
+make life easier:
+</p>
+<ul>
+<li>Automatically defines read and write accessor methods (e.g. x, x=) for
+struct members when you call <a href="Struct.html#M000024">layout</a>. (You
+can use <a href="Struct.html#M000025">hidden</a> and <a
+href="Struct.html#M000027">read_only</a> before or after calling <a
+href="Struct.html#M000024">layout</a> to affect which members have
+accessors.)
+
+</li>
+<li>Implements &#8220;smart&#8221; accessors for <a
+href="TypedPointer.html">TypedPointer</a> types, seamlessly wrapping those
+members so you don&#8217;t even have to think about the fact they are
+pointers!
+
+</li>
+<li>Implements a nicer <a href="Struct.html#M000032">new</a> method which
+allows you to create a new struct and set its data in one shot by passing
+an Array, Hash, or another instance of the class (to copy data). You can
+also use it to wrap a FFI::Pointer like FFI::Struct can.
+
+</li>
+<li>Implements <a href="Struct.html#M000036">to_ary</a> and <a
+href="Struct.html#M000038">to_hash</a> to dump the struct data.
+
+</li>
+<li>Implements <a href="Struct.html#M000039">to_s</a> and <a
+href="Struct.html#M000045">inspect</a> for nice debugging output.
+
+</li>
+<li>Adds ::<a href="Struct.html#M000023">typed_pointer</a> convenience alias to
+create a <a href="TypedPointer.html">TypedPointer</a> for this klass.
+
+</li>
+<li>Provides automatic memory management for Pointers if you define
+MyClass.release( pointer). (This can be disabled per-instance by providing
+{:autorelease => false} as an option to <a
+href="Struct.html#M000032">new</a>).
+
+</li>
+</ul>
+
+		</div>
+
+		<!-- Constants -->
+		
+
+		<!-- Attributes -->
+		
+
+		<!-- Methods -->
+		
+		<div id="public-class-method-details" class="method-section section">
+			<h3 class="section-header">Public Class Methods</h3>
+
+		
+			<div id="hidden-method" class="method-detail ">
+				<a name="M000025"></a>
+
+				<div class="method-heading">
+				
+					<span class="method-name">hidden</span><span
+						class="method-args">( *members )</span>
+					<span class="method-click-advice">click to toggle source</span>
+				
+				</div>
+
+				<div class="method-description">
+					
+					<p>
+Mark the given members as hidden, i.e. do not create accessors for them in
+<a href="Struct.html#M000024">layout</a>, and do not print them out in <a
+href="Struct.html#M000039">to_s</a>, etc. You can call this before or after
+calling <a href="Struct.html#M000024">layout</a>, and can call it more than
+once if you like.
+</p>
+<p>
+Note: They can still be read and written via #[] and #[]=, but will not
+have convenience accessors.
+</p>
+<p>
+Note: This will remove the accessor methods (if they exist) for the
+members! So if you&#8217;re defining your own custom accessors, do that
+<b>after</b> you have called this method.
+</p>
+<p>
+Example:
+</p>
+<pre>
+  class SecretStruct &lt; NiceStruct
+
+    # You can use it before the layout...
+    hidden( :hidden1 )
+
+    layout( :visible1, :uint16,
+            :visible2, :int,
+            :hidden1,  :uint,
+            :hidden2,  :pointer )
+
+    # ... and/or after it.
+    hidden( :hidden2 )
+
+    # :hidden1 and :hidden2 are now both hidden.
+  end
+</pre>
+					
+
+					
+					<div class="method-source-code"
+						id="hidden-source">
+<pre>
+<span class="ruby-comment cmt"># File lib/nice-ffi/struct.rb, line 138</span>
+    <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">hidden</span>( <span class="ruby-operator">*</span><span class="ruby-identifier">members</span> )
+      <span class="ruby-keyword kw">if</span> <span class="ruby-keyword kw">defined?</span>(<span class="ruby-ivar">@hidden_members</span>)
+        <span class="ruby-ivar">@hidden_members</span> <span class="ruby-operator">+=</span> <span class="ruby-identifier">members</span>
+      <span class="ruby-keyword kw">else</span>
+        <span class="ruby-ivar">@hidden_members</span> = <span class="ruby-identifier">members</span> 
+      <span class="ruby-keyword kw">end</span>
+
+      <span class="ruby-identifier">members</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">member</span><span class="ruby-operator">|</span>
+        <span class="ruby-comment cmt"># Remove the accessors if they exist.</span>
+        [<span class="ruby-identifier">member</span>, <span class="ruby-node">&quot;#{member}=&quot;</span>.<span class="ruby-identifier">to_sym</span>].<span class="ruby-identifier">each</span> { <span class="ruby-operator">|</span><span class="ruby-identifier">m</span><span class="ruby-operator">|</span>
+          <span class="ruby-keyword kw">begin</span>
+            <span class="ruby-identifier">remove_method</span>( <span class="ruby-identifier">m</span> )
+          <span class="ruby-keyword kw">rescue</span> <span class="ruby-constant">NameError</span>
+          <span class="ruby-keyword kw">end</span>
+        }
+      <span class="ruby-keyword kw">end</span>
+    <span class="ruby-keyword kw">end</span></pre>
+					</div>
+					
+				</div>
+
+				
+			</div>
+
+		
+			<div id="hidden--method" class="method-detail ">
+				<a name="M000026"></a>
+
+				<div class="method-heading">
+				
+					<span class="method-name">hidden?</span><span
+						class="method-args">( member )</span>
+					<span class="method-click-advice">click to toggle source</span>
+				
+				</div>
+
+				<div class="method-description">
+					
+					<p>
+True if the member has been marked <a
+href="Struct.html#M000025">hidden</a>, false otherwise.
+</p>
+					
+
+					
+					<div class="method-source-code"
+						id="hidden--source">
+<pre>
+<span class="ruby-comment cmt"># File lib/nice-ffi/struct.rb, line 158</span>
+    <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">hidden?</span>( <span class="ruby-identifier">member</span> )
+      <span class="ruby-keyword kw">return</span> <span class="ruby-keyword kw">false</span> <span class="ruby-keyword kw">unless</span> <span class="ruby-keyword kw">defined?</span>(<span class="ruby-ivar">@hidden_members</span>)
+      <span class="ruby-ivar">@hidden_members</span>.<span class="ruby-identifier">include?</span>( <span class="ruby-identifier">member</span> )
+    <span class="ruby-keyword kw">end</span></pre>
+					</div>
+					
+				</div>
+
+				
+			</div>
+
+		
+			<div id="layout-method" class="method-detail ">
+				<a name="M000024"></a>
+
+				<div class="method-heading">
+				
+					<span class="method-name">layout</span><span
+						class="method-args">( *spec )</span>
+					<span class="method-click-advice">click to toggle source</span>
+				
+				</div>
+
+				<div class="method-description">
+					
+					<p>
+Same syntax as FFI::Struct#layout, but also defines nice accessors for the
+attributes.
+</p>
+<p>
+Example:
+</p>
+<pre>
+  class Rect &lt; NiceStruct
+    layout( :x, :int16,
+            :y, :int16,
+            :w, :uint16,
+            :h, :uint16 )
+  end
+</pre>
+					
+
+					
+					<div class="method-source-code"
+						id="layout-source">
+<pre>
+<span class="ruby-comment cmt"># File lib/nice-ffi/struct.rb, line 85</span>
+    <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">layout</span>( <span class="ruby-operator">*</span><span class="ruby-identifier">spec</span> )
+      <span class="ruby-ivar">@nice_spec</span> = <span class="ruby-identifier">spec</span>
+
+      <span class="ruby-comment cmt"># Wrap the members.</span>
+      <span class="ruby-value">0</span>.<span class="ruby-identifier">step</span>(<span class="ruby-identifier">spec</span>.<span class="ruby-identifier">size</span> <span class="ruby-operator">-</span> <span class="ruby-value">1</span>, <span class="ruby-value">2</span>) { <span class="ruby-operator">|</span><span class="ruby-identifier">index</span><span class="ruby-operator">|</span>
+        <span class="ruby-identifier">member</span>, <span class="ruby-identifier">type</span> = <span class="ruby-identifier">spec</span>[<span class="ruby-identifier">index</span>, <span class="ruby-value">2</span>]
+        <span class="ruby-identifier">wrap_member</span>( <span class="ruby-identifier">member</span>, <span class="ruby-identifier">type</span>)
+      }
+
+      <span class="ruby-identifier">simple_spec</span> = <span class="ruby-identifier">spec</span>.<span class="ruby-identifier">collect</span> { <span class="ruby-operator">|</span><span class="ruby-identifier">a</span><span class="ruby-operator">|</span>
+        <span class="ruby-keyword kw">case</span> <span class="ruby-identifier">a</span>
+        <span class="ruby-keyword kw">when</span> <span class="ruby-constant">NiceFFI</span><span class="ruby-operator">::</span><span class="ruby-constant">TypedPointer</span>
+          <span class="ruby-identifier">:pointer</span>
+        <span class="ruby-keyword kw">else</span>
+          <span class="ruby-identifier">a</span>
+        <span class="ruby-keyword kw">end</span>
+      }
+
+      <span class="ruby-comment cmt"># Normal FFI::Struct behavior</span>
+      <span class="ruby-keyword kw">super</span>( <span class="ruby-operator">*</span><span class="ruby-identifier">simple_spec</span> )
+    <span class="ruby-keyword kw">end</span></pre>
+					</div>
+					
+				</div>
+
+				
+			</div>
+
+		
+			<div id="new-method" class="method-detail ">
+				<a name="M000032"></a>
+
+				<div class="method-heading">
+				
+					<span class="method-name">new</span><span
+						class="method-args">( val, options={} )</span>
+					<span class="method-click-advice">click to toggle source</span>
+				
+				</div>
+
+				<div class="method-description">
+					
+					<p>
+Create a new instance of the class, reading data from a Hash or Array of
+attributes, a bytestring of raw data, copying from another instance of the
+class, or wrapping (not copying!) a FFI::Pointer.
+</p>
+<p>
+If val is an instance of FFI::Pointer and you have defined MyClass.release,
+the pointer will be passed to MyClass.release when the memory is no longer
+being used. Use MyClass.release to free the memory for the struct, as
+appropriate for your class. To disable autorelease for this instance, set
+{:autorelease => false} in <tt>options</tt>.
+</p>
+<p>
+(Note: FFI::MemoryPointer and FFI::Buffer have built-in memory management,
+so MyClass.release is never called for them.)
+</p>
+					
+
+					
+					<div class="method-source-code"
+						id="new-source">
+<pre>
+<span class="ruby-comment cmt"># File lib/nice-ffi/struct.rb, line 331</span>
+  <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">initialize</span>( <span class="ruby-identifier">val</span>, <span class="ruby-identifier">options</span>={} )
+    <span class="ruby-comment cmt"># Stores certain kinds of member values so that we don't need</span>
+    <span class="ruby-comment cmt"># to create a new object every time they are read.</span>
+    <span class="ruby-ivar">@member_cache</span> = {}
+
+    <span class="ruby-identifier">options</span> = {<span class="ruby-identifier">:autorelease</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-keyword kw">true</span>}.<span class="ruby-identifier">merge!</span>( <span class="ruby-identifier">options</span> )
+
+    <span class="ruby-keyword kw">case</span> <span class="ruby-identifier">val</span>
+
+    <span class="ruby-keyword kw">when</span> <span class="ruby-constant">Hash</span>
+      <span class="ruby-keyword kw">super</span>(<span class="ruby-constant">FFI</span><span class="ruby-operator">::</span><span class="ruby-constant">Buffer</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">size</span>))
+      <span class="ruby-identifier">init_from_hash</span>( <span class="ruby-identifier">val</span> )         <span class="ruby-comment cmt"># Read the values from a Hash.</span>
+
+    <span class="ruby-comment cmt"># Note: plain &quot;Array&quot; would mean FFI::Struct::Array in this scope.</span>
+    <span class="ruby-keyword kw">when</span> <span class="ruby-operator">::</span><span class="ruby-constant">Array</span>
+      <span class="ruby-keyword kw">super</span>(<span class="ruby-constant">FFI</span><span class="ruby-operator">::</span><span class="ruby-constant">Buffer</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">size</span>))
+      <span class="ruby-identifier">init_from_array</span>( <span class="ruby-identifier">val</span> )        <span class="ruby-comment cmt"># Read the values from an Array.</span>
+
+    <span class="ruby-keyword kw">when</span> <span class="ruby-constant">String</span>
+      <span class="ruby-keyword kw">super</span>(<span class="ruby-constant">FFI</span><span class="ruby-operator">::</span><span class="ruby-constant">Buffer</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">size</span>))
+      <span class="ruby-identifier">init_from_bytes</span>( <span class="ruby-identifier">val</span> )        <span class="ruby-comment cmt"># Read the values from a bytestring.</span>
+
+    <span class="ruby-keyword kw">when</span> <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">class</span>
+      <span class="ruby-keyword kw">super</span>(<span class="ruby-constant">FFI</span><span class="ruby-operator">::</span><span class="ruby-constant">Buffer</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">size</span>))
+      <span class="ruby-identifier">init_from_bytes</span>( <span class="ruby-identifier">val</span>.<span class="ruby-identifier">to_bytes</span> ) <span class="ruby-comment cmt"># Read the values from another instance.</span>
+
+    <span class="ruby-keyword kw">when</span> <span class="ruby-constant">FFI</span><span class="ruby-operator">::</span><span class="ruby-constant">Pointer</span>, <span class="ruby-constant">FFI</span><span class="ruby-operator">::</span><span class="ruby-constant">Buffer</span>
+      <span class="ruby-identifier">val</span> = <span class="ruby-identifier">_make_autopointer</span>( <span class="ruby-identifier">val</span>, <span class="ruby-identifier">options</span>[<span class="ruby-identifier">:autorelease</span>] )
+
+      <span class="ruby-comment cmt"># Normal FFI::Struct behavior to wrap the pointer.</span>
+      <span class="ruby-keyword kw">super</span>( <span class="ruby-identifier">val</span> )
+
+    <span class="ruby-keyword kw">else</span>
+      <span class="ruby-identifier">raise</span> <span class="ruby-constant">TypeError</span>, <span class="ruby-node">&quot;cannot create new #{self.class} from #{val.inspect}&quot;</span>
+
+    <span class="ruby-keyword kw">end</span>
+  <span class="ruby-keyword kw">end</span></pre>
+					</div>
+					
+				</div>
+
+				
+			</div>
+
+		
+			<div id="read-only-method" class="method-detail ">
+				<a name="M000027"></a>
+
+				<div class="method-heading">
+				
+					<span class="method-name">read_only</span><span
+						class="method-args">( *members )</span>
+					<span class="method-click-advice">click to toggle source</span>
+				
+				</div>
+
+				<div class="method-description">
+					
+					<p>
+Mark the given members as read-only, so they won&#8217;t have write
+accessors.
+</p>
+<p>
+Note: They can still be written via #[]=, but will not have convenience
+accessors.
+</p>
+<p>
+Note: This will remove the writer method (if it exists) for the members! So
+if you&#8217;re defining your own custom writer, do that <b>after</b> you
+have called this method.
+</p>
+<p>
+Example:
+</p>
+<pre>
+  class SecretStruct &lt; NiceStruct
+
+    # You can use it before the layout...
+    read_only( :readonly1 )
+
+    layout( :visible1,  :uint16,
+            :visible2,  :int,
+            :readonly1, :uint,
+            :readonly2, :pointer )
+
+    # ... and/or after it.
+    read_only( :readonly2 )
+
+    # :readonly1 and :readonly2 are now both read-only.
+  end
+</pre>
+					
+
+					
+					<div class="method-source-code"
+						id="read-only-source">
+<pre>
+<span class="ruby-comment cmt"># File lib/nice-ffi/struct.rb, line 192</span>
+    <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">read_only</span>( <span class="ruby-operator">*</span><span class="ruby-identifier">members</span> )
+      <span class="ruby-keyword kw">if</span> <span class="ruby-keyword kw">defined?</span>(<span class="ruby-ivar">@readonly_members</span>)
+        <span class="ruby-ivar">@readonly_members</span> <span class="ruby-operator">+=</span> <span class="ruby-identifier">members</span>
+      <span class="ruby-keyword kw">else</span>
+        <span class="ruby-ivar">@readonly_members</span> = <span class="ruby-identifier">members</span> 
+      <span class="ruby-keyword kw">end</span>
+
+      <span class="ruby-identifier">members</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">member</span><span class="ruby-operator">|</span>
+        <span class="ruby-comment cmt"># Remove the write accessor if it exists.</span>
+        <span class="ruby-keyword kw">begin</span>
+          <span class="ruby-identifier">remove_method</span>( <span class="ruby-node">&quot;#{member}=&quot;</span>.<span class="ruby-identifier">to_sym</span> )
+        <span class="ruby-keyword kw">rescue</span> <span class="ruby-constant">NameError</span>
+        <span class="ruby-keyword kw">end</span>
+      <span class="ruby-keyword kw">end</span>
+    <span class="ruby-keyword kw">end</span></pre>
+					</div>
+					
+				</div>
+
+				
+			</div>
+
+		
+			<div id="read-only--method" class="method-detail ">
+				<a name="M000028"></a>
+
+				<div class="method-heading">
+				
+					<span class="method-name">read_only?</span><span
+						class="method-args">( member )</span>
+					<span class="method-click-advice">click to toggle source</span>
+				
+				</div>
+
+				<div class="method-description">
+					
+					<p>
+True if the member has been marked <a
+href="Struct.html#M000027">read_only</a>, false otherwise.
+</p>
+					
+
+					
+					<div class="method-source-code"
+						id="read-only--source">
+<pre>
+<span class="ruby-comment cmt"># File lib/nice-ffi/struct.rb, line 209</span>
+    <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">read_only?</span>( <span class="ruby-identifier">member</span> )
+      <span class="ruby-keyword kw">return</span> <span class="ruby-keyword kw">false</span> <span class="ruby-keyword kw">unless</span> <span class="ruby-keyword kw">defined?</span>(<span class="ruby-ivar">@readonly_members</span>)
+      <span class="ruby-ivar">@readonly_members</span>.<span class="ruby-identifier">include?</span>( <span class="ruby-identifier">member</span> )
+    <span class="ruby-keyword kw">end</span></pre>
+					</div>
+					
+				</div>
+
+				
+			</div>
+
+		
+			<div id="typed-pointer-method" class="method-detail ">
+				<a name="M000023"></a>
+
+				<div class="method-heading">
+				
+					<span class="method-name">typed_pointer</span><span
+						class="method-args">( options={} )</span>
+					<span class="method-click-advice">click to toggle source</span>
+				
+				</div>
+
+				<div class="method-description">
+					
+					<p>
+Returns a <a href="TypedPointer.html">NiceFFI::TypedPointer</a> instance
+for this class. Equivalent to <a
+href="TypedPointer.html#M000046">NiceFFI::TypedPointer.new</a>( this_class,
+options )
+</p>
+					
+
+					
+					<div class="method-source-code"
+						id="typed-pointer-source">
+<pre>
+<span class="ruby-comment cmt"># File lib/nice-ffi/struct.rb, line 68</span>
+    <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">typed_pointer</span>( <span class="ruby-identifier">options</span>={} )
+      <span class="ruby-constant">NiceFFI</span><span class="ruby-operator">::</span><span class="ruby-constant">TypedPointer</span>.<span class="ruby-identifier">new</span>(<span class="ruby-keyword kw">self</span>, <span class="ruby-identifier">options</span>)
+    <span class="ruby-keyword kw">end</span></pre>
+					</div>
+					
+				</div>
+
+				
+			</div>
+
+		
+		</div>
+	
+		<div id="private-class-method-details" class="method-section section">
+			<h3 class="section-header">Private Class Methods</h3>
+
+		
+			<div id="wrap-member-method" class="method-detail ">
+				<a name="M000029"></a>
+
+				<div class="method-heading">
+				
+					<span class="method-name">wrap_member</span><span
+						class="method-args">( member, type )</span>
+					<span class="method-click-advice">click to toggle source</span>
+				
+				</div>
+
+				<div class="method-description">
+					
+					<p>
+Defines read and write accessors for the given struct member. This is
+similar to attr_accessor, except these accessors read and write the
+struct&#8217;s members, instead of to instance variables.
+</p>
+<p>
+E.g. `<a href="Struct.html#M000029">wrap_member</a>(:x, :int16)` defines x
+and x= read and write to the struct&#8217;s :x member, which is an int16.
+</p>
+<p>
+Normally you don&#8217;t need to call this method, because <a
+href="Struct.html#M000024">layout</a> does this automatically.
+</p>
+					
+
+					
+					<div class="method-source-code"
+						id="wrap-member-source">
+<pre>
+<span class="ruby-comment cmt"># File lib/nice-ffi/struct.rb, line 229</span>
+    <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">wrap_member</span>( <span class="ruby-identifier">member</span>, <span class="ruby-identifier">type</span> )
+      <span class="ruby-ivar">@hidden_members</span> = [] <span class="ruby-keyword kw">unless</span> <span class="ruby-keyword kw">defined?</span>(<span class="ruby-ivar">@hidden_members</span>)
+
+      <span class="ruby-keyword kw">unless</span> <span class="ruby-identifier">hidden?</span>( <span class="ruby-identifier">member</span> )
+        <span class="ruby-identifier">_make_reader</span>( <span class="ruby-identifier">member</span>, <span class="ruby-identifier">type</span> )
+        <span class="ruby-keyword kw">unless</span> <span class="ruby-identifier">read_only?</span>( <span class="ruby-identifier">member</span> )
+          <span class="ruby-identifier">_make_writer</span>( <span class="ruby-identifier">member</span>, <span class="ruby-identifier">type</span> )
+        <span class="ruby-keyword kw">end</span>
+      <span class="ruby-keyword kw">end</span>
+    <span class="ruby-keyword kw">end</span></pre>
+					</div>
+					
+				</div>
+
+				
+			</div>
+
+		
+		</div>
+	
+		<div id="public-instance-method-details" class="method-section section">
+			<h3 class="section-header">Public Instance Methods</h3>
+
+		
+			<div id="inspect-method" class="method-detail method-alias">
+				<a name="M000045"></a>
+
+				<div class="method-heading">
+				
+					<span class="method-name">inspect</span><span
+						class="method-args">()</span>
+					<span class="method-click-advice">click to toggle source</span>
+				
+				</div>
+
+				<div class="method-description">
+					
+					<p>
+Alias for <a href="Struct.html#M000039">to_s</a>
+</p>
+					
+
+					
+				</div>
+
+				
+			</div>
+
+		
+			<div id="to-ary-method" class="method-detail ">
+				<a name="M000036"></a>
+
+				<div class="method-heading">
+				
+					<span class="method-name">to_ary</span><span
+						class="method-args">()</span>
+					<span class="method-click-advice">click to toggle source</span>
+				
+				</div>
+
+				<div class="method-description">
+					
+					<p>
+Dump this instance as an Array of its struct data. The array contains only
+the data, not the member names.
+</p>
+<p>
+Note: the order of data in the array always matches the order of members
+given in <a href="Struct.html#M000024">layout</a>.
+</p>
+<p>
+Example:
+</p>
+<pre>
+  Rect.new( :x=&gt;1, :y=&gt;2, :w=&gt;3, :h=&gt;4 ).to_ary
+  # =&gt; [1,2,3,4]
+</pre>
+					
+
+					
+					<div class="method-source-code"
+						id="to-ary-source">
+<pre>
+<span class="ruby-comment cmt"># File lib/nice-ffi/struct.rb, line 404</span>
+  <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">to_ary</span>
+    <span class="ruby-identifier">members</span>.<span class="ruby-identifier">collect</span>{ <span class="ruby-operator">|</span><span class="ruby-identifier">m</span><span class="ruby-operator">|</span> <span class="ruby-keyword kw">self</span>[<span class="ruby-identifier">m</span>] }
+  <span class="ruby-keyword kw">end</span></pre>
+					</div>
+					
+				</div>
+
+				
+			</div>
+
+		
+			<div id="to-bytes-method" class="method-detail ">
+				<a name="M000037"></a>
+
+				<div class="method-heading">
+				
+					<span class="method-name">to_bytes</span><span
+						class="method-args">()</span>
+					<span class="method-click-advice">click to toggle source</span>
+				
+				</div>
+
+				<div class="method-description">
+					
+					<p>
+Dump this instance as a string of raw bytes of its struct data.
+</p>
+					
+
+					
+					<div class="method-source-code"
+						id="to-bytes-source">
+<pre>
+<span class="ruby-comment cmt"># File lib/nice-ffi/struct.rb, line 411</span>
+  <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">to_bytes</span>
+    <span class="ruby-keyword kw">return</span> <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">pointer</span>.<span class="ruby-identifier">get_bytes</span>(<span class="ruby-value">0</span>, <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">size</span>)
+  <span class="ruby-keyword kw">end</span></pre>
+					</div>
+					
+				</div>
+
+				
+			</div>
+
+		
+			<div id="to-hash-method" class="method-detail ">
+				<a name="M000038"></a>
+
+				<div class="method-heading">
+				
+					<span class="method-name">to_hash</span><span
+						class="method-args">()</span>
+					<span class="method-click-advice">click to toggle source</span>
+				
+				</div>
+
+				<div class="method-description">
+					
+					<p>
+Dump this instance as a Hash containing {member => data} pairs for every
+member in the struct.
+</p>
+<p>
+Example:
+</p>
+<pre>
+  Rect.new( :x=&gt;1, :y=&gt;2, :w=&gt;3, :h=&gt;4 ).to_hash
+  # =&gt; {:h=&gt;4, :w=&gt;3, :x=&gt;1, :y=&gt;2}
+</pre>
+					
+
+					
+					<div class="method-source-code"
+						id="to-hash-source">
+<pre>
+<span class="ruby-comment cmt"># File lib/nice-ffi/struct.rb, line 424</span>
+  <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">to_hash</span>
+    <span class="ruby-keyword kw">return</span> {} <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">members</span>.<span class="ruby-identifier">empty?</span>
+    <span class="ruby-constant">Hash</span>[ <span class="ruby-operator">*</span>(<span class="ruby-identifier">members</span>.<span class="ruby-identifier">collect</span>{ <span class="ruby-operator">|</span><span class="ruby-identifier">m</span><span class="ruby-operator">|</span> [<span class="ruby-identifier">m</span>, <span class="ruby-keyword kw">self</span>[<span class="ruby-identifier">m</span>]] }.<span class="ruby-identifier">flatten!</span>) ]
+  <span class="ruby-keyword kw">end</span></pre>
+					</div>
+					
+				</div>
+
+				
+			</div>
+
+		
+			<div id="to-s-method" class="method-detail ">
+				<a name="M000039"></a>
+
+				<div class="method-heading">
+				
+					<span class="method-name">to_s</span><span
+						class="method-args">()</span>
+					<span class="method-click-advice">click to toggle source</span>
+				
+				</div>
+
+				<div class="method-description">
+					
+					<p class="missing-docs">(Not documented)</p>
+					
+
+					
+					<div class="method-source-code"
+						id="to-s-source">
+<pre>
+<span class="ruby-comment cmt"># File lib/nice-ffi/struct.rb, line 430</span>
+  <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">to_s</span>
+    <span class="ruby-keyword kw">begin</span>
+      <span class="ruby-keyword kw">if</span> <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">pointer</span>.<span class="ruby-identifier">null?</span>
+        <span class="ruby-keyword kw">return</span> <span class="ruby-value str">&quot;#&lt;NULL %s:%#.x&gt;&quot;</span><span class="ruby-operator">%</span>[<span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">class</span>.<span class="ruby-identifier">name</span>, <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">object_id</span>]
+      <span class="ruby-keyword kw">end</span>
+    <span class="ruby-keyword kw">rescue</span> <span class="ruby-constant">NoMethodError</span>
+    <span class="ruby-keyword kw">end</span>
+
+    <span class="ruby-identifier">mems</span> = <span class="ruby-identifier">members</span>.<span class="ruby-identifier">collect</span>{ <span class="ruby-operator">|</span><span class="ruby-identifier">m</span><span class="ruby-operator">|</span>
+      <span class="ruby-keyword kw">unless</span> <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">class</span>.<span class="ruby-identifier">hidden?</span>( <span class="ruby-identifier">m</span> )
+        <span class="ruby-identifier">val</span> = <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">send</span>(<span class="ruby-identifier">m</span>)
+
+        <span class="ruby-comment cmt"># Cleanup/simplify for display</span>
+        <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">val</span>.<span class="ruby-identifier">nil?</span> <span class="ruby-keyword kw">or</span> (<span class="ruby-identifier">val</span>.<span class="ruby-identifier">is_a?</span> <span class="ruby-constant">FFI</span><span class="ruby-operator">::</span><span class="ruby-constant">Pointer</span> <span class="ruby-keyword kw">and</span> <span class="ruby-identifier">val</span>.<span class="ruby-identifier">null?</span>)
+          <span class="ruby-identifier">val</span> = <span class="ruby-value str">&quot;NULL&quot;</span> 
+        <span class="ruby-keyword kw">elsif</span> <span class="ruby-identifier">val</span>.<span class="ruby-identifier">kind_of?</span> <span class="ruby-constant">FFI</span><span class="ruby-operator">::</span><span class="ruby-constant">Struct</span>
+          <span class="ruby-identifier">val</span> = <span class="ruby-node">&quot;#&lt;#{val.class}:%#.x&gt;&quot;</span><span class="ruby-operator">%</span><span class="ruby-identifier">val</span>.<span class="ruby-identifier">object_id</span>
+        <span class="ruby-keyword kw">end</span>
+        
+        <span class="ruby-node">&quot;@#{m}=#{val}&quot;</span>
+      <span class="ruby-keyword kw">end</span>
+    }.<span class="ruby-identifier">compact</span>.<span class="ruby-identifier">join</span>(<span class="ruby-value str">&quot;, &quot;</span>)
+
+    <span class="ruby-keyword kw">if</span>( <span class="ruby-identifier">mems</span> <span class="ruby-operator">==</span> <span class="ruby-value str">&quot;&quot;</span> )
+      <span class="ruby-keyword kw">return</span> <span class="ruby-value str">&quot;#&lt;%s:%#.x&gt;&quot;</span><span class="ruby-operator">%</span>[<span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">class</span>.<span class="ruby-identifier">name</span>, <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">object_id</span>]
+    <span class="ruby-keyword kw">else</span>
+      <span class="ruby-keyword kw">return</span> <span class="ruby-value str">&quot;#&lt;%s:%#.x %s&gt;&quot;</span><span class="ruby-operator">%</span>[<span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">class</span>.<span class="ruby-identifier">name</span>, <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">object_id</span>, <span class="ruby-identifier">mems</span>]
+    <span class="ruby-keyword kw">end</span>
+  <span class="ruby-keyword kw">end</span></pre>
+					</div>
+					
+				</div>
+
+				
+				<div class="aliases">
+					Also aliased as: <a href="Struct.html#M000045">inspect</a>
+				</div>
+				
+			</div>
+
+		
+		</div>
+	
+
+	</div>
+
+
+	<div id="rdoc-debugging-section-dump" class="debugging-section">
+	
+		<p>Disabled; run with --debug to generate this.</p>
+	
+	</div>
+
+	<div id="validator-badges">
+		<p><small><a href="http://validator.w3.org/check/referer">[Validate]</a></small></p>
+		<p><small>Generated with the <a href="http://deveiate.org/projects/Darkfish-Rdoc/">Darkfish
+			Rdoc Generator</a> 1.1.6</small>.</p>
+	</div>
+
+</body>
+</html>
+

@@ -1,0 +1,309 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+	"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+	<meta content="text/html; charset=utf-8" http-equiv="Content-Type" />
+
+	<title>Module: NiceFFI::AutoRelease</title>
+
+	<link rel="stylesheet" href="../rdoc.css" type="text/css" media="screen" />
+
+	<script src="../js/jquery.js" type="text/javascript"
+		charset="utf-8"></script>
+	<script src="../js/thickbox-compressed.js" type="text/javascript"
+		charset="utf-8"></script>
+	<script src="../js/quicksearch.js" type="text/javascript"
+		charset="utf-8"></script>
+	<script src="../js/darkfish.js" type="text/javascript"
+		charset="utf-8"></script>
+
+</head>
+<body class="module">
+
+	<div id="metadata">
+		<div id="file-metadata">
+			<div id="file-list-section" class="section">
+				<h3 class="section-header">In Files</h3>
+				<div class="section-body">
+					<ul>
+					
+						<li><a href="../lib/nice-ffi/autorelease_rb.html?TB_iframe=true&amp;height=550&amp;width=785"
+							class="thickbox" title="lib/nice-ffi/autorelease.rb">lib/nice-ffi/autorelease.rb</a></li>
+					
+					</ul>
+				</div>
+			</div>
+
+			
+		</div>
+
+		<div id="class-metadata">
+
+			<!-- Parent Class -->
+			
+
+			<!-- Namespace Contents -->
+			
+
+			<!-- Method Quickref -->
+			
+			<div id="method-list-section" class="section">
+				<h3 class="section-header">Methods</h3>
+				<ul class="link-list">
+					
+					<li><a href="#M000018">::included</a></li>
+					
+					<li><a href="#M000022">#_make_autopointer</a></li>
+					
+				</ul>
+			</div>
+			
+
+			<!-- Included Modules -->
+			
+		</div>
+
+		<div id="project-metadata">
+			
+			
+			<div id="fileindex-section" class="section project-section">
+				<h3 class="section-header">Files</h3>
+				<ul>
+				
+					<li class="file"><a href="../README_rdoc.html">README.rdoc</a></li>
+				
+					<li class="file"><a href="../TODO_rdoc.html">TODO.rdoc</a></li>
+				
+					<li class="file"><a href="../docs/usage_rdoc.html">usage.rdoc</a></li>
+				
+					<li class="file"><a href="../pkg/nice-ffi-0_2/README_rdoc.html">README.rdoc</a></li>
+				
+					<li class="file"><a href="../pkg/nice-ffi-0_2/TODO_rdoc.html">TODO.rdoc</a></li>
+				
+					<li class="file"><a href="../pkg/nice-ffi-0_2/docs/usage_rdoc.html">usage.rdoc</a></li>
+				
+					<li class="file"><a href="../pkg/nice-ffi-0_3/README_rdoc.html">README.rdoc</a></li>
+				
+					<li class="file"><a href="../pkg/nice-ffi-0_3/TODO_rdoc.html">TODO.rdoc</a></li>
+				
+					<li class="file"><a href="../pkg/nice-ffi-0_3/docs/usage_rdoc.html">usage.rdoc</a></li>
+				
+					<li class="file"><a href="../pkg/nice-ffi-0_3/pkg/nice-ffi-0_2/README_rdoc.html">README.rdoc</a></li>
+				
+					<li class="file"><a href="../pkg/nice-ffi-0_3/pkg/nice-ffi-0_2/TODO_rdoc.html">TODO.rdoc</a></li>
+				
+					<li class="file"><a href="../pkg/nice-ffi-0_3/pkg/nice-ffi-0_2/docs/usage_rdoc.html">usage.rdoc</a></li>
+				
+				</ul>
+			</div>
+			
+
+			<div id="classindex-section" class="section project-section">
+				<h3 class="section-header">Class Index
+					<span class="search-toggle"><img src="../images/find.png"
+						height="16" width="16" alt="[+]"
+						title="show/hide quicksearch" /></span></h3>
+				<form action="#" method="get" accept-charset="utf-8" class="initially-hidden">
+				<fieldset>
+					<legend>Quicksearch</legend>
+					<input type="text" name="quicksearch" value=""
+						class="quicksearch-field" />
+				</fieldset>
+				</form>
+
+				<ul class="link-list">
+				
+					<li><a href="../NiceFFI.html">NiceFFI</a></li>
+				
+					<li><a href="../NiceFFI/AutoRelease.html">NiceFFI::AutoRelease</a></li>
+				
+					<li><a href="../NiceFFI/Library.html">NiceFFI::Library</a></li>
+				
+					<li><a href="../NiceFFI/OpaqueStruct.html">NiceFFI::OpaqueStruct</a></li>
+				
+					<li><a href="../NiceFFI/PathSet.html">NiceFFI::PathSet</a></li>
+				
+					<li><a href="../NiceFFI/Struct.html">NiceFFI::Struct</a></li>
+				
+					<li><a href="../NiceFFI/TypedPointer.html">NiceFFI::TypedPointer</a></li>
+				
+				</ul>
+				<div id="no-class-search-results" style="display: none;">No matching classes.</div>
+			</div>
+
+			
+		</div>
+	</div>
+
+	<div id="documentation">
+		<h1 class="module">NiceFFI::AutoRelease</h1>
+
+		<div id="description">
+			<p>
+A mixin module to provide automatic memory management for C structs.
+</p>
+
+		</div>
+
+		<!-- Constants -->
+		
+
+		<!-- Attributes -->
+		
+
+		<!-- Methods -->
+		
+		<div id="public-class-method-details" class="method-section section">
+			<h3 class="section-header">Public Class Methods</h3>
+
+		
+			<div id="included-method" class="method-detail ">
+				<a name="M000018"></a>
+
+				<div class="method-heading">
+				
+					<span class="method-name">included</span><span
+						class="method-args">( klass )</span>
+					<span class="method-click-advice">click to toggle source</span>
+				
+				</div>
+
+				<div class="method-description">
+					
+					<p>
+Sets up the class when this module is included. Adds the class methods and
+defines class instance variables.
+</p>
+					
+
+					
+					<div class="method-source-code"
+						id="included-source">
+<pre>
+<span class="ruby-comment cmt"># File lib/nice-ffi/autorelease.rb, line 44</span>
+  <span class="ruby-keyword kw">def</span> <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">included</span>( <span class="ruby-identifier">klass</span> )
+    <span class="ruby-keyword kw">class</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-identifier">klass</span>
+
+      <span class="ruby-comment cmt"># Increment the reference count for this address.</span>
+      <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">_incr_refcount</span>( <span class="ruby-identifier">address</span> )
+        <span class="ruby-ivar">@ptr_mutex</span> <span class="ruby-operator">||=</span> <span class="ruby-constant">Mutex</span>.<span class="ruby-identifier">new</span>
+        <span class="ruby-ivar">@ptr_mutex</span>.<span class="ruby-identifier">synchronize</span> {
+          <span class="ruby-ivar">@ptr_refcounts</span> <span class="ruby-operator">||=</span> <span class="ruby-constant">Hash</span>.<span class="ruby-identifier">new</span>(<span class="ruby-value">0</span>)
+          <span class="ruby-ivar">@ptr_refcounts</span>[<span class="ruby-identifier">address</span>] <span class="ruby-operator">+=</span> <span class="ruby-value">1</span>
+        }
+        <span class="ruby-keyword kw">return</span> <span class="ruby-keyword kw">nil</span>
+      <span class="ruby-keyword kw">end</span>
+
+      <span class="ruby-comment cmt"># Decrement the counter for this pointer's address, and free</span>
+      <span class="ruby-comment cmt"># the memory if the reference count falls below 1.</span>
+      <span class="ruby-comment cmt">#</span>
+      <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">_release</span>( <span class="ruby-identifier">pointer</span> )
+        <span class="ruby-ivar">@ptr_mutex</span> <span class="ruby-operator">||=</span> <span class="ruby-constant">Mutex</span>.<span class="ruby-identifier">new</span>
+        <span class="ruby-ivar">@ptr_mutex</span>.<span class="ruby-identifier">synchronize</span> {
+          <span class="ruby-identifier">_decr_refcount</span>(<span class="ruby-identifier">pointer</span>.<span class="ruby-identifier">address</span>)
+          <span class="ruby-keyword kw">if</span>( <span class="ruby-ivar">@ptr_refcounts</span>[<span class="ruby-identifier">pointer</span>.<span class="ruby-identifier">address</span>] <span class="ruby-operator">&lt;</span> <span class="ruby-value">1</span> )
+            <span class="ruby-identifier">release</span>( <span class="ruby-identifier">pointer</span> )
+          <span class="ruby-keyword kw">end</span>
+        }
+      <span class="ruby-keyword kw">end</span>
+
+      <span class="ruby-identifier">private</span>
+
+      <span class="ruby-comment cmt"># Decrement the reference count for this address. If the count falls</span>
+      <span class="ruby-comment cmt"># below 1, the address is removed from Hash altogether.</span>
+      <span class="ruby-comment cmt">#</span>
+      <span class="ruby-comment cmt"># Note: this method does not have a Mutex lock by itself, but you</span>
+      <span class="ruby-comment cmt"># should use a lock in any methods that call it.</span>
+      <span class="ruby-comment cmt"># </span>
+      <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">_decr_refcount</span>( <span class="ruby-identifier">address</span> )
+        <span class="ruby-ivar">@ptr_refcounts</span> <span class="ruby-operator">||=</span> <span class="ruby-constant">Hash</span>.<span class="ruby-identifier">new</span>(<span class="ruby-value">0</span>)
+        <span class="ruby-ivar">@ptr_refcounts</span>[<span class="ruby-identifier">address</span>] <span class="ruby-operator">-=</span> <span class="ruby-value">1</span>
+        <span class="ruby-keyword kw">if</span>( <span class="ruby-ivar">@ptr_refcounts</span>[<span class="ruby-identifier">address</span>] <span class="ruby-operator">&lt;</span> <span class="ruby-value">1</span> )
+          <span class="ruby-ivar">@ptr_refcounts</span>.<span class="ruby-identifier">delete</span>(<span class="ruby-identifier">address</span>)
+        <span class="ruby-keyword kw">end</span>
+      <span class="ruby-keyword kw">end</span>
+
+    <span class="ruby-keyword kw">end</span>
+  <span class="ruby-keyword kw">end</span></pre>
+					</div>
+					
+				</div>
+
+				
+			</div>
+
+		
+		</div>
+	
+		<div id="private-instance-method-details" class="method-section section">
+			<h3 class="section-header">Private Instance Methods</h3>
+
+		
+			<div id="-make-autopointer-method" class="method-detail ">
+				<a name="M000022"></a>
+
+				<div class="method-heading">
+				
+					<span class="method-name">_make_autopointer</span><span
+						class="method-args">( ptr, autorelease=true )</span>
+					<span class="method-click-advice">click to toggle source</span>
+				
+				</div>
+
+				<div class="method-description">
+					
+					<p class="missing-docs">(Not documented)</p>
+					
+
+					
+					<div class="method-source-code"
+						id="-make-autopointer-source">
+<pre>
+<span class="ruby-comment cmt"># File lib/nice-ffi/autorelease.rb, line 93</span>
+  <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">_make_autopointer</span>( <span class="ruby-identifier">ptr</span>, <span class="ruby-identifier">autorelease</span>=<span class="ruby-keyword kw">true</span> )
+    <span class="ruby-keyword kw">if</span>( <span class="ruby-identifier">autorelease</span> <span class="ruby-keyword kw">and</span>
+        <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">class</span>.<span class="ruby-identifier">respond_to?</span>(<span class="ruby-identifier">:release</span>) <span class="ruby-keyword kw">and</span>
+        <span class="ruby-identifier">ptr</span>.<span class="ruby-identifier">is_a?</span>(<span class="ruby-constant">FFI</span><span class="ruby-operator">::</span><span class="ruby-constant">Pointer</span>) <span class="ruby-keyword kw">and</span>
+        <span class="ruby-keyword kw">not</span> <span class="ruby-identifier">ptr</span>.<span class="ruby-identifier">is_a?</span>(<span class="ruby-constant">FFI</span><span class="ruby-operator">::</span><span class="ruby-constant">MemoryPointer</span>) <span class="ruby-keyword kw">and</span>
+        <span class="ruby-keyword kw">not</span> <span class="ruby-identifier">ptr</span>.<span class="ruby-identifier">is_a?</span>(<span class="ruby-constant">FFI</span><span class="ruby-operator">::</span><span class="ruby-constant">Buffer</span>) )
+
+      <span class="ruby-comment cmt"># Increment the reference count for this pointer address</span>
+      <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">class</span>.<span class="ruby-identifier">_incr_refcount</span>( <span class="ruby-identifier">ptr</span>.<span class="ruby-identifier">address</span> )
+
+      <span class="ruby-comment cmt"># Wrap in an AutoPointer to call self.class._release when it's GC'd.</span>
+      <span class="ruby-keyword kw">return</span> <span class="ruby-constant">FFI</span><span class="ruby-operator">::</span><span class="ruby-constant">AutoPointer</span>.<span class="ruby-identifier">new</span>( <span class="ruby-identifier">ptr</span>, <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">class</span>.<span class="ruby-identifier">method</span>(<span class="ruby-identifier">:_release</span>) )
+
+    <span class="ruby-keyword kw">else</span>
+      <span class="ruby-keyword kw">return</span> <span class="ruby-identifier">ptr</span>
+    <span class="ruby-keyword kw">end</span>
+  <span class="ruby-keyword kw">end</span></pre>
+					</div>
+					
+				</div>
+
+				
+			</div>
+
+		
+		</div>
+	
+
+	</div>
+
+
+	<div id="rdoc-debugging-section-dump" class="debugging-section">
+	
+		<p>Disabled; run with --debug to generate this.</p>
+	
+	</div>
+
+	<div id="validator-badges">
+		<p><small><a href="http://validator.w3.org/check/referer">[Validate]</a></small></p>
+		<p><small>Generated with the <a href="http://deveiate.org/projects/Darkfish-Rdoc/">Darkfish
+			Rdoc Generator</a> 1.1.6</small>.</p>
+	</div>
+
+</body>
+</html>
+
