@@ -65,7 +65,7 @@ module NiceFFI::Library
   # 
   # Raises LoadError if it could not find or load the library.
   # 
-  def load_library( names, search_paths=NiceFFI::PathSet::DEFAULT_PATHS )
+  def load_library( names, search_paths=NiceFFI::PathSet::DEFAULT )
 
     names = [names] unless names.kind_of? Array
 
