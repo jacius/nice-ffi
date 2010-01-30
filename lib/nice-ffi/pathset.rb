@@ -465,8 +465,8 @@ class NiceFFI::PathSet
     results = paths.collect do |path|
       files.collect do |file|
         names.collect do |name|
-          # Concat path and file, fill in for [NAME], and expand.
-          File.expand_path( (path+file).gsub("[NAME]", name) )
+          # Join path and file, fill in for [NAME], and expand.
+          File.expand_path( File.join(path,file).gsub("[NAME]",name) )
         end
       end
     end
