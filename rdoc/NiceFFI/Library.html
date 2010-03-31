@@ -85,24 +85,6 @@
 				
 					<li class="file"><a href="../docs/usage_rdoc.html">usage.rdoc</a></li>
 				
-					<li class="file"><a href="../pkg/nice-ffi-0_2/README_rdoc.html">README.rdoc</a></li>
-				
-					<li class="file"><a href="../pkg/nice-ffi-0_2/TODO_rdoc.html">TODO.rdoc</a></li>
-				
-					<li class="file"><a href="../pkg/nice-ffi-0_2/docs/usage_rdoc.html">usage.rdoc</a></li>
-				
-					<li class="file"><a href="../pkg/nice-ffi-0_3/README_rdoc.html">README.rdoc</a></li>
-				
-					<li class="file"><a href="../pkg/nice-ffi-0_3/TODO_rdoc.html">TODO.rdoc</a></li>
-				
-					<li class="file"><a href="../pkg/nice-ffi-0_3/docs/usage_rdoc.html">usage.rdoc</a></li>
-				
-					<li class="file"><a href="../pkg/nice-ffi-0_3/pkg/nice-ffi-0_2/README_rdoc.html">README.rdoc</a></li>
-				
-					<li class="file"><a href="../pkg/nice-ffi-0_3/pkg/nice-ffi-0_2/TODO_rdoc.html">TODO.rdoc</a></li>
-				
-					<li class="file"><a href="../pkg/nice-ffi-0_3/pkg/nice-ffi-0_2/docs/usage_rdoc.html">usage.rdoc</a></li>
-				
 				</ul>
 			</div>
 			
@@ -319,7 +301,7 @@ in the TypedPointer&#8217;s type.
 				<div class="method-heading">
 				
 					<span class="method-name">load_library</span><span
-						class="method-args">( names, search_paths=NiceFFI::PathSet::DEFAULT_PATHS )</span>
+						class="method-args">( names, search_paths=NiceFFI::PathSet::DEFAULT )</span>
 					<span class="method-click-advice">click to toggle source</span>
 				
 				</div>
@@ -344,7 +326,7 @@ Raises LoadError if it could not find or load the library.
 						id="load-library-source">
 <pre>
 <span class="ruby-comment cmt"># File lib/nice-ffi/library.rb, line 68</span>
-  <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">load_library</span>( <span class="ruby-identifier">names</span>, <span class="ruby-identifier">search_paths</span>=<span class="ruby-constant">NiceFFI</span><span class="ruby-operator">::</span><span class="ruby-constant">PathSet</span><span class="ruby-operator">::</span><span class="ruby-constant">DEFAULT_PATHS</span> )
+  <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">load_library</span>( <span class="ruby-identifier">names</span>, <span class="ruby-identifier">search_paths</span>=<span class="ruby-constant">NiceFFI</span><span class="ruby-operator">::</span><span class="ruby-constant">PathSet</span><span class="ruby-operator">::</span><span class="ruby-constant">DEFAULT</span> )
 
     <span class="ruby-identifier">names</span> = [<span class="ruby-identifier">names</span>] <span class="ruby-keyword kw">unless</span> <span class="ruby-identifier">names</span>.<span class="ruby-identifier">kind_of?</span> <span class="ruby-constant">Array</span>
 

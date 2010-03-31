@@ -6,7 +6,7 @@
 <head>
 	<meta content="text/html; charset=utf-8" http-equiv="Content-Type" />
 
-	<title>File: usage.rdoc [Nice-FFI 0.3 Docs]</title>
+	<title>File: usage.rdoc [Nice-FFI 0.4 Docs]</title>
 
 	<link type="text/css" media="screen" href="../rdoc.css" rel="stylesheet" />
 
@@ -34,24 +34,6 @@
 					<li class="file"><a href="../TODO_rdoc.html">TODO.rdoc</a></li>
 				
 					<li class="file"><a href="../docs/usage_rdoc.html">usage.rdoc</a></li>
-				
-					<li class="file"><a href="../pkg/nice-ffi-0_2/README_rdoc.html">README.rdoc</a></li>
-				
-					<li class="file"><a href="../pkg/nice-ffi-0_2/TODO_rdoc.html">TODO.rdoc</a></li>
-				
-					<li class="file"><a href="../pkg/nice-ffi-0_2/docs/usage_rdoc.html">usage.rdoc</a></li>
-				
-					<li class="file"><a href="../pkg/nice-ffi-0_3/README_rdoc.html">README.rdoc</a></li>
-				
-					<li class="file"><a href="../pkg/nice-ffi-0_3/TODO_rdoc.html">TODO.rdoc</a></li>
-				
-					<li class="file"><a href="../pkg/nice-ffi-0_3/docs/usage_rdoc.html">usage.rdoc</a></li>
-				
-					<li class="file"><a href="../pkg/nice-ffi-0_3/pkg/nice-ffi-0_2/README_rdoc.html">README.rdoc</a></li>
-				
-					<li class="file"><a href="../pkg/nice-ffi-0_3/pkg/nice-ffi-0_2/TODO_rdoc.html">TODO.rdoc</a></li>
-				
-					<li class="file"><a href="../pkg/nice-ffi-0_3/pkg/nice-ffi-0_2/docs/usage_rdoc.html">usage.rdoc</a></li>
 				
 				</ul>
 			</div>
@@ -334,7 +316,7 @@ with FFI::Struct.
 <h3>Struct Member Accessors</h3>
 <p>
 Struct members are defined automatically when you use <a
-href="../NiceFFI/Struct.html#M000024">NiceFFI::Struct.layout</a>:
+href="../NiceFFI/Struct.html#M000021">NiceFFI::Struct.layout</a>:
 </p>
 <pre>
   class MyStruct &lt; NiceFFI::Struct
@@ -353,8 +335,8 @@ href="../NiceFFI/Struct.html#M000024">NiceFFI::Struct.layout</a>:
 <p>
 Sometimes a struct will have members that should be read-only, or
 completely hidden. In those cases, you can use <a
-href="../NiceFFI/Struct.html#M000027">NiceFFI::Struct.read_only</a> and <a
-href="../NiceFFI/Struct.html#M000025">NiceFFI::Struct.hidden</a>.
+href="../NiceFFI/Struct.html#M000024">NiceFFI::Struct.read_only</a> and <a
+href="../NiceFFI/Struct.html#M000022">NiceFFI::Struct.hidden</a>.
 </p>
 <pre>
   class MySneakyStruct &lt; NiceFFI::Struct

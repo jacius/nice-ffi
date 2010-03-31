@@ -59,31 +59,31 @@
 				<h3 class="section-header">Methods</h3>
 				<ul class="link-list">
 					
-					<li><a href="#M000025">::hidden</a></li>
+					<li><a href="#M000022">::hidden</a></li>
 					
-					<li><a href="#M000026">::hidden?</a></li>
+					<li><a href="#M000023">::hidden?</a></li>
 					
-					<li><a href="#M000024">::layout</a></li>
+					<li><a href="#M000021">::layout</a></li>
 					
-					<li><a href="#M000032">::new</a></li>
+					<li><a href="#M000029">::new</a></li>
 					
-					<li><a href="#M000027">::read_only</a></li>
+					<li><a href="#M000024">::read_only</a></li>
 					
-					<li><a href="#M000028">::read_only?</a></li>
+					<li><a href="#M000025">::read_only?</a></li>
 					
-					<li><a href="#M000023">::typed_pointer</a></li>
+					<li><a href="#M000020">::typed_pointer</a></li>
 					
-					<li><a href="#M000029">::wrap_member</a></li>
+					<li><a href="#M000026">::wrap_member</a></li>
 					
-					<li><a href="#M000045">#inspect</a></li>
+					<li><a href="#M000037">#inspect</a></li>
 					
-					<li><a href="#M000036">#to_ary</a></li>
+					<li><a href="#M000033">#to_ary</a></li>
 					
-					<li><a href="#M000037">#to_bytes</a></li>
+					<li><a href="#M000034">#to_bytes</a></li>
 					
-					<li><a href="#M000038">#to_hash</a></li>
+					<li><a href="#M000035">#to_hash</a></li>
 					
-					<li><a href="#M000039">#to_s</a></li>
+					<li><a href="#M000036">#to_s</a></li>
 					
 				</ul>
 			</div>
@@ -116,24 +116,6 @@
 					<li class="file"><a href="../TODO_rdoc.html">TODO.rdoc</a></li>
 				
 					<li class="file"><a href="../docs/usage_rdoc.html">usage.rdoc</a></li>
-				
-					<li class="file"><a href="../pkg/nice-ffi-0_2/README_rdoc.html">README.rdoc</a></li>
-				
-					<li class="file"><a href="../pkg/nice-ffi-0_2/TODO_rdoc.html">TODO.rdoc</a></li>
-				
-					<li class="file"><a href="../pkg/nice-ffi-0_2/docs/usage_rdoc.html">usage.rdoc</a></li>
-				
-					<li class="file"><a href="../pkg/nice-ffi-0_3/README_rdoc.html">README.rdoc</a></li>
-				
-					<li class="file"><a href="../pkg/nice-ffi-0_3/TODO_rdoc.html">TODO.rdoc</a></li>
-				
-					<li class="file"><a href="../pkg/nice-ffi-0_3/docs/usage_rdoc.html">usage.rdoc</a></li>
-				
-					<li class="file"><a href="../pkg/nice-ffi-0_3/pkg/nice-ffi-0_2/README_rdoc.html">README.rdoc</a></li>
-				
-					<li class="file"><a href="../pkg/nice-ffi-0_3/pkg/nice-ffi-0_2/TODO_rdoc.html">TODO.rdoc</a></li>
-				
-					<li class="file"><a href="../pkg/nice-ffi-0_3/pkg/nice-ffi-0_2/docs/usage_rdoc.html">usage.rdoc</a></li>
 				
 				</ul>
 			</div>
@@ -187,10 +169,10 @@ make life easier:
 </p>
 <ul>
 <li>Automatically defines read and write accessor methods (e.g. x, x=) for
-struct members when you call <a href="Struct.html#M000024">layout</a>. (You
-can use <a href="Struct.html#M000025">hidden</a> and <a
-href="Struct.html#M000027">read_only</a> before or after calling <a
-href="Struct.html#M000024">layout</a> to affect which members have
+struct members when you call <a href="Struct.html#M000021">layout</a>. (You
+can use <a href="Struct.html#M000022">hidden</a> and <a
+href="Struct.html#M000024">read_only</a> before or after calling <a
+href="Struct.html#M000021">layout</a> to affect which members have
 accessors.)
 
 </li>
@@ -200,28 +182,28 @@ members so you don&#8217;t even have to think about the fact they are
 pointers!
 
 </li>
-<li>Implements a nicer <a href="Struct.html#M000032">new</a> method which
+<li>Implements a nicer <a href="Struct.html#M000029">new</a> method which
 allows you to create a new struct and set its data in one shot by passing
 an Array, Hash, or another instance of the class (to copy data). You can
 also use it to wrap a FFI::Pointer like FFI::Struct can.
 
 </li>
-<li>Implements <a href="Struct.html#M000036">to_ary</a> and <a
-href="Struct.html#M000038">to_hash</a> to dump the struct data.
+<li>Implements <a href="Struct.html#M000033">to_ary</a> and <a
+href="Struct.html#M000035">to_hash</a> to dump the struct data.
 
 </li>
-<li>Implements <a href="Struct.html#M000039">to_s</a> and <a
-href="Struct.html#M000045">inspect</a> for nice debugging output.
+<li>Implements <a href="Struct.html#M000036">to_s</a> and <a
+href="Struct.html#M000037">inspect</a> for nice debugging output.
 
 </li>
-<li>Adds ::<a href="Struct.html#M000023">typed_pointer</a> convenience alias to
+<li>Adds ::<a href="Struct.html#M000020">typed_pointer</a> convenience alias to
 create a <a href="TypedPointer.html">TypedPointer</a> for this klass.
 
 </li>
 <li>Provides automatic memory management for Pointers if you define
 MyClass.release( pointer). (This can be disabled per-instance by providing
 {:autorelease => false} as an option to <a
-href="Struct.html#M000032">new</a>).
+href="Struct.html#M000029">new</a>).
 
 </li>
 </ul>
@@ -241,7 +223,7 @@ href="Struct.html#M000032">new</a>).
 
 		
 			<div id="hidden-method" class="method-detail ">
-				<a name="M000025"></a>
+				<a name="M000022"></a>
 
 				<div class="method-heading">
 				
@@ -255,9 +237,9 @@ href="Struct.html#M000032">new</a>).
 					
 					<p>
 Mark the given members as hidden, i.e. do not create accessors for them in
-<a href="Struct.html#M000024">layout</a>, and do not print them out in <a
-href="Struct.html#M000039">to_s</a>, etc. You can call this before or after
-calling <a href="Struct.html#M000024">layout</a>, and can call it more than
+<a href="Struct.html#M000021">layout</a>, and do not print them out in <a
+href="Struct.html#M000036">to_s</a>, etc. You can call this before or after
+calling <a href="Struct.html#M000021">layout</a>, and can call it more than
 once if you like.
 </p>
 <p>
@@ -322,7 +304,7 @@ Example:
 
 		
 			<div id="hidden--method" class="method-detail ">
-				<a name="M000026"></a>
+				<a name="M000023"></a>
 
 				<div class="method-heading">
 				
@@ -336,7 +318,7 @@ Example:
 					
 					<p>
 True if the member has been marked <a
-href="Struct.html#M000025">hidden</a>, false otherwise.
+href="Struct.html#M000022">hidden</a>, false otherwise.
 </p>
 					
 
@@ -358,7 +340,7 @@ href="Struct.html#M000025">hidden</a>, false otherwise.
 
 		
 			<div id="layout-method" class="method-detail ">
-				<a name="M000024"></a>
+				<a name="M000021"></a>
 
 				<div class="method-heading">
 				
@@ -422,7 +404,7 @@ Example:
 
 		
 			<div id="new-method" class="method-detail ">
-				<a name="M000032"></a>
+				<a name="M000029"></a>
 
 				<div class="method-heading">
 				
@@ -503,7 +485,7 @@ so MyClass.release is never called for them.)
 
 		
 			<div id="read-only-method" class="method-detail ">
-				<a name="M000027"></a>
+				<a name="M000024"></a>
 
 				<div class="method-heading">
 				
@@ -579,7 +561,7 @@ Example:
 
 		
 			<div id="read-only--method" class="method-detail ">
-				<a name="M000028"></a>
+				<a name="M000025"></a>
 
 				<div class="method-heading">
 				
@@ -593,7 +575,7 @@ Example:
 					
 					<p>
 True if the member has been marked <a
-href="Struct.html#M000027">read_only</a>, false otherwise.
+href="Struct.html#M000024">read_only</a>, false otherwise.
 </p>
 					
 
@@ -615,7 +597,7 @@ href="Struct.html#M000027">read_only</a>, false otherwise.
 
 		
 			<div id="typed-pointer-method" class="method-detail ">
-				<a name="M000023"></a>
+				<a name="M000020"></a>
 
 				<div class="method-heading">
 				
@@ -658,7 +640,7 @@ options )
 
 		
 			<div id="wrap-member-method" class="method-detail ">
-				<a name="M000029"></a>
+				<a name="M000026"></a>
 
 				<div class="method-heading">
 				
@@ -676,12 +658,12 @@ similar to attr_accessor, except these accessors read and write the
 struct&#8217;s members, instead of to instance variables.
 </p>
 <p>
-E.g. `<a href="Struct.html#M000029">wrap_member</a>(:x, :int16)` defines x
+E.g. `<a href="Struct.html#M000026">wrap_member</a>(:x, :int16)` defines x
 and x= read and write to the struct&#8217;s :x member, which is an int16.
 </p>
 <p>
 Normally you don&#8217;t need to call this method, because <a
-href="Struct.html#M000024">layout</a> does this automatically.
+href="Struct.html#M000021">layout</a> does this automatically.
 </p>
 					
 
@@ -715,7 +697,7 @@ href="Struct.html#M000024">layout</a> does this automatically.
 
 		
 			<div id="inspect-method" class="method-detail method-alias">
-				<a name="M000045"></a>
+				<a name="M000037"></a>
 
 				<div class="method-heading">
 				
@@ -728,7 +710,7 @@ href="Struct.html#M000024">layout</a> does this automatically.
 				<div class="method-description">
 					
 					<p>
-Alias for <a href="Struct.html#M000039">to_s</a>
+Alias for <a href="Struct.html#M000036">to_s</a>
 </p>
 					
 
@@ -740,7 +722,7 @@ Alias for <a href="Struct.html#M000039">to_s</a>
 
 		
 			<div id="to-ary-method" class="method-detail ">
-				<a name="M000036"></a>
+				<a name="M000033"></a>
 
 				<div class="method-heading">
 				
@@ -758,7 +740,7 @@ the data, not the member names.
 </p>
 <p>
 Note: the order of data in the array always matches the order of members
-given in <a href="Struct.html#M000024">layout</a>.
+given in <a href="Struct.html#M000021">layout</a>.
 </p>
 <p>
 Example:
@@ -786,7 +768,7 @@ Example:
 
 		
 			<div id="to-bytes-method" class="method-detail ">
-				<a name="M000037"></a>
+				<a name="M000034"></a>
 
 				<div class="method-heading">
 				
@@ -820,7 +802,7 @@ Dump this instance as a string of raw bytes of its struct data.
 
 		
 			<div id="to-hash-method" class="method-detail ">
-				<a name="M000038"></a>
+				<a name="M000035"></a>
 
 				<div class="method-heading">
 				
@@ -863,7 +845,7 @@ Example:
 
 		
 			<div id="to-s-method" class="method-detail ">
-				<a name="M000039"></a>
+				<a name="M000036"></a>
 
 				<div class="method-heading">
 				
@@ -918,7 +900,7 @@ Example:
 
 				
 				<div class="aliases">
-					Also aliased as: <a href="Struct.html#M000045">inspect</a>
+					Also aliased as: <a href="Struct.html#M000037">inspect</a>
 				</div>
 				
 			</div>
