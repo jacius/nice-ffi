@@ -1,8 +1,8 @@
 
 = Nice-FFI
 
-Version::    0.3
-Date::       2010-01-17
+Version::    0.4
+Date::       2010-03-31
 
 Homepage::   http://github.com/jacius/nice-ffi/
 Author::     John Croisant <jacius@gmail.com>
