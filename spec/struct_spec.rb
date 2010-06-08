@@ -201,6 +201,59 @@ describe NiceFFI::Struct do
     end
 
 
+    # WITH PARTIAL ARRAY
+
+    describe "with a partial array" do
+
+      it "should not raise error" do
+        lambda{ SimpleStruct.new( [1] ) }.should_not raise_error
+      end
+
+      it "should create a Buffer" do
+        struct = SimpleStruct.new( [1] )
+        struct.pointer.should be_kind_of(FFI::Buffer)
+      end
+
+      it "should set the given members from the array" do
+        struct = SimpleStruct.new( [1] )
+        struct[:a].should eql(1)
+      end
+
+      it "members that were omitted should be sanitized" do
+        struct = SimpleStruct.new( [1] )
+        struct[:b].should eql(0.0)
+      end
+
+    end
+
+
+    # WITH ARRAY WITH NILS
+
+    describe "with an array with nils" do
+
+      it "should not raise error" do
+        lambda{ SimpleStruct.new( [nil, 2.0] ) }.should_not raise_error
+      end
+
+      it "should create a Buffer" do
+        struct = SimpleStruct.new( [nil, 2.0] )
+        struct.pointer.should be_kind_of(FFI::Buffer)
+      end
+
+      it "should set the non-nil members from the array" do
+        struct = SimpleStruct.new( [nil, 2.0] )
+        struct[:b].should eql(2.0)
+      end
+
+      it "members that were nil should be sanitized" do
+        struct = SimpleStruct.new( [nil, 2.0] )
+        struct[:a].should eql(0)
+      end
+
+    end
+
+
+
     # WITH FULL HASH
 
     describe "with a full hash" do

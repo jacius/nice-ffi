@@ -383,8 +383,9 @@ class NiceFFI::Struct < FFI::Struct
 
 
   def init_from_array( val )  # :nodoc:
+    init_from_bytes( "\000"*size )
     members.each_with_index do |member, i|
-      self[ member ] = val[ i ]
+      self[ member ] = val.at(i) unless val.at(i).nil?
     end
   end
   private :init_from_array
