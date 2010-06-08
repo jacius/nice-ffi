@@ -315,8 +315,9 @@ class NiceFFI::Struct < FFI::Struct
 
   # Create a new instance of the class, reading data from a Hash or
   # Array of attributes, a bytestring of raw data, copying from
-  # another instance of the class, or wrapping (not copying!) a
-  # FFI::Pointer.
+  # another instance of the class, wrapping (not copying!) a
+  # FFI::Pointer, or (if val is nil or omitted) wrapping a new
+  # FFI::Buffer.
   # 
   # If val is an instance of FFI::Pointer and you have defined
   # MyClass.release, the pointer will be passed to MyClass.release
@@ -328,7 +329,7 @@ class NiceFFI::Struct < FFI::Struct
   # (Note: FFI::MemoryPointer and FFI::Buffer have built-in memory
   # management, so MyClass.release is never called for them.)
   # 
-  def initialize( val, options={} )
+  def initialize( val=nil, options={} )
     # Stores certain kinds of member values so that we don't need
     # to create a new object every time they are read.
     @member_cache = {}
@@ -359,6 +360,11 @@ class NiceFFI::Struct < FFI::Struct
 
       # Normal FFI::Struct behavior to wrap the pointer.
       super( val )
+
+    when nil
+      # Just create a new, sanitized Buffer.
+      super(FFI::Buffer.new(size))
+      init_from_bytes( "\000"*size )
 
     else
       raise TypeError, "cannot create new #{self.class} from #{val.inspect}"

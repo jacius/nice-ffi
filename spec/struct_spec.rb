@@ -248,6 +248,48 @@ describe NiceFFI::Struct do
     end
 
 
+    # WITH NO ARGS
+
+    describe "with no args" do
+
+      it "should not raise error" do
+        lambda{ SimpleStruct.new() }.should_not raise_error
+      end
+      
+      it "should create a Buffer" do
+        struct = SimpleStruct.new()
+        struct.pointer.should be_kind_of(FFI::Buffer)
+      end
+
+      it "should have a sanitized bytestring" do
+        struct = SimpleStruct.new()
+        struct.to_bytes.should == "\000"*struct.size
+      end
+
+    end
+
+    
+    # WITH NIL
+
+    describe "with nil" do
+
+      it "should not raise error" do
+        lambda{ SimpleStruct.new( nil ) }.should_not raise_error
+      end
+      
+      it "should create a Buffer" do
+        struct = SimpleStruct.new( nil )
+        struct.pointer.should be_kind_of(FFI::Buffer)
+      end
+
+      it "should have a sanitized bytestring" do
+        struct = SimpleStruct.new()
+        struct.to_bytes.should == "\000"*struct.size
+      end
+
+    end
+
+    
   end
 
 
