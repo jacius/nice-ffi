@@ -223,6 +223,33 @@ describe NiceFFI::Struct do
     end
 
 
+    # WITH PARTIAL HASH
+
+    describe "with a partial hash" do
+
+      it "should not raise error" do
+        lambda{ SimpleStruct.new( :b => 2.0 ) }.should_not raise_error
+      end
+
+      it "should create a Buffer" do
+        struct = SimpleStruct.new( :b => 2.0 )
+        struct.pointer.should be_kind_of(FFI::Buffer)
+      end
+
+      it "should set the given members from the hash" do
+        struct = SimpleStruct.new( :b => 2.0 )
+        struct[:b].should eql(2.0)
+      end
+
+      it "members that were omitted should be sanitized" do
+        struct = SimpleStruct.new( :b => 2.0 )
+        struct[:a].should eql(0)
+      end
+
+    end
+
+
+
     # WITH BYTESTRING
 
     describe "with a bytestring" do

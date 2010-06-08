@@ -374,8 +374,9 @@ class NiceFFI::Struct < FFI::Struct
 
 
   def init_from_hash( val )   # :nodoc:
+    init_from_bytes( "\000"*size )
     members.each do |member|
-      self[ member ] = val[ member ]
+      self[ member ] = val[ member ] if val.has_key?( member )
     end
   end
   private :init_from_hash
